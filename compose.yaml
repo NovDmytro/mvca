@@ -1,0 +1,7 @@
+services:
+  mvca:
+    build: .
+    ports:
+      - 2121:80
+    volumes:
+      - ./app:/var/www/mvca
