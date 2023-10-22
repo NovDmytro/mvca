@@ -4,7 +4,7 @@ chdir(dirname(__DIR__));
 define('ROOT', dirname(__DIR__));
 define('ENVIRONMENT', 'development');
 require "system/engine/AutoLoader.php";
-$fgadfgax=5+5;
+
 $loader = new AutoLoaderClass();
 $loader->register();
 $loader->addNamespace("Engine", "system/engine");
