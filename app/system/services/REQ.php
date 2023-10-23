@@ -107,22 +107,10 @@ class REQ
         return $out;
     }
 
-    private function sanitize($out)
-    {
-        $out = preg_replace('/[^\p{L}\p{N}\s\x09-\x0a\x20-\x7E\x{2116}]/u', '', $out);
-        $out = preg_replace('/\x5C/', '/', $out);
-        return trim($out);
-    }
-
     private function intFilter($out)
     {
         $out = preg_replace('%[^0-9]%u', '', $out);
         return $this->specialChars($out);
-    }
-
-    private function specialChars($out)
-    {
-        return htmlspecialchars($out, ENT_QUOTES, 'UTF-8');
     }
 
     private function decFilter($out)
@@ -157,6 +145,18 @@ class REQ
     private function htmlFilter($out)
     {
         return $this->stripTags($out);
+    }
+
+    private function specialChars($out)
+    {
+        return htmlspecialchars($out, ENT_QUOTES, 'UTF-8');
+    }
+
+    private function sanitize($out)
+    {
+        $out = preg_replace('/[^\p{L}\p{N}\s\x09-\x0a\x20-\x7E\x{2116}]/u', '', $out);
+        $out = preg_replace('/\x5C/', '/', $out);
+        return trim($out);
     }
 
     private function stripTags($out)
