@@ -55,8 +55,9 @@ $container->set("util", $util);
 // Timezone
 date_default_timezone_set($config->get("system_default_time_zone"));
 
+// Crypter
 $crypter = new Crypter($config->get('crypter_key'));
-$config->set('crypter_key', 'null');
+$config->set('crypter_key', NULL);
 $container->set("crypter", $crypter);
 
 
