@@ -50,16 +50,17 @@ Other tags specify unique pages.
 ### Internationalization
 MVCA has class `Translator` (`app/system/system/services/Translator.php`). It takes parameter $lang which is suitable for existed translation file at `app/system/system/translations/$lang.php` where $lang is file name alike en.php, ua.php, pl.php etc. In file `$lang.php` you specify insertable variables. **???**
 
-
 <details>
-<summary>Next version features<summary>
+<summary><strong>Next version features</strong></summary>
+ 
 <blockquote> 
+Beta Version:
 
 ```sh
  - Routing update - automatic routing
  - Database ready - parallel manipulating with all of MySQL/MariaDb, PostgreSQL, MongoDB instead of just MySQL/MariaDb
  - MVCA without View compmonent mode
 ```
+
 </blockquote>
 </details>
-
