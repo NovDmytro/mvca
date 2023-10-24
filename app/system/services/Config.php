@@ -4,19 +4,19 @@ namespace Service;
 
 class Config
 {
-    protected $data = [];
+    protected array $data = [];
 
-    public function set(string $key, $value = null)
+    public function set(string $key, $value = null): void
     {
         $this->data[$key] = $value;
     }
 
     public function get(string $key)
     {
-        return isset($this->data[$key]) ? $this->data[$key] : null;
+        return $this->data[$key] ?? null;
     }
 
-    public function getAll()
+    public function getAll(): array
     {
         return $this->data;
     }

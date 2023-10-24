@@ -6,12 +6,13 @@ use Service\Logger;
 use Service\Config;
 use Service\Database;
 use Service\Output;
-use Service\Crypter;
+use Service\Crypto;
 use Service\Cookies;
 use Service\Request;
 
 $request = Request::start();
 
+$settings = [];
 $config = new Config();
 require('system/config/config.php');
 foreach ($settings[ENVIRONMENT] as $settingKey => $settingValue) {
@@ -29,9 +30,9 @@ foreach ($modules as $module) {
 }
 
 $util = new Util();
-$output = new Output($config->get('template_header'), $config->get('template_footer'), $config->get('system_cache_version'), $config->get('system_debug_console'));
+$output = new Output($config->get('defaultHeader'), $config->get('defaultFooter'), $config->get('defaultLanguage'), $config->get('cacheVersion'), $config->get('debugMode'));
 $logger = new Logger($config->get('log_path_error'), $config->get('log_path_notice'), $config->get('log_path_warning'), $config->get('log_path_unknown_error'));
-$cookies = new cookies();
+$cookies = new cookies($config->get('cookiesExpiresTime'));
 
 
 //$database = new Database($config->get('database_url'));
@@ -53,12 +54,12 @@ $container->set("cookies", $cookies);
 $container->set("util", $util);
 
 // Timezone
-date_default_timezone_set($config->get("system_default_time_zone"));
+date_default_timezone_set($config->get("defaultTimezone"));
 
-// Crypter
-$crypter = new Crypter($config->get('crypter_key'));
-$config->set('crypter_key', NULL);
-$container->set("crypter", $crypter);
+// Crypto
+$crypto = new Crypto($config->get('crypto_key'));
+$config->set('crypto_key', NULL);
+$container->set("crypto", $crypto);
 
 
 // Import the controller
