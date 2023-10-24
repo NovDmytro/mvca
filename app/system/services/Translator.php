@@ -1,10 +1,11 @@
 <?php
+
 namespace Service;
 
 class Translator
 {
-    protected $lang;
-    protected $translations;
+    protected string $lang;
+    protected array $translations;
 
     public function __construct($lang)
     {
@@ -12,14 +13,11 @@ class Translator
         $this->loadTranslations();
     }
 
-    private function loadTranslations()
+    private function loadTranslations(): void
     {
-        $file =  'system/translations/' . $this->lang . '.php';
+        $file = 'system/translations/' . $this->lang . '.php';
         if (file_exists($file)) {
             $this->translations = require $file;
-        } else {
-            //echo $file;
-            // Обработка ошибки: файл с языковыми ресурсами не найден
         }
     }
 
