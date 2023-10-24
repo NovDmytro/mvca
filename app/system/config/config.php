@@ -12,6 +12,13 @@ $settings['development'] = [
     "defaultHeader" => "src/common/view/Header.php",
     "defaultFooter" => "src/common/view/Footer.php",
 
+    //Router errors pages
+    "routerErrorPages" => [
+        "404"=>"Common/Error/Error404",
+    ],
+
+
+
 
     "debugMode" => false,
     "cacheVersion" => 0001,

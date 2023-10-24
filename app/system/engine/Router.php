@@ -6,10 +6,13 @@ class Router
     public $route;
     public $path;
 
-    public function __construct($route)
+    private $errorPages = [];
+
+    public function __construct($route,$errorPages)
     {
         $this->route = $route;
         $this->path = $this->getPathFromSeoUrl($route);
+        $this->errorPages = $errorPages;
     }
 
     public function parsePath(): array
@@ -21,9 +24,10 @@ class Router
         $method = $url_split[2];
 
         if (!$this->isValidPath($file, $class, $method)) {
-            $file = 'src/common/controller/ErrorController.php';
-            $method = 'Error404';
-            $class = "Common\\ErrorController";
+            $url_split = explode('/', $this->errorPages['404']);
+            $file = "src/" . $url_split[0] . '/controller/' . ucfirst($url_split[1]) . 'Controller.php';
+            $class = ucfirst($url_split[0]) . "\\" . ucfirst($url_split[1]) . 'Controller';
+            $method = $url_split[2];
         }
 
         return [
@@ -55,7 +59,7 @@ class Router
         if (in_array($route, array_keys($routes))) {
             return $routes[$route];
         } else {
-            return "common/Error/Error404";
+            return $this->errorPages["404"];
         }
     }
 }

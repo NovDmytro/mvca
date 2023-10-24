@@ -1,6 +1,6 @@
 <?php
 
 return [
-    "" => "index/Index/main",
-    "page" => "staticpage/StaticPage/main",
+    "" => "Index/Index/main",
+    "page" => "StaticPage/StaticPage/main",
 ];

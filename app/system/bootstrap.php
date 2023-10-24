@@ -1,14 +1,14 @@
 <?php
 use Engine\Container;
 use Engine\Router;
-use Service\Util;
-use Service\Logger;
-use Service\Config;
-use Service\Database;
-use Service\Output;
-use Service\Crypto;
-use Service\Cookies;
-use Service\Request;
+use Services\Util;
+use Services\Logger;
+use Services\Config;
+use Services\Database;
+use Services\Output;
+use Services\Crypto;
+use Services\Cookies;
+use Services\Request;
 
 $request = Request::start();
 
@@ -63,9 +63,9 @@ $container->set("crypto", $crypto);
 
 
 // Import the controller
-$router = new Router($request->GET('route','latin','low'));
+$router = new Router($request->GET('route','latin','low'),$config->get('routerErrorPages'));
 $path_data = $router->parsePath();
 
 $method = $path_data["method"];
-require_once $path_data["file"];
+require_once($path_data["file"]);
 $controller = new $path_data["class"]();

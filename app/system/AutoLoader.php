@@ -3,9 +3,9 @@
 class AutoLoaderClass
 {
 
-    protected $prefixes = array();
+    protected $prefixes = [];
 
-    public function register()
+    public function register(): void
     {
         spl_autoload_register(array($this, 'loadClass'));
     }
@@ -17,7 +17,7 @@ class AutoLoaderClass
         $base_dir = rtrim($base_dir, DIRECTORY_SEPARATOR) . '/';
 
         if (isset($this->prefixes[$prefix]) === false) {
-            $this->prefixes[$prefix] = array();
+            $this->prefixes[$prefix] = [];
         }
 
         if ($prepend) {
