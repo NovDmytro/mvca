@@ -8,9 +8,9 @@ use Service\Database;
 use Service\Output;
 use Service\Crypter;
 use Service\Cookies;
-use Service\REQ;
+use Service\Request;
 
-$REQ = REQ::start();
+$request = Request::start();
 
 $config = new Config();
 require('system/config/config.php');
@@ -62,7 +62,7 @@ $container->set("crypter", $crypter);
 
 
 // Import the controller
-$router = new Router($REQ->GET('route','latin','low'));
+$router = new Router($request->GET('route','latin','low'));
 $path_data = $router->parsePath();
 
 $method = $path_data["method"];

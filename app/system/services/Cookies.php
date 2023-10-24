@@ -9,9 +9,9 @@ class Cookies
 
     public function get(string $name)
     {
-        $REQ = REQ::start();
+        $request = Request::start();
 
-if(!$this->cookies[$name]){$this->cookies[$name]=$REQ->COOKIE($name);}
+if(!$this->cookies[$name]){$this->cookies[$name]=$request->COOKIE($name);}
 return $this->cookies[$name];
     }
 

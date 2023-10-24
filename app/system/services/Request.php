@@ -2,7 +2,7 @@
 
 namespace Service;
 
-class REQ
+class Request
 {
     private static $instance;
     private $GET;
@@ -35,7 +35,7 @@ class REQ
         }
     }
 
-    public static function start(): REQ
+    public static function start(): Request
     {
         if (self::$instance === null) {
             self::$instance = new self();
