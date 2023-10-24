@@ -1,7 +1,8 @@
-# MVCA alpha version - light framework for your PHP based backend
+# MVCA alpha version
+A light framework for your PHP based backend
 
 ## What is MVCA? 
- - **Framework** - MVCA light and fast tool to create your web-app. Use well-known architecture MVC in simple and easy to use form;
+ - **FRAMEWORK** - MVCA light and fast tool to create your web-app. It use well-known architecture MVC in simple and easy to use form;
  - **ROUTER** - setup your predefined routs to pages in `routes.php`;
  - **DEBUGING** - MVCA has own debugging console;
  - **MULTYLANG** - MVCA internationalization ready. Content unjoint from page structure;
@@ -53,9 +54,11 @@ MVCA has class `Translator` (`app/system/system/services/Translator.php`). It ta
 <details>
 <summary>Next version features<summary>
 <blockquote> 
+
 ```sh
  - Routing update - automatic routing
  - Database ready - parallel manipulating with all of MySQL/MariaDb, PostgreSQL, MongoDB instead of just MySQL/MariaDb
+ - MVCA without View compmonent mode
 ```
 </blockquote>
 </details>
