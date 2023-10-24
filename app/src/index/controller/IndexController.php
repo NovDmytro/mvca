@@ -12,6 +12,6 @@ class IndexController extends Base
     {
         $view['config']['lang']=$this->config->get('defaultLang');
         $view['title']='{{Index}} - 123';
-        $this->output->load("index/Index",$view,$view['config']['lang'],'');
+        $this->output->load("index/Index",$view,$view['config']['lang']);
     }
 }

@@ -21,7 +21,7 @@ class Output
         $this->debugMode = $debugMode;
     }
 
-    public function load(string $route, array $data = [], array $settings = []): void
+    public function load(string $route, $data = [], $settings = []): void
     {
         if (isset($settings['header'])) {
             $this->header = $settings['header'];

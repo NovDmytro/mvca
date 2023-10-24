@@ -4,7 +4,7 @@ namespace Service;
 
 class Request
 {
-    private static object $instance;
+    private static $instance;
     private array $GET;
     private array $POST;
     private array $COOKIE;
