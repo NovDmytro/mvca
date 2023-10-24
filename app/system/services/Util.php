@@ -4,36 +4,6 @@ namespace Service;
 
 class Util
 {
-
-    public function timeRangeFromDate($date,$range)
-    {
-        list($dateArr['day'], $dateArr['month'], $dateArr['year']) = explode("-", $date);
-        if (!$dateArr['month'] || !$dateArr['day'] || !$dateArr['year'] || !checkdate($dateArr['month'], $dateArr['day'], $dateArr['year'])) {
-            $currentTime = time();
-            $dateArr['day'] = date("d", $currentTime);
-            $dateArr['month'] = date("m", $currentTime);
-            $dateArr['year'] = date("Y", $currentTime);
-            $date = $dateArr['day'] . '-' . $dateArr['month'] . '-' . $dateArr['year'];
-        }
-        $timeRange['from'] = mktime(0, 0, 0, $dateArr['month'], $dateArr['day'], $dateArr['year']);
-        if ($range == 'day') {
-        $timeRange['to'] = mktime(23, 59, 59, $dateArr['month'], $dateArr['day'], $dateArr['year']);
-    }
-        $timeRange['date']=$date;
-        return $timeRange;
-
-    }
-
-
-
-
-
-
-
-
-
-
-
     public function asyncRequest($scheme, $domain, $request) {
         $port = ($scheme === 'https') ? 443 : 80;
 $timeout=2;
@@ -56,7 +26,6 @@ if($socket){
     fclose($socket);
     return false;}
 }
-
 
     public function sendRequest($scheme, $domain, $request) {
         $port = ($scheme === 'https') ? 443 : 80;
