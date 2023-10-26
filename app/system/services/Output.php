@@ -1,27 +1,32 @@
 <?php
 
-namespace Service;
+namespace Services;
 
 class Output
 {
-    protected string $cacheVersion;
-    protected string $header;
-    protected string $footer;
-    protected string $language;
-    protected bool $debugMode;
-    protected object $translator;
+    private string $header;
+    private string $footer;
+    private string $language;
+    private bool $debugMode;
+    private object $translator;
 
 
-    public function __construct($defaultHeader, $defaultFooter, $defaultLanguage, $cacheVersion, $debugMode)
+    public function __construct($defaultHeader, $defaultFooter, $defaultLanguage, $debugMode)
     {
         $this->header = $defaultHeader;
         $this->footer = $defaultFooter;
         $this->language = $defaultLanguage;
-        $this->cacheVersion = $cacheVersion;
         $this->debugMode = $debugMode;
     }
 
-    public function load(string $route, $data = [], $settings = []): void
+    /**
+     * @param string $route
+     * @param array $data
+     *   Array keys will become variables
+     * @param array $settings
+     *   [header,footer,language,debugMode]
+     */
+    public function load(string $route, array $data = [], array $settings = []): void
     {
         if (isset($settings['header'])) {
             $this->header = $settings['header'];
@@ -32,6 +37,9 @@ class Output
         if (isset($settings['language'])) {
             $this->language = $settings['language'];
         }
+        if (isset($settings['debugMode'])) {
+            $this->debugMode = $settings['debugMode'];
+        }
 
         $content = '';
         $this->translator = new Translator($this->language);
@@ -41,11 +49,16 @@ class Output
         }
 
         $routePaths = explode("/", $route);
-        $content .= $this->loadFile('src/' . $routePaths[0] . '/view/' . $routePaths[1] . 'View.php', $data);
+        $content .= $this->loadFile('src/' . $routePaths[0] . '/V/' . $routePaths[1] . 'View.php', $data);
 
         if ($this->footer) {
             $content .= $this->loadFile($this->footer, $data);
         }
+
+        if($this->debugMode){
+            //ADD DEBUG ENGINE HERE
+        }
+
         $content = $this->translateContent($content);
 
         echo $content;

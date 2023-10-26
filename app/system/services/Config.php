@@ -1,10 +1,10 @@
 <?php
 
-namespace Service;
+namespace Services;
 
 class Config
 {
-    protected array $data = [];
+    private array $data = [];
 
     public function set(string $key, $value = null): void
     {

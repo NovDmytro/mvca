@@ -1,6 +1,6 @@
 <?php
 
-namespace Service;
+namespace Services;
 
 class Translator
 {

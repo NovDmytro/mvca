@@ -1,6 +1,6 @@
 <?php
 
-namespace Service;
+namespace Services;
 
 class Util
 {
@@ -9,15 +9,33 @@ class Util
         $port = ($scheme === 'https') ? 443 : 80;
         $timeout = 2;
         if ($scheme === 'https') {
-            $context = stream_context_create(array('ssl' => array(
+            $context = stream_context_create([
+                'ssl' => [
                 'verify_peer' => false,
                 'verify_peer_name' => false,
                 'allow_self_signed' => true,
-                'verify_depth' => 0)));
-            $socket = stream_socket_client('tcp://' . $domain . ':' . $port, $errNo, $errStr, $timeout, STREAM_CLIENT_CONNECT, $context);
-            stream_socket_enable_crypto($socket, true, STREAM_CRYPTO_METHOD_SSLv2_CLIENT | STREAM_CRYPTO_METHOD_SSLv3_CLIENT | STREAM_CRYPTO_METHOD_TLSv1_0_CLIENT | STREAM_CRYPTO_METHOD_TLSv1_1_CLIENT | STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT);
+                'verify_depth' => 0
+                ]
+            ]);
+            $socket = stream_socket_client(
+                'tcp://' . $domain . ':' . $port,
+                $errNo,
+                $errStr,
+                $timeout,
+                STREAM_CLIENT_CONNECT,
+                $context);
+            stream_socket_enable_crypto($socket, true,
+                STREAM_CRYPTO_METHOD_SSLv2_CLIENT |
+                STREAM_CRYPTO_METHOD_SSLv3_CLIENT |
+                STREAM_CRYPTO_METHOD_TLSv1_0_CLIENT |
+                STREAM_CRYPTO_METHOD_TLSv1_1_CLIENT |
+                STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT);
         } else {
-            $socket = stream_socket_client('tcp://' . $domain . ':' . $port, $errNo, $errStr, $timeout);
+            $socket = stream_socket_client(
+                'tcp://' . $domain . ':' . $port,
+                $errNo,
+                $errStr,
+                $timeout);
         }
         if ($settings['async']) {
             if ($socket) {

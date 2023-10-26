@@ -1,6 +1,6 @@
 <?php
 
-namespace Service;
+namespace Services;
 
 class Cookies
 {
@@ -15,7 +15,6 @@ class Cookies
     public function get(string $name)
     {
         $request = Request::start();
-
         if (!$this->cookies[$name]) {
             $this->cookies[$name] = $request->COOKIE($name);
         }

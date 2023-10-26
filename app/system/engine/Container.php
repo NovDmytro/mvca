@@ -1,20 +1,20 @@
 <?php
+
 namespace Engine;
 
-class Container
+class Container extends \ContainerBootstrap
 {
-    public static $data = [];
+    public static array $data;
 
     public function get($key)
     {
-        return isset(get_class($this)::$data[$key]) ? get_class($this)::$data[$key] : '';
+        return get_class($this)::$data[$key] ?? '';
     }
 
-    public function set($key, $value)
+    public function set($key, $value): void
     {
         Container::$data[$key] = $value;
     }
-
 
     public function has($key): bool
     {

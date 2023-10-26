@@ -1,6 +1,8 @@
 <?php
 
 return [
-    "" => "index/Index/main",
-    "page" => "staticpage/StaticPage/main",
+    //    "URL" => "Folder-Controller-function",
+    "" => "Index-Index-main",
+    "er" => "Common-Error-error405",
+    "page" => "StaticPage-StaticPage-main",
 ];

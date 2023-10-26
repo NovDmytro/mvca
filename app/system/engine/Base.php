@@ -4,16 +4,15 @@ namespace Engine;
 
 use Engine\Container;
 
-
 class Base extends Container
 {
-    public function __get($dependency_name)
+    public function __get($dependencyName)
     {
-        return $this->get($dependency_name);
+        return $this->get($dependencyName);
     }
 
-    public function __set($dependency_name, $dependency)
+    public function __set($dependencyName, $dependency)
     {
-        $this->set($dependency_name, $dependency);
+        $this->set($dependencyName, $dependency);
     }
 }
