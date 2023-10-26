@@ -50,13 +50,13 @@ $config->set('crypto_key', NULL);
 // Add container entries
 // Please edit ContainerBootstrap static objects if changed/added container vars to make IDEs work proper
 $container = new Container();
-$container->set("config", $config);
-$container->set("database", $database);
-$container->set("logger", $logger);
-$container->set("output", $output);
-$container->set("cookies", $cookies);
-$container->set("util", $util);
-$container->set("crypto", $crypto);
+$container->set("Config", $config);
+$container->set("Database", $database);
+$container->set("Logger", $logger);
+$container->set("Output", $output);
+$container->set("Cookies", $cookies);
+$container->set("Util", $util);
+$container->set("Crypto", $crypto);
 
 
 // Import the controller
