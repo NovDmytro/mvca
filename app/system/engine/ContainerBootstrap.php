@@ -1,4 +1,5 @@
 <?php
+namespace Engine;
 class ContainerBootstrap
 {
 // Bootstrap container objects: (It is not necessary to specify, it is just helps IDE to work proper)
