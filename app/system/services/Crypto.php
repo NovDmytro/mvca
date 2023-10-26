@@ -14,8 +14,8 @@ class Crypto
     public function Encrypt($in): string
     {
         $method = 'aes-256-cbc';
-        $ivlen = openssl_cipher_iv_length($method);
-        $iv = openssl_random_pseudo_bytes($ivlen);
+        $ivLen = openssl_cipher_iv_length($method);
+        $iv = openssl_random_pseudo_bytes($ivLen);
         $out = $this->Base64UrlEncode($iv . openssl_encrypt($in, $method, $this->key, OPENSSL_RAW_DATA, $iv));
         return $out;
     }
@@ -29,8 +29,8 @@ class Crypto
     {
         $in = $this->Base64UrlDecode($in);
         $method = 'aes-256-cbc';
-        $ivlen = openssl_cipher_iv_length($method);
-        $out = openssl_decrypt(substr($in, $ivlen), $method, $this->key, OPENSSL_RAW_DATA, substr($in, 0, $ivlen));
+        $ivLen = openssl_cipher_iv_length($method);
+        $out = openssl_decrypt(substr($in, $ivLen), $method, $this->key, OPENSSL_RAW_DATA, substr($in, 0, $ivLen));
         return $out;
     }
 

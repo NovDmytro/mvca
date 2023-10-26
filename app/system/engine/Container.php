@@ -2,7 +2,7 @@
 
 namespace Engine;
 
-class Container
+class Container extends \ContainerBootstrap
 {
     public static array $data;
 

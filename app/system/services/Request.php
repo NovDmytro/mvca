@@ -35,7 +35,7 @@ class Request
         }
     }
 
-    public static function start(): Request
+    public static function init(): Request
     {
         if (self::$instance === null) {
             self::$instance = new self();

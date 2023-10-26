@@ -10,7 +10,7 @@ use Services\Crypto;
 use Services\Cookies;
 use Services\Request;
 
-$request = Request::start();
+$request = Request::init();
 
 $settings = [];
 $config = new Config();
@@ -20,38 +20,25 @@ foreach ($settings[ENVIRONMENT] as $settingKey => $settingValue) {
 }
 
 $modules = scandir('src/');
-array_shift($modules);
-array_shift($modules);
-
-
+$modules = array_filter($modules, function ($folder) {
+    return !in_array($folder, ['.', '..']);
+});
 foreach ($modules as $module) {
-    $loader->addNamespace(ucfirst($module), 'src/' . $module . '/controller');
-    $loader->addNamespace(ucfirst($module), 'src/' . $module . '/model');
+    $loader->addNamespace($module.'\\C', 'src/' . $module . '/C');
+    $loader->addNamespace($module.'\\M', 'src/' . $module . '/M');
 }
 
 $util = new Util();
-$output = new Output($config->get('defaultHeader'), $config->get('defaultFooter'), $config->get('defaultLanguage'), $config->get('cacheVersion'), $config->get('debugMode'));
+$output = new Output($config->get('defaultHeader'), $config->get('defaultFooter'), $config->get('defaultLanguage'), $config->get('debugMode'));
 $logger = new Logger($config->get('log_path_error'), $config->get('log_path_notice'), $config->get('log_path_warning'), $config->get('log_path_unknown_error'));
 $cookies = new cookies($config->get('cookiesExpiresTime'));
-
 
 //$database = new Database($config->get('database_url'));
 //$database->initialize();
 
-
 set_error_handler(array($logger, "myErrorHandler"), E_ALL);
 error_reporting(E_ALL);
 set_exception_handler(array($logger, "myExceptionHandler"));
-
-
-// Add container entries
-$container = new Container();
-$container->set("config", $config);
-//$container->set("database", $database);
-$container->set("logger", $logger);
-$container->set("output", $output);
-$container->set("cookies", $cookies);
-$container->set("util", $util);
 
 // Timezone
 date_default_timezone_set($config->get("defaultTimezone"));
@@ -59,13 +46,21 @@ date_default_timezone_set($config->get("defaultTimezone"));
 // Crypto
 $crypto = new Crypto($config->get('crypto_key'));
 $config->set('crypto_key', NULL);
+
+// Add container entries
+// Please edit ContainerBootstrap static objects if changed/added container vars to make IDEs work proper
+$container = new Container();
+$container->set("config", $config);
+$container->set("database", $database);
+$container->set("logger", $logger);
+$container->set("output", $output);
+$container->set("cookies", $cookies);
+$container->set("util", $util);
 $container->set("crypto", $crypto);
 
 
 // Import the controller
-$router = new Router($request->GET('route','latin','low'),$config->get('routerErrorPages'));
-$path_data = $router->parsePath();
-
-$method = $path_data["method"];
-require_once($path_data["file"]);
-$controller = new $path_data["class"]();
+$router = new Router($request->GET('route','latin'),$config->get('routerErrorPages'));
+$pathData = $router->parsePath();
+require_once($pathData["file"]);
+(new $pathData["class"]())->{$pathData["method"]}();
