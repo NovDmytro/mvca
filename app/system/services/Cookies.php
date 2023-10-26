@@ -14,7 +14,7 @@ class Cookies
 
     public function get(string $name)
     {
-        $request = Request::start();
+        $request = Request::init();
         if (!$this->cookies[$name]) {
             $this->cookies[$name] = $request->COOKIE($name);
         }

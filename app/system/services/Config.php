@@ -6,6 +6,17 @@ class Config
 {
     private array $data = [];
 
+    public function __construct($data = [])
+    {
+        $this->data=$data;
+
+    }
+
+    public function setArray(array $data): void
+    {
+        $this->data = array_merge($this->data, $data);
+    }
+
     public function set(string $key, $value = null): void
     {
         $this->data[$key] = $value;
@@ -16,7 +27,7 @@ class Config
         return $this->data[$key] ?? null;
     }
 
-    public function getAll(): array
+    public function getArray(): array
     {
         return $this->data;
     }

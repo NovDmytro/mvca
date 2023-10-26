@@ -3,14 +3,14 @@
 chdir(dirname(__DIR__));
 define('ROOT', dirname(__DIR__));
 define('ENVIRONMENT', 'development');
-require("system/AutoLoader.php");
+require_once("system/Engine/AutoLoader.php");
 
 $loader = new AutoLoader();
 $loader->register();
 $loader->addNamespace("Engine", "system/Engine");
 $loader->addNamespace("Services", "system/Services");
 
-require("system/bootstrap.php");
+require_once("system/bootstrap.php");
 
 
 

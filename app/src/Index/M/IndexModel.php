@@ -3,7 +3,7 @@
 namespace Index\M;
 use Engine\Base;
 
-class IndexModel extends Base
+class IndexModel
 {
 	
 	    public function test(): array

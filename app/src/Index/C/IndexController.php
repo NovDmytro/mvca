@@ -3,21 +3,34 @@
 namespace Index\C;
 
 use Index\M;
-use Engine\Base;
+use Services\Output;
+use Services\Cookies;
+use Services\Config;
 
-class IndexController extends Base
+class IndexController
 {
+    public function __construct(Output $output, Cookies $cookies, Config $config)
+    {
+        $this->output = $output;
+        $this->cookies = $cookies;
+        $this->config = $config;
+    }
+    
     public function main(): void
     {
         $request = \Services\Request::init();
+        echo $this->config->get('defaultTimezone');
+
+
+
+
         echo $request->GET('q');
 
-        $this->Config->set('defaultLang', '123');
 
         $indexModel = new M\IndexModel();
         $view['index'] = $indexModel->test();
-        $view['config']['lang'] = $this->Config->get('defaultLang');
         $view['title'] = '{{Index}} - 123';
-        $this->Output->load("Index/Index", $view, );
+        $this->output->load("Index/Index", $view, );
+
    }
 }

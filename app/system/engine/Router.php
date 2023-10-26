@@ -50,7 +50,7 @@ class Router
 
     private function getPathFromRoutes($route)
     {
-        $routes = include "system/config/routes.php";
+        $routes = include "system/routes.php";
         if (in_array($route, array_keys($routes))) {
             return $routes[$route];
         } else {

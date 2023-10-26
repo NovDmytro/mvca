@@ -3,15 +3,25 @@
 namespace Common\C;
 
 use Common\M;
-use Engine\Base;
-use Services\Request;
+use Services\Config;
+use Services\Cookies;
+use Services\Output;
 
-class ErrorController extends Base
+class ErrorController
 {
+    public function __construct(Output $output, Cookies $cookies, Config $config)
+    {
+        $this->output = $output;
+        $this->cookies = $cookies;
+        $this->config = $config;
+    }
+
     public function error404(): void
     {
-        $view['config']['lang'] = $this->Config->get('defaultLang');
+
+
+        $view['config']['lang'] = $this->config->get('defaultLang');
         $view['title'] = '{{Error404}} - 123';
-        $this->Output->load("Common/Error404", $view, $view['config']['lang'], '');
+        $this->output->load("Common/Error404", $view, $view['config']['lang']);
     }
 }
