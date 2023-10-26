@@ -12,12 +12,12 @@ class IndexController extends Base
         $request = \Services\Request::init();
         echo $request->GET('q');
 
-        $this->config->set('defaultLang', '123');
+        $this->Config->set('defaultLang', '123');
 
         $indexModel = new M\IndexModel();
         $view['index'] = $indexModel->test();
-        $view['config']['lang'] = $this->config->get('defaultLang');
+        $view['config']['lang'] = $this->Config->get('defaultLang');
         $view['title'] = '{{Index}} - 123';
-        $this->output->load("Index/Index", $view, []);
+        $this->Output->load("Index/Index", $view, );
    }
 }
