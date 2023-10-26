@@ -174,7 +174,7 @@ class Request
         $open_tags = array();
         $ignored_tags = array('br', 'hr', 'img');
         while (($position = strpos($content, '<', $position)) !== FALSE) {
-            if (preg_match("|^<(/?)([a-z\d]+)\b[^>]*>|i", substr($content, $position), $match)) {
+            if (preg_match('|^<(/?)([a-z\d]+)\b[^>]*>|i', substr($content, $position), $match)) {
                 $tag = strtolower($match[2]);
                 if (!in_array($tag, $ignored_tags)) {
                     if (isset($match[1]) and $match[1] == '') {
@@ -193,7 +193,7 @@ class Request
                 $position++;
         }
         foreach ($open_tags as $tag => $count_not_closed) {
-            $content .= str_repeat("</{$tag}>", $count_not_closed);
+            $content .= str_repeat('</{' . $tag . '}>', $count_not_closed);
         }
         return $content;
     }

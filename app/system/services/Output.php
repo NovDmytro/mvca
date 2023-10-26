@@ -26,7 +26,7 @@ class Output
      * @param array $settings
      *   [header,footer,language,debugMode]
      */
-    public function load(string $route, array $data = [], array $settings = []): void
+    public function load(string $route, $data = [], $settings = []): void
     {
         if (isset($settings['header'])) {
             $this->header = $settings['header'];
@@ -48,7 +48,7 @@ class Output
             $content = $this->loadFile($this->header, $data);
         }
 
-        $routePaths = explode("/", $route);
+        $routePaths = explode('/', $route);
         $content .= $this->loadFile('src/' . $routePaths[0] . '/V/' . $routePaths[1] . 'View.php', $data);
 
         if ($this->footer) {

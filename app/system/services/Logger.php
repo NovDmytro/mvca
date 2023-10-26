@@ -5,93 +5,91 @@ namespace Services;
 class Logger
 {
 
-    public $error_handle;
+    private string $fatalErrorLogPath;
+    private string $noticeLogPath;
+    private string $warningLogPath;
+    private string $unknownErrorsLogPath;
 
-    private $_error_log_path;
-    private $_notice_log_path;
-    private $_warning_log_path;
-    private $_unknown_errors_log_path;
-
-    public function __construct($error_log_path, $notice_log_path, $warning_log_path, $unknown_errors_log_path)
+    public function __construct($fatalErrorLogPath, $noticeLogPath, $warningLogPath, $unknownErrorsLogPath)
     {
-        $this->_error_log_path = $error_log_path;
-        $this->_notice_log_path = $notice_log_path;
-        $this->_warning_log_path = $warning_log_path;
-        $this->_unknown_errors_log_path = $unknown_errors_log_path;
+        $this->fatalErrorLogPath = $fatalErrorLogPath;
+        $this->noticeLogPath = $noticeLogPath;
+        $this->warningLogPath = $warningLogPath;
+        $this->unknownErrorsLogPath = $unknownErrorsLogPath;
     }
 
-    public function myErrorHandler(string $errno, string $error_string, string $error_file, string $error_line)
+    public function errorHandler(string $errNo, string $errorString, string $errorFile, string $errorLine): void
     {
-        $error = "Unknown";
-        if ($errno === E_NOTICE || $errno === E_USER_NOTICE) {
+        $error = 'Unknown';
+        if ($errNo === E_NOTICE || $errNo === E_USER_NOTICE) {
             $error = 'Notice';
         }
-        if ($errno === E_WARNING || $errno === E_USER_WARNING) {
+        if ($errNo === E_WARNING || $errNo === E_USER_WARNING) {
             $error = 'Warning';
         }
-        if ($errno === E_ERROR || $errno === E_USER_ERROR) {
+        if ($errNo === E_ERROR || $errNo === E_USER_ERROR) {
             $error = 'Fatal Error';
         }
 
-        $error_string_log = " *" . $error . "* " . $error_string . "\n - file: " . $error_file . "\n - on line: " . $error_line . "\n\n";
-        $error_string_log = addslashes($error_string_log);
+        $errorStringLog = $error . ' -> ' . $errorFile . ' (' . $errorLine . ') | ' . $errorString;
+        $errorStringLog = addslashes($errorStringLog);
 
-        if ($error === "Warning") {
-            $this->warningHandler($error_string_log);
+        if ($error === 'Warning') {
+            $this->warningHandler($errorStringLog);
         }
 
-        if ($error === "Notice") {
-           // $this->noticeHandler($error_string_log);
+        if ($error === 'Notice') {
+            $this->noticeHandler($errorStringLog);
         }
 
-        if ($error === "Fatal Error") {
-            $this->errorHandler($error_string_log);
+        if ($error === 'Fatal Error') {
+            $this->fatalErrorHandler($errorStringLog);
         }
 
-        if ($error === "Unknown") {
-            $this->noticeHandler($error_string_log);
+        if ($error === 'Unknown') {
+            $this->unknownErrorHandler($errorStringLog);
         }
     }
 
-    public function myExceptionHandler($exception)
+    public function warningHandler(string $errorString): void
     {
-        $exception_message = $exception->getMessage();
-
-        $this->checkLogFile($this->_error_log_path);
-        error_log($exception_message . "\n", 3, $this->_error_log_path);
-
-        die($exception_message);
+        $this->checkLogFile($this->warningLogPath);
+        error_log($errorString . "\n", 3, $this->warningLogPath);
     }
 
-    public function noticeHandler(string $error_string)
+    public function checkLogFile(string $fileName): void
     {
-        $this->checkLogFile($this->_notice_log_path);
-        error_log($error_string . "\n", 3, $this->_notice_log_path);
-    }
-
-    public function warningHandler(string $error_string)
-    {
-        $this->checkLogFile($this->_warning_log_path);
-        error_log($error_string . "\n", 3, $this->_warning_log_path);
-    }
-
-    public function errorHandler(string $error_string)
-    {
-        $this->checkLogFile($this->_error_log_path);
-        error_log($error_string . "\n", 3, $this->_error_log_path);
-    }
-
-    public function unknownErrorHandler(string $error_string)
-    {
-        $this->checkLogFile($this->_unknown_errors_log_path);
-        error_log($error_string . "\n", 3, $this->_unknown_errors_log_path);
-    }
-
-    public function checkLogFile(string $file_name)
-    {
-        if (!file_exists($file_name)) {
-            $fileResource = fopen($file_name, "w");
+        if (!file_exists($fileName)) {
+            $fileResource = fopen($fileName, 'w');
             fclose($fileResource);
         }
+    }
+
+    public function noticeHandler(string $errorString): void
+    {
+        $this->checkLogFile($this->noticeLogPath);
+        error_log($errorString . "\n", 3, $this->noticeLogPath);
+    }
+
+    public function fatalErrorHandler(string $errorString): void
+    {
+        $this->checkLogFile($this->fatalErrorLogPath);
+        error_log($errorString . "\n", 3, $this->fatalErrorLogPath);
+    }
+
+    public function unknownErrorHandler(string $errorString): void
+    {
+        $this->checkLogFile($this->unknownErrorsLogPath);
+        error_log($errorString . "\n", 3, $this->unknownErrorsLogPath);
+    }
+
+    public function exceptionHandler($exception): void
+    {
+        $exceptionMessage = $exception->getMessage();
+
+        $this->checkLogFile($this->fatalErrorLogPath);
+        error_log($exceptionMessage . "\n", 3, $this->fatalErrorLogPath);
+
+        die($exceptionMessage);
     }
 }

@@ -14,14 +14,15 @@ $settings['development'] = [
 
     //Router errors pages
     "routerErrorPages" => [
-        "404"=>"Common-Error-Error404",
+        "404"=>"Common-Error-error404",
     ],
 
     "debugMode" => false,
     "cacheVersion" => 0001,
 
-    "log_path_warning" => "system/logs/warning.log",
-    "log_path_error" => "system/logs/error.log",
-    "log_path_notice" => "system/logs/notice.log",
-    "log_path_unknown_error" => "system/logs/unknown_error.log"
+    //Logs
+    "logPathWarning" => "logs/warnings.log",
+    "logPathFatalError" => "logs/fatalErrors.log",
+    "logPathNotice" => "logs/notices.log",
+    "logPathUnknownError" => "logs/unknownErrors.log"
 ];

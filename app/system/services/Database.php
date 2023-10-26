@@ -62,7 +62,7 @@ class Database
             }
 
             if($returnType=='row'){
-                if (strpos($sql_query, "INSERT INTO") !== false || strpos($sql_query, "INSERT IGNORE INTO") !== false) {
+                if (strpos($sql_query, 'INSERT INTO') !== false || strpos($sql_query, 'INSERT IGNORE INTO') !== false) {
                     $data = $this->_connection->lastInsertId();
                 }
             }
@@ -83,7 +83,7 @@ class Database
     {
         try {
             if ($this->_scheme == 'pdo-mysql') {
-                $temp_connection = new \PDO("mysql:host=" . $this->_host . ";port=" . $this->_port . ";dbname=" . $this->_db_name,
+                $temp_connection = new \PDO('mysql:host=' . $this->_host . ';port=' . $this->_port . ';dbname=' . $this->_db_name,
                     $this->_user,
                     $this->_pass,
                     [\PDO::ATTR_EMULATE_PREPARES => false]);
@@ -93,7 +93,7 @@ class Database
             }
 
         } catch (\Throwable $th) {
-            $this->_console->addDebugInfo("Error loading database");
+            $this->_console->addDebugInfo('Error loading database');
         }
     }
 
