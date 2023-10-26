@@ -47,7 +47,6 @@ class AutoLoader
         }
         foreach ($this->prefixes[$prefix] as $baseDir) {
             $file = $baseDir . str_replace('\\', '/', $relativeClass) . '.php';
-            echo $file.'<br>';
             if ($this->requireFile($file)) {
                 return $file;
             }
