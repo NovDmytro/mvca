@@ -28,7 +28,7 @@ class Logger
             $error = 'Warning';
         }
         if ($errNo === E_ERROR || $errNo === E_USER_ERROR) {
-            $error = 'Fatal Error';
+            $error = 'FatalError';
         }
 
         $errorStringLog = $error . ' -> ' . $errorFile . ' (' . $errorLine . ') | ' . $errorString;
@@ -42,7 +42,7 @@ class Logger
             $this->noticeHandler($errorStringLog);
         }
 
-        if ($error === 'Fatal Error') {
+        if ($error === 'FatalError') {
             $this->fatalErrorHandler($errorStringLog);
         }
 

@@ -9,8 +9,8 @@ $settings['development'] = [
     //Defaults
     "defaultLanguage" => "uk",
     "defaultTimezone" => "Europe/Kyiv",
-    "defaultHeader" => "src/common/view/Header.php",
-    "defaultFooter" => "src/common/view/Footer.php",
+    "defaultHeader" => "src/Common/V/Header.php",
+    "defaultFooter" => "src/Common/V/Footer.php",
 
     //Router errors pages
     "routerErrorPages" => [

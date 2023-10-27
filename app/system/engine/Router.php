@@ -24,6 +24,7 @@ class Router
         $method = $pathDirs[2];
 
         if (!$this->isValidPath($file, $class, $method)) {
+            $this->path=$this->errorPages['404'];
             $pathDirs = explode('-', $this->errorPages['404']);
             $file = 'src/' . $pathDirs[0] . '/C/' . $pathDirs[1] . 'Controller.php';
             $class = $pathDirs[0] . '\\C\\' . $pathDirs[1] . 'Controller';
@@ -32,7 +33,8 @@ class Router
         return [
             "file" => $file,
             "method" => $method,
-            "class" => $class
+            "class" => $class,
+            "route" => $this->path,
         ];
     }
 
