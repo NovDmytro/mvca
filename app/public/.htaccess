@@ -1,4 +1,22 @@
+Options +FollowSymlinks
+
+# Prevent Directoy listing
+Options -Indexes
+
+# Rewrite Engine
 RewriteEngine On
+
+# Reserved app/public folders and files
+RewriteRule ^(media|robots.txt|favicon.ico)/ - [L]
+
+# Remove www.
+RewriteCond %{HTTP_HOST} ^www\.(.+) [NC]
+RewriteRule ^ %{REQUEST_SCHEME}://%1%{REQUEST_URI} [L,R=301]
+
+# Rewrite Base
+RewriteBase /
+
+# Routing
 RewriteRule ^([a-zA-Z0-9\-\_]+)/?$ ?route=$1 [QSA,NC,L]
 RewriteRule ^([a-zA-Z0-9\-\_]+)/([^/]+)/?$ ?route=$1&var1=$2 [QSA,NC,L]
 RewriteRule ^([a-zA-Z0-9\-\_]+)/([^/]+)/([a-zA-Z0-9\-\_]+)/?$ ?route=$1&var1=$2&var2=$3 [QSA,NC,L]
@@ -6,3 +24,28 @@ RewriteRule ^([a-zA-Z0-9\-\_]+)/([^/]+)/([a-zA-Z0-9\-\_]+)/([a-zA-Z0-9\-\_]+)/?$
 RewriteRule ^([a-zA-Z0-9\-\_]+)/([^/]+)/([a-zA-Z0-9\-\_]+)/([a-zA-Z0-9\-\_]+)/([a-zA-Z0-9\-\_]+)/?$ ?route=$1&var1=$2&var2=$3&var3=$4&var4=$5 [QSA,NC,L]
 RewriteRule ^([a-zA-Z0-9\-\_]+)/([^/]+)/([a-zA-Z0-9\-\_]+)/([a-zA-Z0-9\-\_]+)/([a-zA-Z0-9\-\_]+)/([a-zA-Z0-9\-\_]+)/?$ ?route=$1&var1=$2&var2=$3&var3=$4&var4=$5&var5=$6 [QSA,NC,L]
 RewriteRule ^([a-zA-Z0-9\-\_]+)/([^/]+)/([a-zA-Z0-9\-\_]+)/([a-zA-Z0-9\-\_]+)/([a-zA-Z0-9\-\_]+)/([a-zA-Z0-9\-\_]+)/([a-zA-Z0-9\-\_]+)/?$ ?route=$1&var1=$2&var2=$3&var3=$4&var4=$5&var5=$6&var6=$7 [QSA,NC,L]
+
+# Gzip
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE application/rss+xml
+  AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
+  AddOutputFilterByType DEFLATE application/x-font
+  AddOutputFilterByType DEFLATE application/x-font-opentype
+  AddOutputFilterByType DEFLATE application/x-font-otf
+  AddOutputFilterByType DEFLATE application/x-font-truetype
+  AddOutputFilterByType DEFLATE application/x-font-ttf
+  AddOutputFilterByType DEFLATE application/x-javascript
+  AddOutputFilterByType DEFLATE application/xhtml+xml
+  AddOutputFilterByType DEFLATE application/xml
+  AddOutputFilterByType DEFLATE font/opentype
+  AddOutputFilterByType DEFLATE font/otf
+  AddOutputFilterByType DEFLATE font/ttf
+  AddOutputFilterByType DEFLATE image/svg+xml
+  AddOutputFilterByType DEFLATE image/x-icon
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/javascript
+  AddOutputFilterByType DEFLATE text/plain
+  AddOutputFilterByType DEFLATE text/xml
+</IfModule>

@@ -17,7 +17,7 @@ $settings['development'] = [
         "404"=>"Common-Error-error404",
     ],
 
-    "debugMode" => false,
+    "debugMode" => true,
     "cacheVersion" => 0001,
 
     //Logs

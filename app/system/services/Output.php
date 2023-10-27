@@ -40,27 +40,20 @@ class Output
         if (isset($settings['debugMode'])) {
             $this->debugMode = $settings['debugMode'];
         }
-
         $content = '';
         $this->translator = new Translator($this->language);
-
         if ($this->header) {
             $content = $this->loadFile($this->header, $data);
         }
-
         $routePaths = explode('/', $route);
         $content .= $this->loadFile('src/' . $routePaths[0] . '/V/' . $routePaths[1] . 'View.php', $data);
-
         if ($this->footer) {
             $content .= $this->loadFile($this->footer, $data);
         }
-
         if($this->debugMode){
-            //ADD DEBUG ENGINE HERE
+            $content .= 'DEBUG_ENABLED';
         }
-
         $content = $this->translateContent($content);
-
         echo $content;
     }
 
@@ -68,10 +61,8 @@ class Output
     public function loadFile(string $route, array $data): string
     {
         extract($data);
-
         ob_start();
         include $route;
-
         return ob_get_clean();
     }
 
@@ -79,12 +70,10 @@ class Output
     {
         preg_match_all('/\{\{(.+?)\}\}/', $content, $matches);
         $keys = $matches[1];
-
         foreach ($keys as $key) {
             $translation = $this->translator->translate($key);
             $content = str_replace('{{' . $key . '}}', $translation, $content);
         }
-
         return $content;
     }
 

@@ -18,10 +18,15 @@ class ErrorController
 
     public function error404(): void
     {
+        $request = \Services\Request::init();
 
 
         $view['config']['lang'] = $this->config->get('defaultLang');
         $view['title'] = '{{Error404}} - 123';
+
+
+
+        header($request->SERVER('SERVER_PROTOCOL') . " 404 Not Found");
         $this->output->load("Common/Error404", $view, $view['config']['lang']);
     }
 }

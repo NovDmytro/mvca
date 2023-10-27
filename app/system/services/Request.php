@@ -164,8 +164,7 @@ class Request
         $allowedTags = '<p><strong><em><u><h1><h2><h3><h4><h5><h6><img>';
         $allowedTags .= '<li><ol><ul><span><br><ins><del><b>';
         $out = strip_tags($out, $allowedTags);
-        $out = $this->closeTags($out);
-        return $out;
+        return $this->closeTags($out);
     }
 
     private function closeTags($content): string

@@ -9,7 +9,6 @@ class Config
     public function __construct($data = [])
     {
         $this->data=$data;
-
     }
 
     public function setArray(array $data): void
