@@ -1,12 +1,11 @@
 <?php
 
 namespace Index\M;
-use Engine\Base;
 
 class IndexModel
 {
 	
-	    public function test(): array
+	    public function someMethod(): array
     {
         return ['everything'=>'ok'];
     }

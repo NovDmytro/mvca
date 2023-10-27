@@ -43,23 +43,23 @@ set_exception_handler(array($logger, 'exceptionHandler'));
 // Timezone
 date_default_timezone_set($config->get('defaultTimezone'));
 
-// Container
-//$database = new Database($config->get('database_url'));
-//$database->initialize();
-$container = new Container([
-      Config::class => fn () => new Config($settings[ENVIRONMENT]),
-  //  Database::class => fn () => new Database($config->get('database_url')),
-      Output::class => fn () => new Output($config->get('defaultHeader'), $config->get('defaultFooter'), $config->get('defaultLanguage'), $config->get('debugMode')),
-     Cookies::class => fn () => new Cookies($config->get('cookiesExpiresTime')),
-        Util::class => fn () => new Util(),
-      Crypto::class => fn () => new Crypto($config->get('crypto_key')),
-    ]);
-
-
 // Import the controller
 $router = new Router($request->GET('route','latin'),$config->get('routerErrorPages'));
 $pathData = $router->parsePath();
 $method = $pathData['method'];
 require_once($pathData['file']);
+$settings[ENVIRONMENT]['route']=$pathData['route'];
+
+// Container
+//$database = new Database($config->get('database_url'));
+//$database->initialize();
+$container = new Container([
+    Config::class => fn () => new Config($settings[ENVIRONMENT]),
+    //  Database::class => fn () => new Database($config->get('database_url')),
+    Output::class => fn () => new Output($config->get('defaultHeader'), $config->get('defaultFooter'), $config->get('defaultLanguage'), $config->get('debugMode')),
+    Cookies::class => fn () => new Cookies($config->get('cookiesExpiresTime')),
+    Util::class => fn () => new Util(),
+    Crypto::class => fn () => new Crypto($config->get('crypto_key')),
+]);
 $controller = $container->get($pathData['class']);
 call_user_func([$controller, $method]);
