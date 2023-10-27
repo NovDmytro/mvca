@@ -30,22 +30,17 @@ class Logger
         if ($errNo === E_ERROR || $errNo === E_USER_ERROR) {
             $error = 'FatalError';
         }
-
         $errorStringLog = $error . ' -> ' . $errorFile . ' (' . $errorLine . ') | ' . $errorString;
         $errorStringLog = addslashes($errorStringLog);
-
         if ($error === 'Warning') {
             $this->warningHandler($errorStringLog);
         }
-
         if ($error === 'Notice') {
             $this->noticeHandler($errorStringLog);
         }
-
         if ($error === 'FatalError') {
             $this->fatalErrorHandler($errorStringLog);
         }
-
         if ($error === 'Unknown') {
             $this->unknownErrorHandler($errorStringLog);
         }
@@ -86,10 +81,8 @@ class Logger
     public function exceptionHandler($exception): void
     {
         $exceptionMessage = $exception->getMessage();
-
         $this->checkLogFile($this->fatalErrorLogPath);
         error_log($exceptionMessage . "\n", 3, $this->fatalErrorLogPath);
-
         die($exceptionMessage);
     }
 }

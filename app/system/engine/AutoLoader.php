@@ -1,15 +1,11 @@
 <?php
-
 class AutoLoader
 {
-
     protected array $prefixes = [];
-
     public function register(): void
     {
         spl_autoload_register(array($this, 'loadClass'));
     }
-
     public function addNamespace(string $prefix, string $baseDir, bool $prepend = false): void
     {
         $prefix = trim($prefix, '\\') . '\\';
@@ -23,8 +19,6 @@ class AutoLoader
             $this->prefixes[$prefix][] = $baseDir;
         }
     }
-
-
     public function loadClass(string $class): bool|string
     {
         $prefix = $class;
@@ -39,7 +33,6 @@ class AutoLoader
         }
         return false;
     }
-
     protected function loadMappedFile(string $prefix, $relativeClass): bool|string
     {
         if (isset($this->prefixes[$prefix]) === false) {
@@ -53,7 +46,6 @@ class AutoLoader
         }
         return false;
     }
-
     protected function requireFile(string $file): bool
     {
         if (file_exists($file)) {
