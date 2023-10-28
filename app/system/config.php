@@ -1,7 +1,14 @@
 <?php
 $settings['development'] = [
     //General configuration
-    "database_url" => "pdo-mysql://root:123@127.0.0.1:3306/mvcTable",
+    /* DSN - dataSourceName - Data to connect to your database.
+     * Examples:
+     * postgre: postgresql://user:pass@localhost:5432/database
+     * mariadb: mariadb://user:pass@localhost:3306/database
+     * mysql: mysql://user:pass@localhost:3306/database
+     *
+     */
+    "DSN" => "mariadb://mvca:pass@localhost:2122/mvcadb",
     "charset" => "UTF-8",
     "crypto_key" => '$secret%#123456',
     "cookiesExpiresTime" => 60 * 60 * 24 * 30,
