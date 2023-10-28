@@ -4,29 +4,32 @@ namespace Services;
 
 class Database
 {
-    private $_connection;
-    private $_scheme;
-    private $_host;
-    private $_port;
-    private $_user;
-    private $_pass;
-    private $_db_name;
+    private $DSN;
+    private mixed $connection;
 
-    public function __construct($database_url)
+    private string $scheme;
+    private string $host;
+    private string $port;
+    private string $user;
+    private string $pass;
+    private string $database;
+
+    public function __construct($DSN)
     {
-        $url_parts = parse_url($database_url);
-        $this->_scheme = $url_parts['scheme'];
-        $this->_host = $url_parts['host'];
-        $this->_port = $url_parts['port'];
-        $this->_user = $url_parts['user'];
-        $this->_pass = $url_parts['pass'];
-        $this->_db_name = ltrim($url_parts['path'], '/');
+        $this->DSN = $DSN;
+        $DSNParts = parse_url($DSN);
+        $this->scheme = $DSNParts['scheme'];
+        $this->host = $DSNParts['host'];
+        $this->port = $DSNParts['port'];
+        $this->user = $DSNParts['user'];
+        $this->pass = $DSNParts['pass'];
+        $this->database = ltrim($DSNParts['path'], '/');
     }
 
 
-    public function query(string $sql_query, array $params = array(),$returnType='row')
+    public function query(string $sqlQuery, array $params = array(),$returnType='row')
     {
-        $statement = $this->_connection->prepare($sql_query);
+        $statement = $this->connection->prepare($sqlQuery);
         $statement->setFetchMode(\PDO::FETCH_ASSOC);
 
         if ((count($params, COUNT_RECURSIVE) - count($params)) > 0) {
@@ -62,8 +65,8 @@ class Database
             }
 
             if($returnType=='row'){
-                if (strpos($sql_query, 'INSERT INTO') !== false || strpos($sql_query, 'INSERT IGNORE INTO') !== false) {
-                    $data = $this->_connection->lastInsertId();
+                if (strpos($sqlQuery, 'INSERT INTO') !== false || strpos($sqlQuery, 'INSERT IGNORE INTO') !== false) {
+                    $data = $this->connection->lastInsertId();
                 }
             }
 
@@ -76,30 +79,41 @@ class Database
 
     public function getLastId(): int
     {
-        return $this->_connection->lastInsertId();
+        return $this->connection->lastInsertId();
     }
 
-    public function initialize()
+
+    /*
+        $this->DSN = $DSN;
+        $DSNParts = parse_url($DSN);
+        $this->scheme = $DSNParts['scheme'];
+        $this->host = $DSNParts['host'];
+        $this->port = $DSNParts['port'];
+        $this->user = $DSNParts['user'];
+        $this->pass = $DSNParts['pass'];
+        $this->database = ltrim($DSNParts['path'], '/');
+    */
+
+
+    public function init()
     {
         try {
-            if ($this->_scheme == 'pdo-mysql') {
-                $temp_connection = new \PDO('mysql:host=' . $this->_host . ';port=' . $this->_port . ';dbname=' . $this->_db_name,
-                    $this->_user,
-                    $this->_pass,
+            if ($this->scheme == 'mariadb' || $this->scheme == 'mysql') {
+                $connection = new \PDO('mysql:host=' . $this->host . ';port=' . $this->port . ';dbname=' . $this->database,
+                    $this->user,
+                    $this->pass,
                     [\PDO::ATTR_EMULATE_PREPARES => false]);
-                $temp_connection->exec("SET NAMES 'utf8';SET CHARACTER SET utf8;SET CHARACTER_SET_CONNECTION=utf8");
-                $this->_connection = $temp_connection;
-
+                $connection->exec("SET NAMES 'utf8';SET CHARACTER SET utf8;SET CHARACTER_SET_CONNECTION=utf8");
+                $this->connection = $connection;
             }
-
         } catch (\Throwable $th) {
-            $this->_console->addDebugInfo('Error loading database');
+         //   $this->_console->addDebugInfo('Error loading database');
         }
     }
 
     public function __destruct()
     {
-        $this->_connection->query('SELECT pg_terminate_backend(pg_backend_pid());');
-        $this->_connection = null;
+        $this->connection->query('SELECT pg_terminate_backend(pg_backend_pid());');
+        $this->connection = null;
     }
 }

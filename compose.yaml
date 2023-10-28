@@ -1,7 +1,27 @@
 services:
   mvca:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.mvca
     ports:
       - 2121:80
     volumes:
       - ./app:/var/www/mvca
+      
+  mvca-mariadb:
+    build:
+      context: .
+      dockerfile: Dockerfile.mvca-mariadb
+    ports:
+      - 2122:3306
+    volumes:
+      - ./mariadb:/var/lib/mysql
+      
+  mvca-postgresql:
+    build:
+      context: .
+      dockerfile: Dockerfile.mvca-postgresql
+    ports:
+      - 2123:5432
+    volumes:
+      - ./postgresql:/var/lib/postgresql/data

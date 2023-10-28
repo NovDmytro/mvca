@@ -51,11 +51,11 @@ require_once($pathData['file']);
 $settings[ENVIRONMENT]['route']=$pathData['route'];
 
 // Container
-//$database = new Database($config->get('database_url'));
+//$database = new Database($config->get('DSN'));
 //$database->initialize();
 $container = new Container([
     Config::class => fn () => new Config($settings[ENVIRONMENT]),
-    //  Database::class => fn () => new Database($config->get('database_url')),
+    Database::class => fn () => new Database($config->get('DSN')),
     Output::class => fn () => new Output($config->get('defaultHeader'), $config->get('defaultFooter'), $config->get('defaultLanguage'), $config->get('debugMode')),
     Cookies::class => fn () => new Cookies($config->get('cookiesExpiresTime')),
     Util::class => fn () => new Util(),
