@@ -51,7 +51,7 @@ $router = new Router($request->GET('route','latin'),$config->get('routerErrorPag
 $pathData = $router->parsePath();
 $method = $pathData['method'];
 require_once($pathData['file']);
-$settings[ENVIRONMENT]['route']=$pathData['route'];
+$config->set('route',$pathData['route']);
 
 // Container
 /*
@@ -63,11 +63,14 @@ $settings[ENVIRONMENT]['route']=$pathData['route'];
  *   $database = new Database($config->get('DSN'));$database->init();return $database;}, //Lazy load with use
  */
 $container = new Container([
-    Request::class => fn () => $request,
     Config::class => fn () => $config,
-    Database::class => function () use ($config) {$database = new Database($config->get('DSN'));$database->init();return $database;},
+    Request::class => fn () => $request,
+    Cookies::class => fn () => new Cookies($request,$config->get('cookiesExpiresTime')),
+
     Output::class => fn () => new Output($config->get('defaultHeader'), $config->get('defaultFooter'), $config->get('defaultLanguage'), $config->get('debugMode')),
-    Cookies::class => fn () => new Cookies($config->get('cookiesExpiresTime')),
+
+    Database::class => function () use ($config) {$database = new Database($config->get('DSN'));$database->init();return $database;},
+
     Util::class => fn () => new Util(),
     Crypto::class => fn () => new Crypto($config->get('crypto_key')),
 ]);
