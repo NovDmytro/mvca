@@ -9,15 +9,13 @@ use Services\Output;
 use Services\Crypto;
 use Services\Cookies;
 use Services\Request;
-
 /*
- * $_GET $_POST $_COOKIE $_SERVER and custom $this->JSON wrapper.
- * To Use requests please type: $request = \Services\Request::init();
- * before using in any function. Then $request->GET('example'); will contain your data
+ * $_GET $_POST $_COOKIE $_SERVER and custom JSON wrapper.
+ * $request->GET('example'); will contain usual $_GET['example']
  * also You can add filters (int,dec,hex,email,latin,varchar,html) and case (low,up), examples:
  * $request->GET('example','email','low'); $request->GET('id','int');
  */
-$request = Request::init();
+$request = new Request();
 
 // Load settings
 $settings = [];
@@ -35,7 +33,12 @@ foreach ($modules as $module) {
 }
 
 // Logger
-$logger = new Logger($config->get('logPathFatalError'), $config->get('logPathNotice'), $config->get('logPathWarning'), $config->get('logPathUnknownError'));
+$logger = new Logger(
+    $config->get('logPathFatalError'),
+    $config->get('logPathNotice'),
+    $config->get('logPathWarning'),
+    $config->get('logPathUnknownError')
+);
 set_error_handler(array($logger, 'errorHandler'), E_ALL);
 error_reporting(E_ALL);
 set_exception_handler(array($logger, 'exceptionHandler'));
@@ -51,15 +54,22 @@ require_once($pathData['file']);
 $settings[ENVIRONMENT]['route']=$pathData['route'];
 
 // Container
-//$database = new Database($config->get('DSN'));
-//$database->initialize();
+/*
+ * working examples:
+ *  Config::class => fn () => $config,     //Not lazy load
+ *  Crypto::class => fn () => new Crypto($config->get('crypto_key')),     //Lazy load
+ *  Test::class => function () {$test = new Test(1);$test->two(2);return $test;},    //Lazy load
+ *  Database::class => function () use ($config) {
+ *   $database = new Database($config->get('DSN'));$database->init();return $database;}, //Lazy load with use
+ */
 $container = new Container([
-    Config::class => fn () => new Config($settings[ENVIRONMENT]),
-    Database::class => fn () => new Database($config->get('DSN')),
+    Request::class => fn () => $request,
+    Config::class => fn () => $config,
+    Database::class => function () use ($config) {$database = new Database($config->get('DSN'));$database->init();return $database;},
     Output::class => fn () => new Output($config->get('defaultHeader'), $config->get('defaultFooter'), $config->get('defaultLanguage'), $config->get('debugMode')),
     Cookies::class => fn () => new Cookies($config->get('cookiesExpiresTime')),
     Util::class => fn () => new Util(),
     Crypto::class => fn () => new Crypto($config->get('crypto_key')),
 ]);
 $controller = $container->get($pathData['class']);
-call_user_func([$controller, $method]);
+$controller->$method();

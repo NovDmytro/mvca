@@ -3,12 +3,15 @@ $settings['development'] = [
     //General configuration
     /* DSN - dataSourceName - Data to connect to your database.
      * Examples:
-     * postgre: postgresql://user:pass@localhost:5432/database
-     * mariadb: mariadb://user:pass@localhost:3306/database
+     * postgresql: pgsql://user:pass@localhost:5432/database
+     * mariadb: mysql://user:pass@localhost:3306/database
      * mysql: mysql://user:pass@localhost:3306/database
      *
+     * if You run default framework docker compose
+     * mariadb    - mysql://mvca:pass@mvca-mariadb:3306/mvcadb
+     * postgresql - pgsql://mvca:pass@mvca-postgresql:5432/mvcadb
      */
-    "DSN" => "mariadb://mvca:pass@localhost:2122/mvcadb",
+    "DSN" => "mysql://mvca:pass@mvca-mariadb:3306/mvcadb",
     "charset" => "UTF-8",
     "crypto_key" => '$secret%#123456',
     "cookiesExpiresTime" => 60 * 60 * 24 * 30,

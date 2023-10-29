@@ -4,14 +4,13 @@ namespace Services;
 
 class Request
 {
-    private static $instance;
     private array $GET;
     private array $POST;
     private array $COOKIE;
     private array $SERVER;
     private mixed $JSON;
 
-    private function __construct()
+    public function __construct()
     {
         if ($_GET) {
             $this->GET = $_GET;
@@ -33,14 +32,6 @@ class Request
             $this->JSON = json_decode(
                 file_get_contents('php://input'), true);
         }
-    }
-
-    public static function init(): Request
-    {
-        if (self::$instance === null) {
-            self::$instance = new self();
-        }
-        return self::$instance;
     }
 
     public function GET(string $key, $type = 'varchar', $case = '')

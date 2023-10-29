@@ -4,9 +4,7 @@ namespace Services;
 
 class Database
 {
-    private $DSN;
-    private mixed $connection;
-
+    private $connection;
     private string $scheme;
     private string $host;
     private string $port;
@@ -16,7 +14,6 @@ class Database
 
     public function __construct($DSN)
     {
-        $this->DSN = $DSN;
         $DSNParts = parse_url($DSN);
         $this->scheme = $DSNParts['scheme'];
         $this->host = $DSNParts['host'];
@@ -26,10 +23,53 @@ class Database
         $this->database = ltrim($DSNParts['path'], '/');
     }
 
-
-    public function query(string $sqlQuery, array $params = array(),$returnType='row')
+    public function init(): void
     {
-        $statement = $this->connection->prepare($sqlQuery);
+        try {
+            if ($this->scheme == 'mysql' ||
+                $this->scheme == 'mysqli' ||
+                $this->scheme == 'mariadb') { // mysqli & mariadb - aliases, do not use them
+                $connection = new \PDO(
+                    'mysql:host=' . $this->host .
+                        ';port=' . $this->port .
+                        ';dbname=' . $this->database,
+                    $this->user,
+                    $this->pass
+                );
+                $connection->exec("SET NAMES 'utf8';SET CHARACTER SET utf8;SET CHARACTER_SET_CONNECTION=utf8");
+                $this->connection = $connection;
+
+            }elseif ($this->scheme == 'pgsql' ||
+                $this->scheme == 'postgresql' ||
+                $this->scheme == 'postgres' ||
+                $this->scheme == 'postgre'){ // postgresql & postgres & postgre - aliases, do not use them
+                $connection = new \PDO(
+                    'pgsql:host=' . $this->host .
+                        ';port=' . $this->port .
+                        ';dbname=' .
+                        $this->database.
+                        ";options='--client_encoding=UTF8'",
+                    $this->user,
+                    $this->pass
+                );
+                $this->connection = $connection;
+            }
+        } catch (\Throwable $th) {
+            echo '<pre>'.$th.'</pre>';
+            //   $this->_console->addDebugInfo('Error loading database');
+        }
+    }
+    /**
+     * @param string $sql
+     *   PDO SQL Query
+     * @param array $params
+     *   PDO SQL Params array
+     * @param string $returnType
+     *   Row, array or lastInsertId (default - array)
+     */
+    public function query(string $sql, array $params = array(), string $returnType='array')
+    {
+        $statement = $this->connection->prepare($sql);
         $statement->setFetchMode(\PDO::FETCH_ASSOC);
 
         if ((count($params, COUNT_RECURSIVE) - count($params)) > 0) {
@@ -41,14 +81,14 @@ class Database
         }
 
 //MY FAST DEBUG MOD
-        /*
+/*
         if ($statement->errorCode() !== '00000') {
             echo '<pre>';
             var_dump($statement);
             print_r($statement->errorInfo());
             echo '</pre>';
         }
-        */
+*/
 //MY FAST DEBUG MOD end
         $data = array();
 
@@ -57,63 +97,23 @@ class Database
                 $data[] = $row;
             }
             $statement = null;
-
-            if($data[0] && $returnType=='row'){$data = $data[0];}
-
+            if($data[0] && ($returnType=='row' || $returnType=='one')){$data = $data[0];}
+            if($returnType=='lastInsertId'){$this->connection->lastInsertId();}
             if (is_array($data) && count($data) === 0) {
                 $data = false;
             }
-
-            if($returnType=='row'){
-                if (strpos($sqlQuery, 'INSERT INTO') !== false || strpos($sqlQuery, 'INSERT IGNORE INTO') !== false) {
+            if($returnType=='row' || $returnType=='one'){
+                if (strpos($sql, 'INSERT INTO') !== false ||
+                    strpos($sql, 'INSERT IGNORE INTO') !== false) {
                     $data = $this->connection->lastInsertId();
                 }
             }
-
         }
-
         return $data;
     }
-
-
 
     public function getLastId(): int
     {
         return $this->connection->lastInsertId();
-    }
-
-
-    /*
-        $this->DSN = $DSN;
-        $DSNParts = parse_url($DSN);
-        $this->scheme = $DSNParts['scheme'];
-        $this->host = $DSNParts['host'];
-        $this->port = $DSNParts['port'];
-        $this->user = $DSNParts['user'];
-        $this->pass = $DSNParts['pass'];
-        $this->database = ltrim($DSNParts['path'], '/');
-    */
-
-
-    public function init()
-    {
-        try {
-            if ($this->scheme == 'mariadb' || $this->scheme == 'mysql') {
-                $connection = new \PDO('mysql:host=' . $this->host . ';port=' . $this->port . ';dbname=' . $this->database,
-                    $this->user,
-                    $this->pass,
-                    [\PDO::ATTR_EMULATE_PREPARES => false]);
-                $connection->exec("SET NAMES 'utf8';SET CHARACTER SET utf8;SET CHARACTER_SET_CONNECTION=utf8");
-                $this->connection = $connection;
-            }
-        } catch (\Throwable $th) {
-         //   $this->_console->addDebugInfo('Error loading database');
-        }
-    }
-
-    public function __destruct()
-    {
-        $this->connection->query('SELECT pg_terminate_backend(pg_backend_pid());');
-        $this->connection = null;
     }
 }

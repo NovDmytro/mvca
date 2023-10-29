@@ -5,7 +5,7 @@
 <h3>Model example</h3>
 <pre>
 <?php
-var_dump($arrFromDemoMethod);
+var_dump($indexModel);
 ?>
 </pre>
 
