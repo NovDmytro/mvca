@@ -1,1 +1,10 @@
 app/logs/*
+!app/logs/.gitkeep
+
+mariadb/*
+!mariadb/.gitkeep
+
+postgresql/*
+!postgresql/.gitkeep
+
+
