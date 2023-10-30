@@ -1,6 +1,7 @@
 <?php
 use Engine\Container;
 use Engine\Router;
+use Engine\Debug; //Singleton to initialize and reuse type: Debug::init();
 use Services\Util;
 use Services\Logger;
 use Services\Config;
@@ -8,19 +9,31 @@ use Services\Database;
 use Services\Output;
 use Services\Crypto;
 use Services\Cookies;
-use Services\Request;
+use Services\Request; //Singleton to initialize and reuse type: Request::init();
+
+// Autoloader
+$loader = new AutoLoader();
+$loader->register();
+$loader->addNamespace("Engine", "system/Engine");
+$loader->addNamespace("Services", "system/Services");
+
+// Request
 /*
- * $_GET $_POST $_COOKIE $_SERVER and custom JSON wrapper.
- * $request->GET('example'); will contain usual $_GET['example']
+ * $_GET $_POST $_COOKIE $_SERVER and custom $this->JSON wrapper.
+ * To Use requests please type: $request = \Services\Request::init();
+ * before using in any function. Then $request->GET('example'); will contain your data
  * also You can add filters (int,dec,hex,email,latin,varchar,html) and case (low,up), examples:
  * $request->GET('example','email','low'); $request->GET('id','int');
  */
-$request = new Request();
+$request = Request::init();
 
-// Load settings
+// Settings
 $settings = [];
 require('system/config.php');
 $config = new Config($settings[ENVIRONMENT]);
+
+// Debug
+if($config->get('debug')){$debug = Debug::init();$debug->setStatus(true);};
 
 // Load modules
 $modules = scandir('src/');
@@ -64,9 +77,8 @@ OR  Database::class => fn () => (function ($config) {$database = new Database($c
  */
 $container = new Container([
     Config::class => fn () => $config,
-   Request::class => fn () => $request,
-   Cookies::class => fn () => new Cookies($request,$config->get('cookiesExpiresTime')),
-    Output::class => fn () => new Output($config->get('defaultHeader'), $config->get('defaultFooter'), $config->get('defaultLanguage'), $config->get('debugMode')),
+   Cookies::class => fn () => new Cookies($config->get('cookiesExpiresTime')),
+    Output::class => fn () => new Output($config->get('defaultHeader'), $config->get('defaultFooter'), $config->get('defaultLanguage')),
   Database::class => fn () => (function ($config) {$database = new Database($config->get('DSN'));$database->init();return $database;})($config),
       Util::class => fn () => new Util(),
     Crypto::class => fn () => new Crypto($config->get('crypto_key')),

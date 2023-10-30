@@ -4,16 +4,7 @@ chdir(dirname(__DIR__));
 define('ROOT', dirname(__DIR__));
 define('ENVIRONMENT', 'development');
 require_once("system/Engine/AutoLoader.php");
-
-$loader = new AutoLoader();
-$loader->register();
-$loader->addNamespace("Engine", "system/Engine");
-$loader->addNamespace("Services", "system/Services");
-
 require_once("system/bootstrap.php");
-
-
-
 /*
 $MEM=memory_get_usage() - $SCRIPT_MEM;
 $TIME=microtime(true) - $SCRIPT_TIME;

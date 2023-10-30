@@ -2,6 +2,8 @@
 
 namespace Services;
 
+use Engine\Debug;
+
 class Output
 {
     private string $header;
@@ -11,12 +13,11 @@ class Output
     private object $translator;
 
 
-    public function __construct($defaultHeader, $defaultFooter, $defaultLanguage, $debugMode)
+    public function __construct($defaultHeader, $defaultFooter, $defaultLanguage)
     {
         $this->header = $defaultHeader;
         $this->footer = $defaultFooter;
         $this->language = $defaultLanguage;
-        $this->debugMode = $debugMode;
     }
 
     /**
@@ -37,9 +38,6 @@ class Output
         if (isset($settings['language'])) {
             $this->language = $settings['language'];
         }
-        if (isset($settings['debugMode'])) {
-            $this->debugMode = $settings['debugMode'];
-        }
         $content = '';
         $this->translator = new Translator($this->language);
         if ($this->header) {
@@ -50,9 +48,14 @@ class Output
         if ($this->footer) {
             $content .= $this->loadFile($this->footer, $data);
         }
-        if($this->debugMode){
-            $content .= 'DEBUG_ENABLED';
+
+        $debug=Debug::init();
+        if($debug->enabled()){
+            ob_start();
+            var_dump($debug->getReports());
+            $content .= ob_get_clean();
         }
+
         $content = $this->translateContent($content);
         echo $content;
     }

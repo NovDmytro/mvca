@@ -11,7 +11,7 @@ $settings['development'] = [
      * mariadb    - mysql://mvca:pass@mvca-mariadb:3306/mvcadb
      * postgresql - pgsql://mvca:pass@mvca-postgresql:5432/mvcadb
      */
-    "DSN" => "pgsql://mvca:pass@mvca-postgresql:5432/mvcadb",
+    "DSN" => "mysql://mvca:pass@mvca-mariadb:3306/mvcadb",
     "charset" => "UTF-8",
     "crypto_key" => '$secret%#123456',
     "cookiesExpiresTime" => 60 * 60 * 24 * 30,
@@ -27,7 +27,7 @@ $settings['development'] = [
         "404"=>"Common-Error-error404",
     ],
 
-    "debugMode" => true,
+    "debug" => true,
     "cacheVersion" => 0001,
 
     //Logs
