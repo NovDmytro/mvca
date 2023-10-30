@@ -17,6 +17,19 @@ class IndexModel
             ['id'=>$id],
             'row'
         );
+
+        $query=$this->database->query(
+            "SELECT name FROM mvca_example WHERE id=:id",
+            ['id'=>$id],
+            'row'
+        );
+
+        $query=$this->database->query(
+            "SELECT 'id' FROM mvca_example WHERE id=:id",
+            ['id'=>$id],
+            'row'
+        );
+
         return $query;
     }
 }

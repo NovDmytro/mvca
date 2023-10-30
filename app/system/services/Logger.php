@@ -2,54 +2,67 @@
 
 namespace Services;
 
+use Engine\Debug;
+
 class Logger
 {
+    private string $logPathFatalError;
+    private string $logPathNotice;
+    private string $logPathWarning;
+    private string $logPathUnknownError;
 
-    private string $fatalErrorLogPath;
-    private string $noticeLogPath;
-    private string $warningLogPath;
-    private string $unknownErrorsLogPath;
-
-    public function __construct($fatalErrorLogPath, $noticeLogPath, $warningLogPath, $unknownErrorsLogPath)
+    public function __construct($logPathFatalError, $logPathNotice, $logPathWarning, $logPathUnknownError)
     {
-        $this->fatalErrorLogPath = $fatalErrorLogPath;
-        $this->noticeLogPath = $noticeLogPath;
-        $this->warningLogPath = $warningLogPath;
-        $this->unknownErrorsLogPath = $unknownErrorsLogPath;
+        $this->logPathFatalError = $logPathFatalError;
+        $this->logPathNotice = $logPathNotice;
+        $this->logPathWarning = $logPathWarning;
+        $this->logPathUnknownError = $logPathUnknownError;
     }
-
     public function errorHandler(string $errNo, string $errorString, string $errorFile, string $errorLine): void
     {
         $error = 'Unknown';
-        if ($errNo === E_NOTICE || $errNo === E_USER_NOTICE) {
+        if (
+            $errNo == E_NOTICE ||
+            $errNo == E_USER_NOTICE ||
+            $errNo == E_STRICT ||
+            $errNo == E_RECOVERABLE_ERROR ||
+            $errNo == E_DEPRECATED ||
+            $errNo == E_USER_DEPRECATED
+        ) {
             $error = 'Notice';
         }
-        if ($errNo === E_WARNING || $errNo === E_USER_WARNING) {
+        if (
+            $errNo == E_WARNING ||
+            $errNo == E_CORE_WARNING ||
+            $errNo == E_COMPILE_WARNING ||
+            $errNo == E_USER_WARNING
+        ) {
             $error = 'Warning';
         }
-        if ($errNo === E_ERROR || $errNo === E_USER_ERROR) {
+        if (
+            $errNo == E_ERROR ||
+            $errNo == E_CORE_ERROR ||
+            $errNo == E_COMPILE_ERROR ||
+            $errNo == E_USER_ERROR ||
+            $errNo == E_PARSE
+        ) {
             $error = 'FatalError';
         }
+
         $errorStringLog = $error . ' -> ' . $errorFile . ' (' . $errorLine . ') | ' . $errorString;
         $errorStringLog = addslashes($errorStringLog);
-        if ($error === 'Warning') {
+        if ($error == 'Warning') {
             $this->warningHandler($errorStringLog);
         }
-        if ($error === 'Notice') {
+        if ($error == 'Notice') {
             $this->noticeHandler($errorStringLog);
         }
-        if ($error === 'FatalError') {
+        if ($error == 'FatalError') {
             $this->fatalErrorHandler($errorStringLog);
         }
-        if ($error === 'Unknown') {
+        if ($error == 'Unknown') {
             $this->unknownErrorHandler($errorStringLog);
         }
-    }
-
-    public function warningHandler(string $errorString): void
-    {
-        $this->checkLogFile($this->warningLogPath);
-        error_log($errorString . "\n", 3, $this->warningLogPath);
     }
 
     public function checkLogFile(string $fileName): void
@@ -60,29 +73,55 @@ class Logger
         }
     }
 
+    public function warningHandler(string $errorString): void
+    {
+        $debug=Debug::init();
+        if($debug->enabled()){
+            $debug->addReport($errorString,'PHP','Warning');
+        }
+        $this->checkLogFile($this->logPathWarning);
+        error_log($errorString . "\n", 3, $this->logPathWarning);
+    }
+
     public function noticeHandler(string $errorString): void
     {
-        $this->checkLogFile($this->noticeLogPath);
-        error_log($errorString . "\n", 3, $this->noticeLogPath);
+        $debug=Debug::init();
+        if($debug->enabled()){
+            $debug->addReport($errorString,'PHP','Notice');
+        }
+        $this->checkLogFile($this->logPathNotice);
+        error_log($errorString . "\n", 3, $this->logPathNotice);
     }
 
     public function fatalErrorHandler(string $errorString): void
     {
-        $this->checkLogFile($this->fatalErrorLogPath);
-        error_log($errorString . "\n", 3, $this->fatalErrorLogPath);
+        $debug=Debug::init();
+        if($debug->enabled()){
+            $debug->addReport($errorString,'PHP','FatalError');
+        }
+        $this->checkLogFile($this->logPathFatalError);
+        error_log($errorString . "\n", 3, $this->logPathFatalError);
     }
 
     public function unknownErrorHandler(string $errorString): void
     {
-        $this->checkLogFile($this->unknownErrorsLogPath);
-        error_log($errorString . "\n", 3, $this->unknownErrorsLogPath);
+        $debug=Debug::init();
+        if($debug->enabled()){
+            $debug->addReport($errorString,'PHP','Unknown');
+        }
+        $this->checkLogFile($this->logPathUnknownError);
+        error_log($errorString . "\n", 3, $this->logPathUnknownError);
     }
 
     public function exceptionHandler($exception): void
     {
         $exceptionMessage = $exception->getMessage();
-        $this->checkLogFile($this->fatalErrorLogPath);
-        error_log($exceptionMessage . "\n", 3, $this->fatalErrorLogPath);
+        $debug=Debug::init();
+        if($debug->enabled()){
+            $debug->addReport($exceptionMessage,'PHP','Exception');
+        }
+        $this->checkLogFile($this->logPathFatalError);
+        error_log($exceptionMessage . "\n", 3, $this->logPathFatalError);
         die($exceptionMessage);
     }
 }
