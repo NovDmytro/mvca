@@ -59,19 +59,16 @@ $config->set('route',$pathData['route']);
  *  Config::class => fn () => $config,     //Not lazy load
  *  Crypto::class => fn () => new Crypto($config->get('crypto_key')),     //Lazy load
  *  Test::class => function () {$test = new Test(1);$test->two(2);return $test;},    //Lazy load
- *  Database::class => function () use ($config) {
- *   $database = new Database($config->get('DSN'));$database->init();return $database;}, //Lazy load with use
+ *  Database::class => function () use ($config) {$database = new Database($config->get('DSN'));$database->init();return $database;}, //Lazy load with use
+OR  Database::class => fn () => (function ($config) {$database = new Database($config->get('DSN'));$database->init();return $database;})($config),
  */
 $container = new Container([
     Config::class => fn () => $config,
-    Request::class => fn () => $request,
-    Cookies::class => fn () => new Cookies($request,$config->get('cookiesExpiresTime')),
-
+   Request::class => fn () => $request,
+   Cookies::class => fn () => new Cookies($request,$config->get('cookiesExpiresTime')),
     Output::class => fn () => new Output($config->get('defaultHeader'), $config->get('defaultFooter'), $config->get('defaultLanguage'), $config->get('debugMode')),
-
-    Database::class => function () use ($config) {$database = new Database($config->get('DSN'));$database->init();return $database;},
-
-    Util::class => fn () => new Util(),
+  Database::class => fn () => (function ($config) {$database = new Database($config->get('DSN'));$database->init();return $database;})($config),
+      Util::class => fn () => new Util(),
     Crypto::class => fn () => new Crypto($config->get('crypto_key')),
 ]);
 $controller = $container->get($pathData['class']);

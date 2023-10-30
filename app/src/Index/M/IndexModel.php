@@ -13,7 +13,7 @@ class IndexModel
 	    public function getProductById($id): mixed
     {
         $query=$this->database->query(
-            "SELECT * FROM products WHERE id=:id",
+            "SELECT * FROM mvca_example WHERE id=:id",
             ['id'=>$id],
             'row'
         );
