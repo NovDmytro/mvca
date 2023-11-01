@@ -9,7 +9,6 @@ class Output
     private string $header;
     private string $footer;
     private string $language;
-    private bool $debugMode;
     private object $translator;
 
 
@@ -25,7 +24,7 @@ class Output
      * @param array $data
      *   Array keys will become variables
      * @param array $settings
-     *   [header,footer,language,debugMode]
+     *   [header,footer,language]
      */
     public function load(string $route, $data = [], $settings = []): void
     {
@@ -54,6 +53,21 @@ class Output
             ob_start();
             var_dump($debug->getReports());
             $content .= ob_get_clean();
+
+
+            $headers= "Received headers:\n";
+            foreach (getallheaders() as $name => $value) {
+                $headers.= "$name: $value\n";
+            }
+
+
+            $headers.= "\nSent headers (by PHP):\n";
+            foreach (headers_list() as $header) {
+                $headers.= $header . "\n";
+            }
+            $content .= '<pre>'.$headers.'</pre>';
+
+
         }
 
         $content = $this->translateContent($content);

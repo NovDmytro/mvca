@@ -1,6 +1,7 @@
 <?php
 
 namespace Index\C;
+use Engine\Debug;
 use Index\M;
 
 use Services\Config;
@@ -69,6 +70,15 @@ class IndexController
         $encSecret=$this->crypto->Encrypt($secret);
         $decSecret=$this->crypto->Decrypt($encSecret);
         $view['cryptoExample']=['encrypted'=>$encSecret,'decrypted'=>$decSecret];
+
+        /*
+        * This is debug example
+        */
+        $debug = Debug::init();
+        if ($debug->enabled()) {
+            $debug->addReport($view['indexModel'], 'IndexController', 'Test');
+        }
+
 
         /*
         * This is view load example
