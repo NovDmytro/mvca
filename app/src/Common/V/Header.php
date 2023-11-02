@@ -5,7 +5,7 @@
     <meta name="viewport" content="Height=device-Height, initial-scale=1.0">
 
     <title>Document</title>
-    <link rel="icon" href="./media/Logo.ico">
+    <link rel="icon" href="/media/Logo.ico">
 </head>
 <body> 
     <style>
@@ -494,7 +494,7 @@
             <div class="container">
                 <div class="header__logo-container">
                     <a class="header__logo-link" href="#">
-                         <img class="header__logo" src="./media/logo.svg" alt="logo" >
+                         <img class="header__logo" src="/media/logo.svg" alt="logo" >
                     </a>
                    
                     <div class="header__logo-text-container">
