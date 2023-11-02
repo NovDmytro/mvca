@@ -13,7 +13,7 @@ class Container
 
     public function has(string $id): bool
     {
-        return is_callable($this->objects[$id]) || class_exists($id);
+        return isset($this->objects[$id]) || class_exists($id);
     }
 
     /* @param string $id
@@ -22,7 +22,7 @@ class Container
      */
     public function get(string $id): mixed
     {
-        return is_callable($this->objects[$id]) ? $this->objects[$id]() : $this->prepareObject($id);
+        return isset($this->objects[$id]) ? $this->objects[$id]() : $this->prepareObject($id);
     }
 
     /* @param string $class

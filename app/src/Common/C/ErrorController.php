@@ -2,7 +2,6 @@
 
 namespace Common\C;
 
-use Common\M;
 use Services\Config;
 use Services\Cookies;
 use Services\Output;
@@ -26,7 +25,7 @@ class ErrorController
 
 
 
-        header($request->SERVER('SERVER_PROTOCOL') . " 404 Not Found");
+       // header($request->SERVER('SERVER_PROTOCOL') . " 404 Not Found");
         $this->output->load("Common/Error404", $view, $view['config']['lang']);
     }
 }
