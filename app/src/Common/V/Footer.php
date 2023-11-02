@@ -34,8 +34,10 @@
                 </div>
                 <div class="mvca-terminal-navigation-buttons-set">
                     <svg data-terminal="up" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M193.782-753.217q-22.087 0-37.544-15.457-15.456-15.456-15.456-37.544 0-22.087 15.456-37.544 15.457-15.456 37.544-15.456h572.436q22.087 0 37.544 15.456 15.456 15.457 15.456 37.544 0 22.088-15.456 37.544-15.457 15.457-37.544 15.457H193.782ZM480-100.782q-22.087 0-37.544-15.456-15.457-15.457-15.457-37.544v-320.52l-53.955 53.956Q358.087-405.389 336-405.389q-22.087 0-37.044-14.957-14.957-14.957-14.957-37.044 0-22.087 14.957-37.044l143.435-143.435q7.696-7.696 17.522-11.609 9.826-3.913 20.087-3.913t20.087 3.913q9.826 3.913 17.522 11.609l143.435 143.435q14.957 14.957 14.957 37.044 0 22.087-14.957 37.044-14.957 14.957-37.044 14.957-22.087 0-37.044-14.957l-53.955-53.956v320.52q0 22.087-15.457 37.544-15.457 15.456-37.544 15.456Z"/></svg>
+                    <svg data-terminal="center" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48"><path d="M450-80v-800h60v800h-60Zm120-210v-380h100v380H570Zm-280 0v-380h100v380H290Z"/></svg>
                     <svg data-terminal="close" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M480-405.912 293.044-218.956Q278.087-203.999 256-203.999q-22.087 0-37.044-14.957-14.957-14.957-14.957-37.044 0-22.087 14.957-37.044L405.912-480 218.956-666.956Q203.999-681.913 203.999-704q0-22.087 14.957-37.044 14.957-14.957 37.044-14.957 22.087 0 37.044 14.957L480-554.088l186.956-186.956q14.957-14.957 37.044-14.957 22.087 0 37.044 14.957 14.957 14.957 14.957 37.044 0 22.087-14.957 37.044L554.088-480l186.956 186.956q14.957 14.957 14.957 37.044 0 22.087-14.957 37.044-14.957 14.957-37.044 14.957-22.087 0-37.044-14.957L480-405.912Z"/></svg>
                 </div>
+                
             </div>
             
         </div>
@@ -58,13 +60,33 @@
         const dragElem = terminal.querySelector('.resize-top-side');
         const navigation = terminal.querySelector('.mvca-terminal-navigation');
         const toTopButton = terminal.querySelector('[data-terminal="up"]');
-        const closeTopButton = terminal.querySelector('[data-terminal="close"]');
+        const centeringButton = terminal.querySelector('[data-terminal="center"]');
+        const closeButton = terminal.querySelector('[data-terminal="close"]');
 
+        const getCookiesObject = () => {
+            const obj = {};
+
+            document.cookie.split(';').forEach(cookie => {
+                const arrCook = cookie.split('=');
+                obj[arrCook[0].trim()] = arrCook[1];
+            })
+
+            return obj;
+        }
+        const cookiesObject = getCookiesObject();
+
+        // position buttons control START
         let initialY = 0;
-        let curentHeight = terminal.getBoundingClientRect().height;
+        let curentHeight = cookiesObject.terminalPos !== undefined ? cookiesObject.terminalPos : terminal.getBoundingClientRect().height;
         let prevHeight;
 
         const terminalMinHeight = parseInt(window.getComputedStyle(dragElem).height) + parseInt(window.getComputedStyle(navigation).height);
+
+            // memorize terminal height in COOKIE START
+            const terminalPositionMEMO = () => {
+                document.cookie = `terminalPos=${curentHeight}`;
+            }
+            // memorize terminal height in COOKIE END
 
         const toTopButtonControl = () => {
             if (curentHeight === window.innerHeight) {
@@ -85,24 +107,33 @@
                 curentHeight = window.innerHeight;
             }
             isButtonHide ? hideCloseButton() : revealCloseButton();
-
+            terminalPositionMEMO();
             terminal.style.cssText = `--mvca-terminal-height: ${curentHeight}px`;
             secondResize.style.cssText = `--body-margin-bottom: ${curentHeight}px`;
             toTopButtonControl();
         }
+
         const hideCloseButton = () => {
-            closeTopButton.classList.add('invisible');
+            closeButton.classList.add('invisible');
         }
         const revealCloseButton = () => {
-            closeTopButton.classList.remove('invisible');
+            closeButton.classList.remove('invisible');
         }
+
+        setTerminalHeight();
 
         const closeTerminal = (e) => {
             curentHeight = terminalMinHeight;
             setTerminalHeight();
             hideCloseButton();
         }
-        closeTopButton.onclick = closeTerminal;
+        closeButton.onclick = closeTerminal;
+
+        const centeringTerminal = () => {
+            curentHeight = Math.round(window.innerHeight / 2);
+            setTerminalHeight();
+        }
+        centeringButton.onclick = centeringTerminal;
 
         const toTopTerminal = () => {
             if (curentHeight === window.innerHeight) {
@@ -117,14 +148,19 @@
         }
         toTopButton.onclick = toTopTerminal;
 
+        window.addEventListener('keydown', (e) => {
+            console.log(e.code)
+            e.code === 'Escape' ? closeTerminal() : null;
+        })
+        // position buttons control END
+
         // drag functions START
         const draging = (e) => {
             e.preventDefault();
             const deference = initialY - e.clientY;
-            curentHeight = prevHeight + deference;
+            curentHeight = +prevHeight + deference;
             
             setTerminalHeight();
-            
         }
         const dragInit = (e) => {
             e.preventDefault();
