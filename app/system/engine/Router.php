@@ -9,6 +9,12 @@ class Router
 
     public function __construct($route,$errorPages)
     {
+        $this->preparePath($route);
+        $this->errorPages = $errorPages;
+    }
+
+    public function preparePath($route): void
+    {
         $routeLower='';
         if ($route) {
             $routeLower = mb_strtolower($route);
@@ -17,18 +23,19 @@ class Router
         if(!$this->path){
             $this->path=$route;
         }
-        $this->errorPages = $errorPages;
     }
+
 
     public function parsePath(): array|null
     {
         $parsedPath = $this->routeFromPath($this->path);
-        if (!$this->isValidPath($parsedPath['file'], $parsedPath['class'], $parsedPath['method'])) {
-            $this->path = $this->errorPages['404'];
+        if (!is_array($parsedPath) || !$this->isValidPath($parsedPath['file'], $parsedPath['class'], $parsedPath['method'])) {
+            $this->preparePath($this->errorPages['404']);
             $parsedPath = $this->routeFromPath($this->path);
         }
         return $parsedPath;
     }
+
 
     private function routeFromPath($path): array|null
     {
@@ -40,6 +47,8 @@ class Router
                 "method" => $pathDirs[2],
                 "class" => $pathDirs[0] . '\\C\\' . $pathDirs[1] . 'Controller',
                 "route" => $path,
+                "target" => 'src',
+
             ];
         }
         if (count($pathDirs) === 4 && $pathDirs[0] === "Core") {
@@ -48,6 +57,7 @@ class Router
                 "method" => $pathDirs[3],
                 "class" => $pathDirs[0] . '\\' . $pathDirs[1] . '\\C\\' . $pathDirs[2] . 'Controller',
                 "route" => $path,
+                "target" => 'core',
             ];
         }
         return null;
@@ -66,8 +76,7 @@ class Router
         $routes = include "system/routes.php";
         if (in_array($route, array_keys($routes))) {
             return $routes[$route];
-        } else {
-            return $this->errorPages["404"];
         }
+        return null;
     }
 }

@@ -66,6 +66,7 @@ $pathData = $router->parsePath();
 $method = $pathData['method'];
 require_once($pathData['file']);
 $config->set('route',$pathData['route']);
+$config->set('routeTarget',$pathData['target']);
 
 // Container
 /*
@@ -79,7 +80,7 @@ OR  Database::class => fn () => (function ($config) {$database = new Database($c
 $container = new Container([
     Config::class => fn () => $config,
    Cookies::class => fn () => new Cookies($config->get('cookiesExpiresTime')),
-    Output::class => fn () => new Output($config->get('defaultHeader'), $config->get('defaultFooter'), $config->get('defaultLanguage')),
+    Output::class => fn () => new Output($config),
   Database::class => fn () => (function ($config) {$database = new Database($config->get('DSN'));$database->init();return $database;})($config),
       Util::class => fn () => new Util(),
     Crypto::class => fn () => new Crypto($config->get('crypto_key')),

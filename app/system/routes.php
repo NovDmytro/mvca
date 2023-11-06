@@ -8,4 +8,7 @@ return [
     "" => "Index-Index-main",
     "in" => "Index-Index-main",
     "er" => "Common-Error-error404",
+
+    //common routes
+    "error404" => "Core-Errors-Error-e404",
 ];
