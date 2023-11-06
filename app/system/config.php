@@ -24,7 +24,7 @@ $settings['development'] = [
 
     //Router errors pages
     "routerErrorPages" => [
-        "404"=>"Common-Error-error404",
+        "404"=>"error404",
     ],
 
     "debug" => true,

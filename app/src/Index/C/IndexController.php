@@ -85,9 +85,9 @@ class IndexController
         *
         */
         $view['title'] = 'mvca';
-        $view['config']['language'] = 'en';
+        $view['config']['language'] = $this->config->get('defaultLanguage');
         $view['config']['charset'] = $this->config->get('charset');
-        $this->output->load("Index/Index", $view, ['language'=>'en']);
+        $this->output->load("Index/Index", $view, ['language'=>$this->config->get('defaultLanguage')]);
 
    }
 }
