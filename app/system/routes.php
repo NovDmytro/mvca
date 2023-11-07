@@ -6,5 +6,9 @@
 return [
     //    "URL" => "Folder-Controller-function",
     "" => "Index-Index-main",
-    "er" => "Common-Error-error405",
+    "in" => "Index-Index-main",
+    "er" => "Common-Error-error404",
+
+    //common routes
+    "error404" => "Core-Errors-Error-e404",
 ];

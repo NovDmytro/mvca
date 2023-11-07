@@ -2,22 +2,26 @@
 
 namespace Services;
 
+use Engine\Console;
 use Engine\Debug;
 
 class Output
 {
+    private Config $config;
     private string $header;
     private string $footer;
     private string $language;
     private object $translator;
 
-
-    public function __construct($defaultHeader, $defaultFooter, $defaultLanguage)
-    {
-        $this->header = $defaultHeader;
-        $this->footer = $defaultFooter;
-        $this->language = $defaultLanguage;
+    public function __construct(
+        Config   $config,
+    ){
+        $this->config = $config;
+        $this->header = $this->config->get('defaultHeader');
+        $this->footer = $this->config->get('defaultFooter');
+        $this->language = $this->config->get('defaultLanguage');
     }
+
 
     /**
      * @param string $route
@@ -43,31 +47,21 @@ class Output
             $content = $this->loadFile($this->header, $data);
         }
         $routePaths = explode('/', $route);
-        $content .= $this->loadFile('src/' . $routePaths[0] . '/V/' . $routePaths[1] . 'View.php', $data);
+
+        if ($this->config->get('routeTarget') == 'core') {
+            $content .= $this->loadFile('system/Core/' . $routePaths[0] . '/V/' . $routePaths[1] . 'View.php', $data);
+        } else {
+            $content .= $this->loadFile('src/' . $routePaths[0] . '/V/' . $routePaths[1] . 'View.php', $data);
+        }
+
         if ($this->footer) {
             $content .= $this->loadFile($this->footer, $data);
         }
 
         $debug=Debug::init();
         if($debug->enabled()){
-            ob_start();
-            var_dump($debug->getReports());
-            $content .= ob_get_clean();
-
-
-            $headers= "Received headers:\n";
-            foreach (getallheaders() as $name => $value) {
-                $headers.= "$name: $value\n";
-            }
-
-
-            $headers.= "\nSent headers (by PHP):\n";
-            foreach (headers_list() as $header) {
-                $headers.= $header . "\n";
-            }
-            $content .= '<pre>'.$headers.'</pre>';
-
-
+            $console=new Console($this->config);
+            $content .= $this->loadFile('system/Core/Console/V/Console.php', $console->render());
         }
 
         $content = $this->translateContent($content);
