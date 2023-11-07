@@ -1,6 +1,7 @@
 <?php
 
 namespace Index\C;
+use Engine\Debug;
 use Index\M;
 
 use Services\Config;
@@ -71,13 +72,22 @@ class IndexController
         $view['cryptoExample']=['encrypted'=>$encSecret,'decrypted'=>$decSecret];
 
         /*
+        * This is debug example
+        */
+        $debug = Debug::init();
+        if ($debug->enabled()) {
+            $debug->addReport($view['indexModel'], 'IndexController', 'Test');
+        }
+
+
+        /*
         * This is view load example
         *
         */
         $view['title'] = 'mvca';
-        $view['config']['language'] = 'en';
+        $view['config']['language'] = $this->config->get('defaultLanguage');
         $view['config']['charset'] = $this->config->get('charset');
-        $this->output->load("Index/Index", $view, ['language'=>'en']);
+        $this->output->load("Index/Index", $view, ['language'=>$this->config->get('defaultLanguage')]);
 
    }
 }

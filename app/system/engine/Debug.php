@@ -5,6 +5,7 @@ namespace Engine;
 class Debug
 {
     private static $instance;
+    private string $initTime;
     private bool $status;
     private array $reports = [];
 
@@ -12,14 +13,31 @@ class Debug
     {
         if (self::$instance === null) {
             self::$instance = new self();
+            self::$instance->initTime = microtime(true);
         }
         return self::$instance;
     }
 
-    public function setStatus($status=false): void
+    public function getInitTime(): string
     {
-        $this->status=$status;
+        return $this->initTime;
     }
+
+    public function getMemory(): string
+    {
+        return memory_get_usage();
+    }
+
+    public function getExecutionTime(): string
+    {
+        return microtime(true) - $this->initTime;
+    }
+
+    public function setStatus($status = false): void
+    {
+        $this->status = $status;
+    }
+
     public function enabled(): bool
     {
         return $this->status;
@@ -27,9 +45,9 @@ class Debug
 
     public function addReport($data, $source, $type): void
     {
-        $report['data']=$data;
-        $report['type']=$type;
-        $report['time']=microtime(true);
+        $report['data'] = $data;
+        $report['type'] = $type;
+        $report['time'] = microtime(true)-$this->initTime;
         $this->reports[$source][] = $report;
     }
 
@@ -42,6 +60,7 @@ class Debug
     {
         return $this->reports[$source];
     }
+
     public function getReports(): array|null
     {
         return $this->reports;
