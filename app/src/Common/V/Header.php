@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?=$config['language']?>">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="<?=$config['charset']?>">
     <meta name="viewport" content="Height=device-Height, initial-scale=1.0">
-
-    <title>Document</title>
+    <title><?=$title?></title>
     <link rel="icon" href="/media/Logo.ico">
 </head>
 <body> 
