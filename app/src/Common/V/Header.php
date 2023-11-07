@@ -3,58 +3,48 @@
 <head>
     <meta charset="<?=$config['charset']?>">
     <meta name="viewport" content="Height=device-Height, initial-scale=1.0">
+
     <title><?=$title?></title>
-    <link rel="icon" href="/media/Logo.ico">
+    <link rel="icon" href="./media/Logo.ico">
 </head>
 <body> 
     <style>
         /* fonts START */
         @font-face {
-            font-family: "JetBrains";
-            src: url("./media/fonts/JetBrainsMono-Thin.woff2");
+            font-family: "Roboto";
+            src: url("./media/fonts/Roboto-Thin.ttf");
             font-weight: 100;
         }
         @font-face {
-            font-family: "JetBrains";
-            src: url("./media/fonts/JetBrainsMono-ExtraLight.woff2");
-            font-weight: 200;
-        }
-        @font-face {
-            font-family: "JetBrains";
-            src: url("./media/fonts/JetBrainsMono-Light.woff2");
+            font-family: "Roboto";
+            src: url("./media/fonts/Roboto-Light.ttf");
             font-weight: 300;
         }
         @font-face {
-            font-family: "JetBrains";
-            src: url("./media/fonts/JetBrainsMono-Regular.woff2");
+            font-family: "Roboto";
+            src: url("./media/fonts/Roboto-Regular.ttf");
             font-weight: 400;
         }
         @font-face {
-            font-family: "JetBrains";
-            src: url("./media/fonts/JetBrainsMono-Medium.woff2");
+            font-family: "Roboto";
+            src: url("./media/fonts/Roboto-Medium.ttf");
             font-weight: 500;
         }
         @font-face {
-            font-family: "JetBrains";
-            src: url("./media/fonts/JetBrainsMono-SemiBold.woff2");
+            font-family: "Roboto";
+            src: url("./media/fonts/Roboto-Bold.ttf");
             font-weight: 700;
         }
         @font-face {
-            font-family: "JetBrains";
-            src: url("./media/fonts/JetBrainsMono-Bold.woff2");
-            font-weight: 800;
-        }
-        @font-face {
-            font-family: "JetBrains";
-            src: url("./media/fonts/JetBrainsMono-ExtraBold.woff2");
+            font-family: "Roboto";
+            src: url("./media/fonts/Roboto-Black.ttf");
             font-weight: 900;
         }
-        /* fonts END */
-
-        /* basic styles START */
+        /* fonts START */
+       /* basic styles START */
         * {
             box-sizing: border-box;
-            font-family: 'JetBrains', sans-serif;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
             scroll-behavior: smooth;
@@ -91,6 +81,7 @@
 
         main {
             margin-top: 120px;
+            padding: 0 25px;
         }
 
         /* header styles START */
@@ -110,6 +101,7 @@
             }
         }
 
+
         .header .container {
             position: relative;
             display: flex;
@@ -122,6 +114,7 @@
                 width: 100%;
             }
         }
+
 
         .header__logo-container {
             display: flex;
@@ -368,26 +361,17 @@
 
         /* terminal styles START */
         :root {
-            --mvca-terminal-bg-color: #2b2b2b;
-            --mvca-terminal-height: 0px;
-            --mvca-folder-text-color: #a9b7c6;
-            --mvca-folder-border-bottom: #2b2b2b;
-            --mvca-terminal-navigation-status-color: #a9b7c6;
-            --mvca-terminal-error-erea-bg-color: #000;
-            --mvca-terminal-error-text-color: #a9b7c6;
+            --mvca-terminal-bg-color: #181818;
+            --mvca-terminal-height: 550px;
+            --mvca-folder-text-color: #fff;
+            --mvca-folder-border-bottom: #181818;
+            --mvca-terminal-navigation-status-color: #fff;
 
-            --a: #2b2b2b;
-            --b: #a9b7c6;
-            --c: #cb602d;
-            --d: #ffc66d;
-
-            --body-margin-bottom: 0px;
+            --body-margin-bottom: 550px;
         }
-
         body {
             margin-bottom: var(--body-margin-bottom);
         }
-
         .mvca-terminal {
             position: fixed;
             bottom: 0px;
@@ -416,23 +400,23 @@
             width: fit-content;
             list-style-type: none;
         }
-
         .mvca-terminal-folder {
             padding: 5px;
             color: var(--mvca-folder-text-color);
             cursor: pointer;
-            border-bottom: 3px solid var(--mvca-folder-border-bottom);
+            border-bottom: 5px solid var(--mvca-folder-border-bottom);
             user-select: none;
         }
+        .mvca-terminal-folder.active {
+            --mvca-folder-border-bottom: rgb(55, 55, 206);
+        }
         .mvca-terminal-folder:hover {
-            --mvca-folder-border-bottom: #ffc66d;
-            --mvca-folder-text-color:#ffc66d;
+            --mvca-folder-border-bottom: rgba(55, 55, 206, 0.598);
         }
         .mvca-terminal-folder.active {
-            --mvca-folder-border-bottom: #cb602d;
+            --mvca-folder-border-bottom: rgb(55, 55, 206);
             cursor:auto;
         }
-
         .mvca-terminal-navigation-status-bar {
             display: flex;
             width: fit-content;
@@ -451,39 +435,25 @@
             fill: var(--mvca-terminal-navigation-status-color);
         }
         .mvca-terminal-navigation-buttons-set svg{
-            width: 24px;
-            height: 24px;
             fill: var(--mvca-terminal-navigation-status-color);
             cursor: pointer;
         }
-        .mvca-terminal-navigation-buttons-set [data-terminal="center"] {
-            transform: rotate(90deg);
-        }
-        .mvca-terminal-navigation-buttons-set svg:hover {
-            --mvca-terminal-navigation-status-color: #cb602d;
-        }
         .mvca-terminal-error-area {
             padding: 10px 25px;
-            background: var(--mvca-terminal-error-erea-bg-color);
+            background: #000;
         }
-
         .mvca-terminal-error-area pre {
-            color: var(--mvca-terminal-error-text-color);
+            color: white;
         }
-
-
         /* terminal styles END */
 
         /* service styles MUST BE IN THE END OF ALL STYLES */
-
         .hide {
             display: none;
         }
-
         .invisible {
             visibility: hidden;
         }
-
         .revertTo180Deg {
             transform: rotate(180deg);
         }
@@ -493,7 +463,7 @@
             <div class="container">
                 <div class="header__logo-container">
                     <a class="header__logo-link" href="#">
-                         <img class="header__logo" src="/media/logo.svg" alt="logo" >
+                         <img class="header__logo" src="./media/logo.svg" alt="logo" >
                     </a>
                    
                     <div class="header__logo-text-container">
@@ -553,4 +523,3 @@
                 </nav>
             </div>
         </header>
-        <main>

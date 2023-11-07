@@ -1,4 +1,4 @@
-
+<main>
     <h2><?= $headText?></h2>
 
     <?= $requestExample?>
@@ -16,3 +16,4 @@
         var_dump($cryptoExample);
         ?>
     </pre>
+</main>

@@ -1,9 +1,8 @@
-</main>
 <footer class="footer">
             <div class="container">
                 <div class="footer__logo-container">
                     <a class="footer__logo-link" href="#">
-                         <img class="footer__logo" src="/media/logo.svg" alt="logo" >
+                         <img class="footer__logo" src="./media/logo.svg" alt="logo" >
                     </a>
                    
                     <div class="footer__logo-text-container">
