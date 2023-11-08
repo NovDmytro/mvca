@@ -12,42 +12,42 @@
         /* fonts START */
         @font-face {
             font-family: "JetBrains";
-            src: url("./media/fonts/JetBrainsMono-Thin.woff2");
+            src: url("/media/fonts/JetBrainsMono-Thin.woff2");
             font-weight: 100;
         }
         @font-face {
             font-family: "JetBrains";
-            src: url("./media/fonts/JetBrainsMono-ExtraLight.woff2");
+            src: url("/media/fonts/JetBrainsMono-ExtraLight.woff2");
             font-weight: 200;
         }
         @font-face {
             font-family: "JetBrains";
-            src: url("./media/fonts/JetBrainsMono-Light.woff2");
+            src: url("/media/fonts/JetBrainsMono-Light.woff2");
             font-weight: 300;
         }
         @font-face {
             font-family: "JetBrains";
-            src: url("./media/fonts/JetBrainsMono-Regular.woff2");
+            src: url("/media/fonts/JetBrainsMono-Regular.woff2");
             font-weight: 400;
         }
         @font-face {
             font-family: "JetBrains";
-            src: url("./media/fonts/JetBrainsMono-Medium.woff2");
+            src: url("/media/fonts/JetBrainsMono-Medium.woff2");
             font-weight: 500;
         }
         @font-face {
             font-family: "JetBrains";
-            src: url("./media/fonts/JetBrainsMono-SemiBold.woff2");
+            src: url("/media/fonts/JetBrainsMono-SemiBold.woff2");
             font-weight: 700;
         }
         @font-face {
             font-family: "JetBrains";
-            src: url("./media/fonts/JetBrainsMono-Bold.woff2");
+            src: url("/media/fonts/JetBrainsMono-Bold.woff2");
             font-weight: 800;
         }
         @font-face {
             font-family: "JetBrains";
-            src: url("./media/fonts/JetBrainsMono-ExtraBold.woff2");
+            src: url("/media/fonts/JetBrainsMono-ExtraBold.woff2");
             font-weight: 900;
         }
         /* fonts END */
@@ -366,115 +366,6 @@
             }
         }
 
-
-        /* terminal styles START */
-        :root {
-            --mvca-terminal-bg-color: #2b2b2b;
-            --mvca-terminal-height: 0px;
-            --mvca-folder-text-color: #a9b7c6;
-            --mvca-folder-border-bottom: #2b2b2b;
-            --mvca-terminal-navigation-status-color: #a9b7c6;
-            --mvca-terminal-error-erea-bg-color: #000;
-            --mvca-terminal-error-text-color: #a9b7c6;
-
-            --a: #2b2b2b;
-            --b: #a9b7c6;
-            --c: #cb602d;
-            --d: #ffc66d;
-
-            --body-margin-bottom: 0px;
-        }
-
-        body {
-            margin-bottom: var(--body-margin-bottom);
-        }
-
-        .mvca-terminal {
-            position: fixed;
-            bottom: 0px;
-            display: grid;
-            grid-template: 10px fit-content(100%) auto / 100vw;
-            width: 100vw;
-            height: var(--mvca-terminal-height);
-            background-color: var(--mvca-terminal-bg-color); 
-        }
-        .mvca-terminal .resize-top-side {
-            width: 100%;
-            height: 10px;
-            background-color: var(--mvca-terminal-bg-color);
-            cursor: row-resize;
-        }
-        .mvca-terminal-navigation {
-            padding-right: 50px;
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-        }
-        .mvca-terminal-folders {
-            padding: 0 25px;
-            display: flex;
-            gap: 0 10px;
-            width: fit-content;
-            list-style-type: none;
-        }
-
-        .mvca-terminal-folder {
-            padding: 5px;
-            color: var(--mvca-folder-text-color);
-            cursor: pointer;
-            border-bottom: 3px solid var(--mvca-folder-border-bottom);
-            user-select: none;
-        }
-        .mvca-terminal-folder:hover {
-            --mvca-folder-border-bottom: #ffc66d;
-            --mvca-folder-text-color:#ffc66d;
-        }
-        .mvca-terminal-folder.active {
-            --mvca-folder-border-bottom: #cb602d;
-            cursor:auto;
-        }
-
-        .mvca-terminal-navigation-status-bar {
-            display: flex;
-            width: fit-content;
-            gap: 0 10px;
-            margin-bottom: 5px;
-        }
-        .mvca-terminal-navigation-status {
-            display: flex;
-            align-items: center;
-            gap: 0 3px
-        }
-        .mvca-terminal-navigation-status span {
-            color: var(--mvca-terminal-navigation-status-color);
-        }
-        .mvca-terminal-navigation-status svg {
-            fill: var(--mvca-terminal-navigation-status-color);
-        }
-        .mvca-terminal-navigation-buttons-set svg{
-            width: 24px;
-            height: 24px;
-            fill: var(--mvca-terminal-navigation-status-color);
-            cursor: pointer;
-        }
-        .mvca-terminal-navigation-buttons-set [data-terminal="center"] {
-            transform: rotate(90deg);
-        }
-        .mvca-terminal-navigation-buttons-set svg:hover {
-            --mvca-terminal-navigation-status-color: #cb602d;
-        }
-        .mvca-terminal-error-area {
-            padding: 10px 25px;
-            background: var(--mvca-terminal-error-erea-bg-color);
-        }
-
-        .mvca-terminal-error-area pre {
-            color: var(--mvca-terminal-error-text-color);
-        }
-
-
-        /* terminal styles END */
-
         /* service styles MUST BE IN THE END OF ALL STYLES */
 
         .hide {
@@ -503,7 +394,7 @@
                     </div>
                 </div>
                 <div class="burger">
-                    <img src="./media/mvca-icon.svg" alt="" class="burger__img">
+                    <img src="/media/mvca-icon.svg" alt="" class="burger__img">
                 </div>
 
                 <script>
