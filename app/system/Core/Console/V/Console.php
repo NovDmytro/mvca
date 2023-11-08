@@ -31,7 +31,7 @@
     <?php foreach ($sources as $source) : ?>
         <div class="mvca-terminal-error-area source-<?= $source ?> <?= $firstActive ?>" style="color:#ffffff">
             <?php foreach ($reports[$source] as $report) : ?>
-                <b><?= $report['type'] ?></b> [<?= round($report['time'],6) ?>] -
+                [<?= number_format($report['time'], 6, '.', '') ?>] <b><?= $report['type'] ?></b> - 
                 <?php if (is_array($report['data'])) : ?>
                     <?php var_dump($report['data']); ?>
                 <?php else : ?>

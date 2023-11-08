@@ -1,5 +1,4 @@
 <?php
-
 namespace Services;
 
 use Engine\Debug;
@@ -13,8 +12,15 @@ class Database
     private string $user;
     private string $pass;
     private string $database;
+    private string $charset = 'UTF8';
 
-    public function __construct($DSN)
+    /**
+     * @param string $DSN
+     *   Examples:
+     *     mariadb or mysql - "mysql://user:pass@database:3306/table?charset=UTF8"
+     *     postgresql - "pgsql://user:pass@database:5432/table?charset=UTF8"
+     */
+    public function __construct(string $DSN)
     {
         $DSNParts = parse_url($DSN);
         $this->scheme = $DSNParts['scheme'];
@@ -23,6 +29,12 @@ class Database
         $this->user = $DSNParts['user'];
         $this->pass = $DSNParts['pass'];
         $this->database = ltrim($DSNParts['path'], '/');
+        if (isset($DSNParts['query'])) {
+            parse_str($DSNParts['query'], $queryParameters);
+            if ($queryParameters['charset']) {
+                $this->charset = $queryParameters['charset'];
+            }
+        }
     }
 
     /**
@@ -39,10 +51,8 @@ class Database
         if ($debug->enabled()) {
             $debug->addReport($sql, 'Database', 'Info');
         }
-
         $statement = $this->connection->prepare($sql);
         $statement->setFetchMode(\PDO::FETCH_ASSOC);
-
         if ((count($params, COUNT_RECURSIVE) - count($params)) > 0) {
             foreach ($params as $param) {
                 $query = $statement->execute($param);
@@ -50,15 +60,12 @@ class Database
         } else {
             $query = $statement->execute($params);
         }
-
         if ($debug->enabled()) {
             if ($statement->errorCode() !== '00000') {
                 $debug->addReport($statement->errorInfo(), 'Database', 'FatalError');
             }
         }
-
         $data = array();
-
         if ($query) {
             while ($row = $statement->fetch()) {
                 $data[] = $row;
@@ -88,27 +95,27 @@ class Database
         try {
             if ($this->scheme == 'mysql' ||
                 $this->scheme == 'mysqli' ||
-                $this->scheme == 'mariadb') { // mysqli & mariadb - aliases, do not use them
+                $this->scheme == 'mariadb') {
                 $connection = new \PDO(
                     'mysql:host=' . $this->host .
                     ';port=' . $this->port .
-                    ';dbname=' . $this->database,
+                    ';dbname=' . $this->database .
+                    ';charset=' . $this->charset,
                     $this->user,
                     $this->pass
                 );
-                $connection->exec("SET NAMES 'utf8';SET CHARACTER SET utf8;SET CHARACTER_SET_CONNECTION=utf8");
                 $this->connection = $connection;
 
             } elseif ($this->scheme == 'pgsql' ||
                 $this->scheme == 'postgresql' ||
                 $this->scheme == 'postgres' ||
-                $this->scheme == 'postgre') { // postgresql & postgres & postgre - aliases, do not use them
+                $this->scheme == 'postgre') {
                 $connection = new \PDO(
                     'pgsql:host=' . $this->host .
                     ';port=' . $this->port .
                     ';dbname=' .
                     $this->database .
-                    ";options='--client_encoding=UTF8'",
+                    ";options='--client_encoding=" . $this->charset . "'",
                     $this->user,
                     $this->pass
                 );
