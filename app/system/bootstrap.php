@@ -69,14 +69,6 @@ $config->set('route',$pathData['route']);
 $config->set('routeTarget',$pathData['target']);
 
 // Container
-/*
- * working examples:
- *  Config::class => fn () => $config,     //Not lazy load
- *  Crypto::class => fn () => new Crypto($config->get('crypto_key')),     //Lazy load
- *  Test::class => function () {$test = new Test(1);$test->two(2);return $test;},    //Lazy load
- *  Database::class => function () use ($config) {$database = new Database($config->get('DSN'));$database->init();return $database;}, //Lazy load with use
-OR  Database::class => fn () => (function ($config) {$database = new Database($config->get('DSN'));$database->init();return $database;})($config),
- */
 $container = new Container([
     Config::class => fn () => $config,
    Cookies::class => fn () => new Cookies($config->get('cookiesExpiresTime')),

@@ -41,6 +41,16 @@ class Router
     {
         $path = preg_replace('%[^A-Za-z0-9._-]%u', '', $path);
         $pathDirs = explode('-', $this->path);
+        if (count($pathDirs) === 2) {
+            return [
+                "file" => 'src/' . $pathDirs[0] . '/C/' . $pathDirs[0] . 'Controller.php',
+                "method" => $pathDirs[1],
+                "class" => $pathDirs[0] . '\\C\\' . $pathDirs[0] . 'Controller',
+                "route" => $path,
+                "target" => 'src',
+
+            ];
+        }
         if (count($pathDirs) === 3) {
             return [
                 "file" => 'src/' . $pathDirs[0] . '/C/' . $pathDirs[1] . 'Controller.php',
