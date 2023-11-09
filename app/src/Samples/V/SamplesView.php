@@ -8,5 +8,11 @@ IMPORTANT! Basic php global variables $_GET, $_POST, $_COOKIES, $_SERVER is unse
 <a href="/Samples-Requests-serverSamples">SERVER Request samples</a><br>
 
 
+
 <br>
 <br>
+<h1>Cookies</h1>
+Framework has service to work with cookies.<br>
+
+<a href="/Samples-Cookies-main">Cookies samples</a><br>
+

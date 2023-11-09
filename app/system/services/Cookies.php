@@ -4,7 +4,7 @@ namespace Services;
 
 class Cookies
 {
-    private array $cookies;
+    private $cookies;
     private int $expiresTime;
 
     public function __construct($expiresTime)
@@ -15,7 +15,7 @@ class Cookies
     public function get(string $name)
     {
         $request = Request::init();
-        if (!$this->cookies[$name]) {
+        if (!isset($this->cookies[$name])) {
             $this->cookies[$name] = $request->COOKIE($name);
         }
         return $this->cookies[$name];
