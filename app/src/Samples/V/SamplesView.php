@@ -9,4 +9,9 @@ IMPORTANT! Basic php global variables $_GET, $_POST, $_COOKIES, $_SERVER is unse
 
 
 <br>
+<br><br>
 <br>
+<h1>Basic MVC example</h1>
+This is ultra light basic sample how to work with this mvc<br>
+<a href="/Samples-Basics-main">Show sample</a><br>
+
