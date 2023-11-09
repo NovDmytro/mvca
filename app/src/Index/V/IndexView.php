@@ -1,7 +1,7 @@
 
     <h2><?= $headText?></h2>
 
-    <?= $requestExample?>
+
 
     <h3>Model example</h3>
     <pre>
