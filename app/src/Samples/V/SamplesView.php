@@ -9,10 +9,15 @@ IMPORTANT! Basic php global variables $_GET, $_POST, $_COOKIES, $_SERVER is unse
 
 
 
-<br>
-<br>
-<h1>Cookies</h1>
+<br><br>
+<h1>Cookies</h1><br>
 Framework has service to work with cookies.<br>
-
 <a href="/Samples-Cookies-main">Cookies samples</a><br>
+
+
+<br><br>
+<h1>Basic MVC example</h1>
+This is ultra light basic sample how to work with this mvc<br>
+<a href="/Samples-Basics-main">Show sample</a><br>
+
 
