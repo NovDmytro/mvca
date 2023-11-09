@@ -49,7 +49,7 @@ class Database
     {
         $debug = Debug::init();
         if ($debug->enabled()) {
-            $debug->addReport($sql, 'Database', 'Info');
+            $debug->addReport('SQL: "' . $sql . '" PARAMS: ' . json_encode($params), 'Database', 'Info');
         }
         $statement = $this->connection->prepare($sql);
         $statement->setFetchMode(\PDO::FETCH_ASSOC);

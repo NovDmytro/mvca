@@ -5,7 +5,6 @@ use Engine\Debug;
 use Index\M;
 
 use Services\Config;
-use Services\Database;
 use Services\Output;
 use Services\Cookies;
 use Services\Request;
@@ -14,6 +13,13 @@ use Services\Crypto;
 
 class IndexController
 {
+    private M\IndexModel $indexModel;
+    private Config $config;
+    private Output $output;
+    private Cookies $cookies;
+    private Util $util;
+    private Crypto $crypto;
+
     public function __construct(
         //Model example
         M\IndexModel $indexModel,

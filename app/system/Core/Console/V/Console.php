@@ -144,7 +144,7 @@
             <?php foreach ($reports[$source] as $report) : ?>
                 [<?= number_format($report['time'], 6, '.', '') ?>] <b><?= $report['type'] ?></b> - 
                 <?php if (is_array($report['data'])) : ?>
-                    <?php var_dump($report['data']); ?>
+                    <?= json_encode($report['data']); ?>
                 <?php else : ?>
                     <?= $report['data'] ?>
                 <?php endif ?>
@@ -250,7 +250,6 @@
     toTopButton.onclick = toTopconsole;
 
     window.addEventListener('keydown', (e) => {
-        console.log(e.code)
         e.code === 'Escape' ? closeconsole() : null;
     })
     // position buttons control END
