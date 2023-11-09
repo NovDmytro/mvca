@@ -1,0 +1,47 @@
+<h2>SERVER Requests samples</h2>
+
+Results:<br>
+$request->SERVER('REDIRECT_STATUS') is: <?= $server['REDIRECT_STATUS'] ?><br>
+$request->SERVER('HTTP_HOST') is: <?= $server['HTTP_HOST'] ?><br>
+$request->SERVER('HTTP_CONNECTION') is: <?= $server['HTTP_CONNECTION'] ?><br>
+$request->SERVER('HTTP_CACHE_CONTROL') is: <?= $server['HTTP_CACHE_CONTROL'] ?><br>
+$request->SERVER('HTTP_SEC_CH_UA') is: <?= $server['HTTP_SEC_CH_UA'] ?><br>
+$request->SERVER('HTTP_SEC_CH_UA_MOBILE') is: <?= $server['HTTP_SEC_CH_UA_MOBILE'] ?><br>
+$request->SERVER('HTTP_SEC_CH_UA_PLATFORM') is: <?= $server['HTTP_SEC_CH_UA_PLATFORM'] ?><br>
+$request->SERVER('HTTP_DNT') is: <?= $server['HTTP_DNT'] ?><br>
+$request->SERVER('HTTP_UPGRADE_INSECURE_REQUESTS') is: <?= $server['HTTP_UPGRADE_INSECURE_REQUESTS'] ?><br>
+$request->SERVER('HTTP_USER_AGENT') is: <?= $server['HTTP_USER_AGENT'] ?><br>
+$request->SERVER('HTTP_ACCEPT') is: <?= $server['HTTP_ACCEPT'] ?><br>
+$request->SERVER('HTTP_SEC_FETCH_SITE') is: <?= $server['HTTP_SEC_FETCH_SITE'] ?><br>
+$request->SERVER('HTTP_SEC_FETCH_MODE') is: <?= $server['HTTP_SEC_FETCH_MODE'] ?><br>
+$request->SERVER('HTTP_SEC_FETCH_USER') is: <?= $server['HTTP_SEC_FETCH_USER'] ?><br>
+$request->SERVER('HTTP_SEC_FETCH_DEST') is: <?= $server['HTTP_SEC_FETCH_DEST'] ?><br>
+$request->SERVER('HTTP_REFERER') is: <?= $server['HTTP_REFERER'] ?><br>
+$request->SERVER('HTTP_ACCEPT_ENCODING') is: <?= $server['HTTP_ACCEPT_ENCODING'] ?><br>
+$request->SERVER('HTTP_ACCEPT_LANGUAGE') is: <?= $server['HTTP_ACCEPT_LANGUAGE'] ?><br>
+$request->SERVER('HTTP_COOKIE') is: <?= $server['HTTP_COOKIE'] ?><br>
+$request->SERVER('PATH') is: <?= $server['PATH'] ?><br>
+$request->SERVER('SERVER_SIGNATURE') is: <?= $server['SERVER_SIGNATURE'] ?><br>
+$request->SERVER('SERVER_SOFTWARE') is: <?= $server['SERVER_SOFTWARE'] ?><br>
+$request->SERVER('SERVER_NAME') is: <?= $server['SERVER_NAME'] ?><br>
+$request->SERVER('SERVER_ADDR') is: <?= $server['SERVER_ADDR'] ?><br>
+$request->SERVER('SERVER_PORT') is: <?= $server['SERVER_PORT'] ?><br>
+$request->SERVER('REMOTE_ADDR') is: <?= $server['REMOTE_ADDR'] ?><br>
+$request->SERVER('DOCUMENT_ROOT') is: <?= $server['DOCUMENT_ROOT'] ?><br>
+$request->SERVER('REQUEST_SCHEME') is: <?= $server['REQUEST_SCHEME'] ?><br>
+$request->SERVER('CONTEXT_PREFIX') is: <?= $server['CONTEXT_PREFIX'] ?><br>
+$request->SERVER('CONTEXT_DOCUMENT_ROOT') is: <?= $server['CONTEXT_DOCUMENT_ROOT'] ?><br>
+$request->SERVER('SERVER_ADMIN') is: <?= $server['SERVER_ADMIN'] ?><br>
+$request->SERVER('SCRIPT_FILENAME') is: <?= $server['SCRIPT_FILENAME'] ?><br>
+$request->SERVER('REMOTE_PORT') is: <?= $server['REMOTE_PORT'] ?><br>
+$request->SERVER('REDIRECT_URL') is: <?= $server['REDIRECT_URL'] ?><br>
+$request->SERVER('REDIRECT_QUERY_STRING') is: <?= $server['REDIRECT_QUERY_STRING'] ?><br>
+$request->SERVER('GATEWAY_INTERFACE') is: <?= $server['GATEWAY_INTERFACE'] ?><br>
+$request->SERVER('SERVER_PROTOCOL') is: <?= $server['SERVER_PROTOCOL'] ?><br>
+$request->SERVER('REQUEST_METHOD') is: <?= $server['REQUEST_METHOD'] ?><br>
+$request->SERVER('QUERY_STRING') is: <?= $server['QUERY_STRING'] ?><br>
+$request->SERVER('REQUEST_URI') is: <?= $server['REQUEST_URI'] ?><br>
+$request->SERVER('SCRIPT_NAME') is: <?= $server['SCRIPT_NAME'] ?><br>
+$request->SERVER('PHP_SELF') is: <?= $server['PHP_SELF'] ?><br>
+$request->SERVER('REQUEST_TIME_FLOAT') is: <?= $server['REQUEST_TIME_FLOAT'] ?><br>
+$request->SERVER('REQUEST_TIME') is: <?= $server['REQUEST_TIME'] ?><br>
