@@ -113,6 +113,7 @@ class StorageController
 ## Routing
 MVCA has `app/public/.htaccess` that converts first 7 folders except exceptions into query params `http://localhost:2121/route/var1/var2/var3/var4/var5/var6/`
 First folder is used by framework, rest is under your control. Also you can add any custom query params in traditional way like this: `http://localhost:2121/route/var1/var2?something=123`
+
 In previous View example we visit code with url `http://localhost:2121/Products-Storage-main/1`
 To make url looks better open `app/system/routes.php` and add this line in return array:
 `"products" => "Products-Storage-main",`
