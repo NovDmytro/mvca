@@ -1,12 +1,18 @@
-<h1>Requests</h1>
-This is requests overlay samples, that handle $_GET, $_POST, $_COOKIES, $_SERVER and custom JSON requests.<br>
-IMPORTANT! Basic php global variables $_GET, $_POST, $_COOKIES, $_SERVER is unsetted while Request Service working to serve additional safety for you.<br>
-
-<a href="/Samples-Requests-getSamples">GET Request samples</a><br>
-<a href="/Samples-Requests-postSamples">POST Request samples</a><br>
-<a href="/Samples-Requests-jsonSamples">JSON Request samples</a><br>
-<a href="/Samples-Requests-serverSamples">SERVER Request samples</a><br>
-
-
-<br>
-<br>
+<section class="sample">
+<h1 class="sample__header">MVCA Requests</h1>
+<div class="sample__container">
+    <div class="sample-request__left">
+        <p class="sample__text sample__info">MVCA Requests handle <span class="sample__text-important">$_GET</span>, <span class="sample__text-important">$_POST</span>, <span class="sample__text-important">$_COOKIES</span>, <span class="sample__text-important">$_SERVER</span> and <span class="sample__text-important">custom JSON</span>  requests.</p>
+        <div class="sample__links-container">
+            <a class="sample__link" href="/Samples-Requests-getSamples">GET Request samples</a>
+            <a class="sample__link" href="/Samples-Requests-postSamples">POST Request samples</a>
+            <a class="sample__link" href="/Samples-Requests-jsonSamples">JSON Request samples</a>
+            <a class="sample__link" href="/Samples-Requests-serverSamples">SERVER Request samples</a>
+        </div>
+    </div>
+    <div class="sample-request__right">
+        <p class="sample__text"><span class="sample__text warning">IMPORTANT!</span> MVCA Requests provide unsetting the basic php global variables, such as <span class="sample__text important">$_GET</span>, <span class="sample__text important">$_POST</span>, <span class="sample__text important">$_COOKIES</span>, <span class="sample__text important">$_SERVER</span> to serve additional safety.</p>
+    </div>
+    
+</div>
+</section>
