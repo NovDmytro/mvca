@@ -2,8 +2,8 @@
 
 namespace Samples\C;
 
-use Services\Config;
-use Services\Output;
+use Engine\Config;
+use Engine\Output;
 use Services\Cookies;
 
 
