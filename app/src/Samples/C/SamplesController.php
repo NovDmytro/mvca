@@ -4,8 +4,8 @@ namespace Samples\C;
 use Engine\Debug;
 use Samples\M;
 
-use Services\Config;
-use Services\Output;
+use Engine\Config;
+use Engine\Output;
 
 class SamplesController
 {

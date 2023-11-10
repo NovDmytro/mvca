@@ -2,7 +2,7 @@
 
 namespace Engine;
 
-use Services\Config;
+use Engine\Config;
 
 class Console
 {
