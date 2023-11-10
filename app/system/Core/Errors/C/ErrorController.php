@@ -1,8 +1,8 @@
 <?php
 
 namespace Core\Errors\C;
-use Services\Config;
-use Services\Output;
+use Engine\Config;
+use Engine\Output;
 use Services\Request;
 
 class ErrorController

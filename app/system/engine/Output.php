@@ -1,6 +1,6 @@
 <?php
 
-namespace Services;
+namespace Engine;
 
 use Engine\Console;
 use Engine\Debug;
@@ -8,8 +8,8 @@ use Engine\Debug;
 class Output
 {
     private Config $config;
-    private string $header;
-    private string $footer;
+    private mixed $header;
+    private mixed $footer;
     private string $language;
     private object $translator;
 
@@ -38,7 +38,7 @@ class Output
         if (isset($settings['footer'])) {
             $this->footer = $settings['footer'];
         }
-        if (isset($settings['language'])) {
+        if (isset($settings['language']) && in_array($settings['language'], $this->config->get('allowedLanguages'))) {
             $this->language = $settings['language'];
         }
         $content = '';
@@ -51,6 +51,7 @@ class Output
         if ($this->config->get('routeTarget') == 'core') {
             $content .= $this->loadFile('system/Core/' . $routePaths[0] . '/V/' . $routePaths[1] . 'View.php', $data);
         } else {
+            echo 'src/' . $routePaths[0] . '/V/' . $routePaths[1] . 'View.php';
             $content .= $this->loadFile('src/' . $routePaths[0] . '/V/' . $routePaths[1] . 'View.php', $data);
         }
 

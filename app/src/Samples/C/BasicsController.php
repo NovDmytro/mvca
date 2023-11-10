@@ -3,8 +3,8 @@
 namespace Samples\C; //Samples - is the main folder src/Samples; C - is the controllers folder src/Samples/C
 
 use Samples\M;         //Models namespace
-use Services\Config;   //Class that contains all configuration data
-use Services\Output;   //Class that work with view
+use Engine\Config;   //Class that contains all configuration data
+use Engine\Output;   //Class that work with view
 
 /* Unused in this sample, but can be added:
 use Engine\Debug;      //Singleton Class that allows to have additional debug
