@@ -43,57 +43,57 @@ class Request
         return self::$instance;
     }
 
-    public function GET(string $key, $type = 'varchar', $case = '')
+    public function GET(string $key, $filter = 'varchar', $case = '')
     {
         if (isset($this->GET[$key]) && $this->GET[$key] !== null) {
-            return $this->filter(rawurldecode($this->GET[$key]), $type, $case);
+            return $this->filter(rawurldecode($this->GET[$key]), $filter, $case);
         }
     }
 
-    public function POST(string $key, $type = 'varchar', $case = '')
+    public function POST(string $key, $filter = 'varchar', $case = '')
     {
         if (isset($this->POST[$key]) && $this->POST[$key] !== null) {
-            return $this->filter($this->POST[$key], $type, $case);
+            return $this->filter($this->POST[$key], $filter, $case);
         }
     }
 
-    public function COOKIE(string $key, $type = 'varchar', $case = '')
+    public function COOKIE(string $key, $filter = 'varchar', $case = '')
     {
         if (isset($this->COOKIE[$key]) && $this->COOKIE[$key] !== null) {
-            return $this->filter($this->COOKIE[$key], $type, $case);
+            return $this->filter($this->COOKIE[$key], $filter, $case);
         }
     }
 
-    public function SERVER(string $key, $type = 'varchar', $case = '')
+    public function SERVER(string $key, $filter = 'varchar', $case = '')
     {
         if (isset($this->SERVER[$key]) && $this->SERVER[$key] !== null) {
-            return $this->filter($this->SERVER[$key], $type, $case);
+            return $this->filter($this->SERVER[$key], $filter, $case);
         }
     }
 
-    public function JSON(string $key, $type = 'varchar', $case = '')
+    public function JSON(string $key, $filter = 'varchar', $case = '')
     {
         if (isset($this->JSON[$key]) && $this->JSON[$key] !== null) {
-            return $this->filter($this->JSON[$key], $type, $case);
+            return $this->filter($this->JSON[$key], $filter, $case);
         }
     }
 
-    private function filter($out, $type, $case): string
+    private function filter($out, $filter, $case): string
     {
         $out = $this->sanitize($out);
-        if ($type == 'int') {
+        if ($filter == 'int') {
             $out = $this->intFilter($out);
-        } elseif ($type == 'dec') {
+        } elseif ($filter == 'dec') {
             $out = $this->decFilter($out);
-        } elseif ($type == 'hex') {
+        } elseif ($filter == 'hex') {
             $out = $this->hexFilter($out);
-        } elseif ($type == 'email') {
+        } elseif ($filter == 'email') {
             $out = $this->emailFilter($out);
-        } elseif ($type == 'latin') {
+        } elseif ($filter == 'latin') {
             $out = $this->latinFilter($out);
-        } elseif ($type == 'varchar') {
+        } elseif ($filter == 'varchar') {
             $out = $this->varcharFilter($out);
-        } elseif ($type == 'html') {
+        } elseif ($filter == 'html') {
             $out = $this->htmlFilter($out);
         } else {
             unset($out);
