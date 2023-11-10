@@ -7,4 +7,6 @@ mariadb/*
 postgresql/*
 !postgresql/.gitkeep
 
+.idea
+.gitignore
 
