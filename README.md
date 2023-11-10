@@ -38,7 +38,7 @@ There are need minimum but not full requirement modules/extensions/configs: **??
 This is MVC example with basic functionality, to access this code use URL http://localhost:2121/Products-Storage-main/1
 
 ### Model: app/src/Products/M/StorageModel.php
-<?php
+`<?php
 namespace Products\M;
 use Services\Database;
 class StorageModel
@@ -59,10 +59,10 @@ class StorageModel
         );
         return $query;
     }
-}
+}`
 
 ### Controller: app/src/Products/C/StorageController.php
-<?php
+`<?php
 namespace Products\C;
 use Products\M;
 use Engine\Config;
@@ -90,10 +90,10 @@ class StorageController
         $view['config']['charset'] = $this->config->get('charset');
         $this->output->load("Products/Storage", $view, ['language' => $this->cookies->get('language')]);
     }
-}
+}`
 
 ### View: app/src/Products/V/StorageView.php
-<?php
+`<?php
 /**
  * @var string $title
  * @var array $storage
@@ -102,7 +102,7 @@ class StorageController
 <h1><?= $title ?></h1>
 <?php foreach ($storage as $key => $value) : ?>
     <?= $key ?> = <?= $value ?><br>
-<?php endforeach ?>
+<?php endforeach ?>`
 
 ## Routing
 In previous example we visit code with url http://localhost:2121/Products-Storage-main/1
@@ -131,11 +131,11 @@ To translate something you need this steps to do:
     'defaultLanguage' => 'uk',
     'allowedLanguages' => ['en','uk'],
 2. Open app/system/translations/ and create this files en.php, uk.php. File content example:
-<?php
+`<?php
 return [
     "CURLANG" => "English",
     "Translate me" => "Custom translation example",
-];
+];`
 
 Then in view, constructor, model, or database type {{Translate me}} and this will translates to: Custom translation example
 
@@ -147,11 +147,11 @@ You can edit app/system/bootstrap.php and add some custom functionality, this fi
 
 ### Output
 To send data from controller to view you need to use Output service. To wire cookies use container (add to __construct: Output $output)
-$this->output->load(
+`$this->output->load(
 string 'route',
 array 'data',
 array 'settings'
- );
+ );`
 
 'route' - is your view file route, for example: 'Folder/Example' for app/src/Folder/V/ExampleView.php
 'data' - is data array to send to view
@@ -161,11 +161,11 @@ array 'settings'
 By default, MVCA has disabled $_GET, $_POST, $_SERVER, $_COOKIES. Instead of them you need to use this singleton:
 Before use add this singleton init line: $request = Request::init(); Then you can use:
 
-$request->GET(
+`$request->GET(
 string 'key',
 string 'filter',
 string 'case'
-)
+)`
 
 'key' - is your query key
 'filter' - not requered, is one of this filters: 'int', 'dec', 'hex', 'email', 'latin', 'varchar', 'html'. Default is 'varchar'
@@ -179,20 +179,20 @@ $request->JSON is used to catch JSON POST data
 MVCA has simple cookies service that can set, get and delete some client's cookies. To wire cookies use container (add to __construct: Cookies $cookies)
 
 Set new cookie:
-$this->cookies->set(
+`$this->cookies->set(
 string 'key',
 string 'value'
-)
+)`
 
 Get client's cookie:
-$this->cookies->get(
+`$this->cookies->get(
 string 'key'
-)
+)`
 
 Delete client's cookie:
-$this->cookies->del(
+`$this->cookies->del(
 string 'key'
-)
+)`
 
 ### Config
 Config class contains all configuration data. To wire config use container (add to __construct: Config $config)
@@ -200,28 +200,28 @@ You can add custom config variables by adding it to app/system/config.php
 Or you can set it somwhere in app/system/bootstrap.php
 
 Set new config variable:
-$this->config->set(
+`$this->config->set(
 string 'key',
 string 'value'
-)
+)`
 
 Get config variable:
-$this->config->get(
+`$this->config->get(
 string 'key'
-)
+)`
 
 Delete config variable:
-$this->config->del(
+`$this->config->del(
 string 'key'
-)
+)`
 
 Set new multiple variables by array:
-$this->config->setArray(
+`$this->config->setArray(
 array 'data'
-)
+)`
 
 Get all config variables in array:
-$this->config->getArray()
+`$this->config->getArray()`
 
 ### Database
 Database class can work with PDO mysql,PDO mariadb and PDO postgresql. To wire database use container (add to __construct: Database $database)
@@ -231,28 +231,28 @@ Example configs:
  For postgresql: 'pgsql://user:pass@host:5432/database?charset=UTF8';
 
 Sql query:
-$this->database->query(
+`$this->database->query(
 string 'sql',
 array 'params',
 string 'returnType'
-)
+)`
 
 'sql' - is your sql query
 'params' - not requered, array of params, that you used in sql query. Also it can contain array of arrays, in this case you will have multiple requests for each
 'returnType' - not requered, 'array' - will return array of rows, 'row' - will return only first row, 'lastInsertId' - will return last insert id. Default is array
 
 Get last insert id in another way:
-$this->database->getLastId()
+`$this->database->getLastId()`
 
 ### Debug
 Before use add this singleton init line: $debug=Debug::init();
 To check if debug mode is enabled use: if($debug->enabled()){/*Your code here*/}
 To add debug report:
 
-$debug->addReport(
+`$debug->addReport(
 string|array 'data',
 string 'source',
-string 'type')
+string 'type')`
 
 'data' - is any data that you want to push to console
 'source' - class name or any name that will group your reports, can be anything but not null
