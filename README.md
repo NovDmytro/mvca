@@ -26,6 +26,21 @@ MVCA incorporates robust security measures to safeguard your application against
 To enhance security, MVCA, by default, disables direct access to $_GET, $_POST, $_SERVER and $_COOKIES. Instead, it enforces disciplined data handling through a dedicated singleton with additional JSON wrapper.
 Notably, the framework ensures that all user input undergoes thorough filtering based on specified criteria, contributing to a disciplined approach in handling data. This disciplined filtering mechanism significantly strengthens the overall security posture of your MVCA-powered application.
 
+# Contributors
+ - Novoselskyi Dmytro https://www.linkedin.com/in/dmytro-novoselskyi-b19870290/ (backend;architecture;documentation)
+ - Voronenko Evhen https://www.linkedin.com/in/evhen-voronenko-52a099121/ (frontend;backend;documentation)
+
+# About Us
+
+Thank you for exploring our pilot project! We are passionate individuals dedicated to creating innovative solutions in the realm of web development. Currently seeking exciting job opportunities or potential business collaborations to apply and expand our skills.
+
+If you have compelling opportunities or business proposals, feel free to reach out to us through our LinkedIn profiles. We look forward to connecting with like-minded professionals and contributing our expertise to meaningful projects.
+
+Let's create something extraordinary together!
+
+# Getting Started
+Explore the framework's components and structure to kickstart your web development journey. Refer to the documentation for detailed information on usage, customization, and advanced features.
+
 # Installation
 
 1. Docker Container
@@ -43,21 +58,6 @@ Requirements:
  - mod_rewrite
  - PHP 8.1 or highter
  - MySQL/MariaDB/PostgreSQL for data manipulation
-
-# Contributors
-*Novoselskyi Dmytro https://www.linkedin.com/in/dmytro-novoselskyi-b19870290/ (backend;architecture;documentation)
-*Voronenko Evhen https://www.linkedin.com/in/evhen-voronenko-52a099121/ (frontend;backend;documentation)
-
-# About Us
-
-Thank you for exploring our pilot project! We are passionate individuals dedicated to creating innovative solutions in the realm of web development. Currently seeking exciting job opportunities or potential business collaborations to apply and expand our skills.
-
-If you have compelling opportunities or business proposals, feel free to reach out to us through our LinkedIn profiles. We look forward to connecting with like-minded professionals and contributing our expertise to meaningful projects.
-
-Let's create something extraordinary together!
-
-# Getting Started
-Explore the framework's components and structure to kickstart your web development journey. Refer to the documentation for detailed information on usage, customization, and advanced features.
 
 # Documentation
 
