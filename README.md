@@ -1,4 +1,4 @@
-# MVCA - ultra lightweight MVC framework
+# MVCA - ultra lightweight MVC PHP framework
 
 MVCA is a lightweight PHP framework designed for web development. It follows the MVC (Model-View-Controller) architecture in a simple and user-friendly manner, providing essential features for building web applications.
 
