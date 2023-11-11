@@ -44,11 +44,11 @@ Requirements:
  - PHP 8.1 or highter
  - MySQL/MariaDB/PostgreSQL for data manipulation
 
-#Contributors
+# Contributors
 *Novoselskyi Dmytro https://www.linkedin.com/in/dmytro-novoselskyi-b19870290/ (backend;architecture;documentation)
 *Voronenko Evhen https://www.linkedin.com/in/evhen-voronenko-52a099121/ (frontend;backend;documentation)
 
-#About Us
+# About Us
 
 Thank you for exploring our pilot project! We are passionate individuals dedicated to creating innovative solutions in the realm of web development. Currently seeking exciting job opportunities or potential business collaborations to apply and expand our skills.
 
@@ -56,7 +56,7 @@ If you have compelling opportunities or business proposals, feel free to reach o
 
 Let's create something extraordinary together!
 
-#Getting Started
+# Getting Started
 Explore the framework's components and structure to kickstart your web development journey. Refer to the documentation for detailed information on usage, customization, and advanced features.
 
 # Documentation
