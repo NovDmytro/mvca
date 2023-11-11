@@ -33,20 +33,28 @@ Download the repository files and use the Docker container via the terminal comm
 
 Requirements:
 
-Docker or Docker CLI
+*Docker/Docker CLI
 
 2. Apache Server
 You can also run the framework on your own Apache server. Ensure that your system meets the following minimum requirements:
 
 Requirements:
 
-mod_rewrite
-PHP 8.1 or highter
-MySQL/MariaDB/PostgreSQL for data manipulation
+*mod_rewrite
+*PHP 8.1 or highter
+*MySQL/MariaDB/PostgreSQL for data manipulation
 
 #Contributors
-Novoselskyi Dmytro https://www.linkedin.com/in/dmytro-novoselskyi-b19870290/
-Voronenko Evhen https://www.linkedin.com/in/evhen-voronenko-52a099121/
+*Novoselskyi Dmytro https://www.linkedin.com/in/dmytro-novoselskyi-b19870290/ (backend;architecture;documentation)
+*Voronenko Evhen https://www.linkedin.com/in/evhen-voronenko-52a099121/ (frontend;backend;documentation)
+
+#About Us
+
+Thank you for exploring our pilot project! We are passionate individuals dedicated to creating innovative solutions in the realm of web development. Currently seeking exciting job opportunities or potential business collaborations to apply and expand our skills.
+
+If you have compelling opportunities or business proposals, feel free to reach out to us through our LinkedIn profiles. We look forward to connecting with like-minded professionals and contributing our expertise to meaningful projects.
+
+Let's create something extraordinary together!
 
 #Getting Started
 Explore the framework's components and structure to kickstart your web development journey. Refer to the documentation for detailed information on usage, customization, and advanced features.
