@@ -33,16 +33,16 @@ Download the repository files and use the Docker container via the terminal comm
 
 Requirements:
 
-*Docker/Docker CLI
+ - Docker/Docker CLI
 
 2. Apache Server
 You can also run the framework on your own Apache server. Ensure that your system meets the following minimum requirements:
 
 Requirements:
 
-*mod_rewrite
-*PHP 8.1 or highter
-*MySQL/MariaDB/PostgreSQL for data manipulation
+ - mod_rewrite
+ - PHP 8.1 or highter
+ - MySQL/MariaDB/PostgreSQL for data manipulation
 
 #Contributors
 *Novoselskyi Dmytro https://www.linkedin.com/in/dmytro-novoselskyi-b19870290/ (backend;architecture;documentation)
