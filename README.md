@@ -33,9 +33,9 @@ Notably, the framework ensures that all user input undergoes thorough filtering 
   - Software Testing
   - Documentation
   - Project Management
-   - Contacts:
-   - Email: [novosdmytro@gmail.com](mailto:novosdmytro@gmail.com)
-   - LinkedIn: [Novoselskyi Dmytro](https://www.linkedin.com/in/dmytro-novoselskyi-b19870290/)
+    - Contacts:
+    - Email: [novosdmytro@gmail.com](mailto:novosdmytro@gmail.com)
+    - LinkedIn: [Novoselskyi Dmytro](https://www.linkedin.com/in/dmytro-novoselskyi-b19870290/)
 
 - **Voronenko Evhen**
   - Frontend Development
