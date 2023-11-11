@@ -28,19 +28,25 @@ Notably, the framework ensures that all user input undergoes thorough filtering 
 
 # Contributors
 
-- **Novoselskyi Dmytro https://www.linkedin.com/in/dmytro-novoselskyi-b19870290/**
+- **Novoselskyi Dmytro **
   - Backend Development
   - Architecture
   - Software Testing
   - Documentation
   - Project Management
+Contacts:
+Email: novosdmytro@gmail.com
+LinkedIn: https://www.linkedin.com/in/dmytro-novoselskyi-b19870290/
 
-- **Voronenko Evhen https://www.linkedin.com/in/evhen-voronenko-52a099121/**
+- **Voronenko Evhen**
   - Frontend Development
   - Backend Development
   - Software Testing
   - Documentation
   - Collaborative Project Contribution
+Contacts:
+Email: voronenkotg@gmail.com
+LinkedIn: https://www.linkedin.com/in/evhen-voronenko-52a099121/
 
 # About Us
 
