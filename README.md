@@ -27,8 +27,19 @@ To enhance security, MVCA, by default, disables direct access to $_GET, $_POST, 
 Notably, the framework ensures that all user input undergoes thorough filtering based on specified criteria, contributing to a disciplined approach in handling data. This disciplined filtering mechanism significantly strengthens the overall security posture of your MVCA-powered application.
 
 # Contributors
- - Novoselskyi Dmytro https://www.linkedin.com/in/dmytro-novoselskyi-b19870290/ (backend;architecture;documentation)
- - Voronenko Evhen https://www.linkedin.com/in/evhen-voronenko-52a099121/ (frontend;backend;documentation)
+
+- **Novoselskyi Dmytro https://www.linkedin.com/in/dmytro-novoselskyi-b19870290/**
+  - Backend Development
+  - Architecture
+  - Documentation
+  - Project Management
+
+- **Voronenko Evhen https://www.linkedin.com/in/evhen-voronenko-52a099121/**
+  - Frontend Development
+  - Backend Development
+  - Software Testing
+  - Documentation
+  - Collaborative Project Contribution
 
 # About Us
 
