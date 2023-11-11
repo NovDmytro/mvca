@@ -219,9 +219,9 @@ array 'settings'
  );
 ```
 
-`'route'` - is your view file route, for example: `'Folder/Example'` for `app/src/Folder/V/ExampleView.php`
-`'data'` - is data array to send to view
-`'settings'` - not required, is settings array, that reads `'header'`, `'footer'` and `'language'` keys and redeclare config defaults if set.
+ - `'route'` - is your view file route, for example: `'Folder/Example'` for `app/src/Folder/V/ExampleView.php`
+ - `'data'` - is data array to send to view
+ - `'settings'` - not required, is settings array, that reads `'header'`, `'footer'` and `'language'` keys and redeclare config defaults if set.
 
 ### Request
 By default, MVCA has disabled `$_GET`, `$_POST`, `$_SERVER`, `$_COOKIES`. Instead of them you need to use this singleton:
@@ -235,9 +235,9 @@ string 'case'
 )
 ```
 
-`'key'` - is your query key
-`'filter'` - not required, is one of this filters: `'int'`, `'dec'`, `'hex'`, `'email'`, `'latin'`, `'varchar'`, `'html'`. Default is `'varchar'`
-`'case'` - not required, is a case switcher, can be: `'low'`, `'up'`
+ - `'key'` - is your query key
+ - `'filter'` - not required, is one of this filters: `'int'`, `'dec'`, `'hex'`, `'email'`, `'latin'`, `'varchar'`, `'html'`. Default is `'varchar'`
+ - `'case'` - not required, is a case switcher, can be: `'low'`, `'up'`
 
 Same logic is used for: `$request->POST`, `$request->SERVER`, `$request->JSON`, `$request->COOKIES`
 
@@ -347,6 +347,6 @@ string 'source',
 string 'type')
 ```
 
-`'data'` - is any data that you want to push to console
-`'source'` - class name or any name that will group your reports, can be anything but not null
-`'type'` - report type, by default `'Info'`, `'Warning'`, `'Notice'`, `'FatalError'` or `'Unknown'`. But you can write anything you want
+ - `'data'` - is any data that you want to push to console
+ - `'source'` - class name or any name that will group your reports, can be anything but not null
+ - `'type'` - report type, by default `'Info'`, `'Warning'`, `'Notice'`, `'FatalError'` or `'Unknown'`. But you can write anything you want
