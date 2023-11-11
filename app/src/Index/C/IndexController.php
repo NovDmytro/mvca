@@ -65,9 +65,11 @@ class IndexController
         $debug = Debug::init();
         if ($debug->enabled()) {
             $debug->addReport($view['indexModel'], 'IndexController', 'Test');
+            $debug->addReport($view['indexModel'], 'Test1', 'Test2');
+            $debug->addReport($view['indexModel'], 'Test2', 'Test2');
+            $debug->addReport($view['indexModel'], 'Test3', 'Test2');
+            $debug->addReport($view['indexModel'], 'Test4', 'Test2');
         }
-
-
         /*
         * This is view load example
         *
