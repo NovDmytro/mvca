@@ -1,38 +1,57 @@
-# MVCA alpha version
-A light framework for your PHP project
+# MVCA - ultra lightweight MVC framework
 
+MVCA is a lightweight PHP framework designed for web development. It follows the MVC (Model-View-Controller) architecture in a simple and user-friendly manner, providing essential features for building web applications.
 
-# Created by
+# Key Features
+##1. Framework Foundation
+MVCA serves as a foundation for your PHP projects, offering a streamlined approach to web development.
+
+##2. Architecture - MVC
+The framework is built on the MVC architecture, separating the application logic into Model, View, and Controller components.
+
+##3. Routing
+Define and manage your application's routes easily by configuring them in the routes.php file.
+
+##4. Debugging Console
+MVCA comes equipped with its own debugging console, allowing you to monitor and troubleshoot your application efficiently.
+
+##5. Multilingual Support
+Internationalize your application effortlessly with MVCA's built-in support for multiple languages. Content is decoupled from the page structure, facilitating easier translation.
+
+##6. Database Interaction
+Easily manipulate data with MySQL/MariaDB/PostgreSQL using the framework's database functionalities.
+
+##7. Security Measures
+MVCA incorporates robust security measures to safeguard your application against prevalent threats, ensuring a secure environment for your users. 
+To enhance security, MVCA, by default, disables direct access to $_GET, $_POST, $_SERVER and $_COOKIES. Instead, it enforces disciplined data handling through a dedicated singleton with additional JSON wrapper.
+Notably, the framework ensures that all user input undergoes thorough filtering based on specified criteria, contributing to a disciplined approach in handling data. This disciplined filtering mechanism significantly strengthens the overall security posture of your MVCA-powered application.
+
+# Installation
+
+##1. Docker Container
+Download the repository files and use the Docker container via the terminal command docker compose up. Alternatively, run the provided .bat file (run-windows.bat) containing the same command. Ensure that Docker or Docker CLI is installed on your system.
+
+Requirements:
+
+Docker or Docker CLI
+
+##2. Apache Server
+You can also run the framework on your own Apache server. Ensure that your system meets the following minimum requirements:
+
+Requirements:
+
+mod_rewrite
+PHP 8.1 or highter
+MySQL/MariaDB/PostgreSQL for data manipulation
+
+#Contributors
 Novoselskyi Dmytro https://www.linkedin.com/in/dmytro-novoselskyi-b19870290/
 Voronenko Evhen https://www.linkedin.com/in/evhen-voronenko-52a099121/
 
-# What is MVCA? 
- - **FRAMEWORK** - MVCA light and fast tool to create your web-app. It use well-known architecture MVC in simple and easy to use form;
- - **ROUTER** - setup your predefined routs to pages in `routes.php`;
- - **DEBUGING** - MVCA has own debugging console;
- - **MULTYLANG** - MVCA internationalization ready. Content unjoint from page structure;
- - **DATABASE** - framework can manipulate data with MySql/MAriaDB;
- - **SECURITY** - framework has data protection from most of know attacks SQL Injection, Cross-Site Scripting (XSS), Cross-Site Request Forgery (CSRF), File Upload Vulnerabilities, Session Fixation, Brute Force Attacks
+#Getting Started
+Explore the framework's components and structure to kickstart your web development journey. Refer to the documentation for detailed information on usage, customization, and advanced features.
 
-# Installation
-1. download files from repo and use docker container via terminal command `docker compose up` <br>
- or <br> 
- run .bat file `run-windows.bat` it contains the same command. <br>
-
-**WARNING!** Must be installed Docker or Docker Cli in  your system.
-
-1.  You can run framework on your own Apache server. 
-
-There are need minimum but not full requirement modules/extensions/configs: **???**
- - xdebug
- - chmod 1777
- - mod_rewrite
- - php 8.1 (not tested in other versions)
- - rights: `chown www-data:www-data -R /var/www`  and `chmod 1777 /var/www`
- - MySql/MariaDB to worck with data
-
-
-# Usage
+# Documentation
 
 ## How this MVC works
 This is MVC example with basic functionality, to access this code use URL `http://localhost:2121/Products-Storage-main/1`
