@@ -12,8 +12,7 @@
  * If you have src/Welcome/HelloController.php you must use full name Welcome-Hello-main
 */
 return [
-    "" => "Index-Index-main",
-    "welcome" => "Index-Index-main",
+    "" => "Welcome-Welcome-main",
 
     //common routes
     "error404" => "Core-Errors-Error-e404",
