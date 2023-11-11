@@ -28,7 +28,7 @@ Notably, the framework ensures that all user input undergoes thorough filtering 
 
 # Contributors
 
-- **Novoselskyi Dmytro **
+- **Novoselskyi Dmytro**
   - Backend Development
   - Architecture
   - Software Testing
