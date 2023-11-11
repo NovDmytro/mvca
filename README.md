@@ -350,3 +350,5 @@ string 'type')
  - `'data'` - is any data that you want to push to console
  - `'source'` - class name or any name that will group your reports, can be anything but not null
  - `'type'` - report type, by default `'Info'`, `'Warning'`, `'Notice'`, `'FatalError'` or `'Unknown'`. But you can write anything you want
+
+
