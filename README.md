@@ -3,39 +3,39 @@
 MVCA is a lightweight PHP framework designed for web development. It follows the MVC (Model-View-Controller) architecture in a simple and user-friendly manner, providing essential features for building web applications.
 
 # Key Features
-##1. Framework Foundation
+1. Framework Foundation
 MVCA serves as a foundation for your PHP projects, offering a streamlined approach to web development.
 
-##2. Architecture - MVC
+2. Architecture - MVC
 The framework is built on the MVC architecture, separating the application logic into Model, View, and Controller components.
 
-##3. Routing
+3. Routing
 Define and manage your application's routes easily by configuring them in the routes.php file.
 
-##4. Debugging Console
+4. Debugging Console
 MVCA comes equipped with its own debugging console, allowing you to monitor and troubleshoot your application efficiently.
 
-##5. Multilingual Support
+5. Multilingual Support
 Internationalize your application effortlessly with MVCA's built-in support for multiple languages. Content is decoupled from the page structure, facilitating easier translation.
 
-##6. Database Interaction
+6. Database Interaction
 Easily manipulate data with MySQL/MariaDB/PostgreSQL using the framework's database functionalities.
 
-##7. Security Measures
+7. Security Measures
 MVCA incorporates robust security measures to safeguard your application against prevalent threats, ensuring a secure environment for your users. 
 To enhance security, MVCA, by default, disables direct access to $_GET, $_POST, $_SERVER and $_COOKIES. Instead, it enforces disciplined data handling through a dedicated singleton with additional JSON wrapper.
 Notably, the framework ensures that all user input undergoes thorough filtering based on specified criteria, contributing to a disciplined approach in handling data. This disciplined filtering mechanism significantly strengthens the overall security posture of your MVCA-powered application.
 
 # Installation
 
-##1. Docker Container
+1. Docker Container
 Download the repository files and use the Docker container via the terminal command docker compose up. Alternatively, run the provided .bat file (run-windows.bat) containing the same command. Ensure that Docker or Docker CLI is installed on your system.
 
 Requirements:
 
 Docker or Docker CLI
 
-##2. Apache Server
+2. Apache Server
 You can also run the framework on your own Apache server. Ensure that your system meets the following minimum requirements:
 
 Requirements:
