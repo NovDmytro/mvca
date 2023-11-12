@@ -62,6 +62,14 @@ If you have compelling opportunities or business proposals, feel free to reach o
 
 Let's create something extraordinary together!
 
+# Russian invasion of Ukraine
+
+Novoselskyi Dmytro, presently without a stable home and job due to fleeing Ukraine amidst the Russian aggression, embodies resilience and dedication. Despite the immense challenges he faces, his passion for web development remains unwavering. Dmytro is committed to contributing his skills to innovative projects, striving to make a positive impact.
+
+Voronenko Evhen, compelled to change his profession in the wake of the Russian aggression on Ukraine and facing daily risks to his life, stands as a testament to resilience. His expertise lies in frontend development, and he is now seeking opportunities to apply his skills in a new context.
+
+Dmytro and Evhen are open to collaborations that extend beyond professional realms, aiming to contribute to projects that hold deep and meaningful significance.
+
 # Getting Started
 Explore the framework's components and structure to kickstart your web development journey. Refer to the documentation for detailed information on usage, customization, and advanced features.
 
