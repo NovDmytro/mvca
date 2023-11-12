@@ -13,11 +13,5 @@
                 </div>
             </div>
         </footer>
-        <script>
-            window.addEventListener('DOMContentLoaded', () => {
-                const html = document.querySelector('html');
-                console.log(html.clientWidth)
-            })
-        </script>
     </body>
 </html>
