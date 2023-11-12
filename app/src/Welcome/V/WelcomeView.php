@@ -22,13 +22,13 @@
 <br>
 <p>If you have questions, ideas, or just want to say hello, our contributors are here for you.</p>
 <br>
-<h3>- **Novoselskyi Dmytro**</h3>
-<p>- *Email:* [novosdmytro@gmail.com](mailto:novosdmytro@gmail.com)</p>
-<p>- *LinkedIn:* [Dmytro Novoselskyi](https://www.linkedin.com/in/dmytro-novoselskyi-b19870290/)</p>
+<h3>- Novoselskyi Dmytro</h3>
+<p><a href="mailto:novosdmytro@gmail.com">novosdmytro@gmail.com</a></p>
+<p><a href="https://www.linkedin.com/in/dmytro-novoselskyi-b19870290/">*LinkedIn* </a></p>
 <br>
-<h3>- **Voronenko Evhen**</h3>
-<p>- *Email:* [voronenkotg@gmail.com](mailto:voronenkotg@gmail.com)</p>
-<p>- *LinkedIn:* [Evhen Voronenko](https://www.linkedin.com/in/evhen-voronenko-52a099121/)</p>
+<h3>- Voronenko Evhen</h3>
+<p><a href="mailto:voronenkotg@gmail.com">voronenkotg@gmail.com</a></p>
+<p><a href="https://www.linkedin.com/in/evhen-voronenko-52a099121/">*LinkedIn*</a></p>
 <br>
 <p>We're passionate about web development and are open to exciting job opportunities or collaborative projects.</p>
 <p>Let's connect and create something extraordinary together!</p>
