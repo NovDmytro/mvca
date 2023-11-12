@@ -223,7 +223,7 @@
                 <?php $firstActive = 'active'; ?>
                 <?php foreach ($sources as $source) : ?>
                     <li data-folder="source-<?= $source ?>"
-                        class="mvca-terminal-folder no-wrap <?= $firstActive ?>"><?= $source ?></li>
+                        class="mvca-popup-menu-item no-wrap <?= $firstActive ?>"><?= $source ?></li>
                     <?php $firstActive = ''; ?>
                 <?php endforeach ?>
             </ul>
