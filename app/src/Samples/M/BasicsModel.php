@@ -17,11 +17,15 @@ class BasicsModel
 
     public function getExampleById($id): mixed //Sample models method
     {
-        /* $this->database->query('sql','Parameters','Return type')
-        'YourSql': sql code
-        'Parameters': array of params, that you used in sql code
-        Also it can contain array of arrays, in this case you will have multiple requests for each
-        'Return type': 'array' - array of rows. Or 'row' - returns only first row, default is array
+        /*
+        $this->database->query('sql','params','Return type')
+        'sql' - is your sql query 
+        'params' - not required, array of params, that you used in sql query. 
+            Also, it can contain array of arrays, in this case you will have multiple requests for each
+        'returnType' - not required,
+            'array' - will return array of rows,
+            'row' - will return only first row,
+            'lastInsertId' - will return last insert id. Default is 'array'
          */
         $query=$this->database->query(
             "SELECT * FROM mvca_example WHERE id=:id",

@@ -1,4 +1,9 @@
-    <h2><?= $title?></h2>
+<?php
+/**
+ * @var string $title
+ */
+?>
+<h2><?= $title?></h2>
 
 <pre>
     **Congratulations on Successfully Installing MVCA!**

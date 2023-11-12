@@ -51,7 +51,6 @@ class Output
         if ($this->config->get('routeTarget') == 'core') {
             $content .= $this->loadFile('system/Core/' . $routePaths[0] . '/V/' . $routePaths[1] . 'View.php', $data);
         } else {
-            echo 'src/' . $routePaths[0] . '/V/' . $routePaths[1] . 'View.php';
             $content .= $this->loadFile('src/' . $routePaths[0] . '/V/' . $routePaths[1] . 'View.php', $data);
         }
 
@@ -70,11 +69,11 @@ class Output
     }
 
 
-    public function loadFile(string $route, array $data): string
+    public function loadFile(string $loadRoute, array $view): string
     {
-        extract($data);
+        extract($view);
         ob_start();
-        include $route;
+        include $loadRoute;
         return ob_get_clean();
     }
 
