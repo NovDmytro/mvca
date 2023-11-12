@@ -224,7 +224,7 @@ array 'settings'
  - `'settings'` - not required, is settings array, that reads `'header'`, `'footer'` and `'language'` keys and redeclare config defaults if set.
 
 ### Request
-By default, MVCA has disabled `$_GET`, `$_POST`, `$_SERVER`, `$_COOKIES`. Instead of them you need to use this singleton:
+By default, MVCA has disabled `$_GET`, `$_POST`, `$_SERVER`, `$_COOKIE`. Instead of them you need to use this singleton:
 Before use add this singleton init line: `$request = Request::init();` Then you can use:
 
 ```
@@ -239,7 +239,7 @@ string 'case'
  - `'filter'` - not required, is one of this filters: `'int'`, `'dec'`, `'hex'`, `'email'`, `'latin'`, `'varchar'`, `'html'`. Default is `'varchar'`
  - `'case'` - not required, is a case switcher, can be: `'low'`, `'up'`
 
-Same logic is used for: `$request->POST`, `$request->SERVER`, `$request->JSON`, `$request->COOKIES`
+Same logic is used for: `$request->POST`, `$request->SERVER`, `$request->JSON`, `$request->COOKIE`
 
 `$request->JSON` is used to catch JSON POST data
 
