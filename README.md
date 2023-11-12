@@ -210,7 +210,7 @@ You can edit `app/system/bootstrap.php` and add some custom functionality, this 
 ## Basic functionality
 
 ### Output
-To send data from controller to view you need to use Output service. To wire cookies use container (add to __construct: `Output $output`)
+To send data from controller to view you need to use Output service. To wire output use container (add to __construct: `Output $output`)
 ```
 $this->output->load(
 string 'route',
@@ -219,12 +219,12 @@ array 'settings'
  );
 ```
 
-`'route'` - is your view file route, for example: `'Folder/Example'` for `app/src/Folder/V/ExampleView.php`
-`'data'` - is data array to send to view
-`'settings'` - not requered, is settings array, that reads `'header'`, `'footer'` and `'language'` keys and redeclare config defaults if set.
+ - `'route'` - is your view file route, for example: `'Folder/Example'` for `app/src/Folder/V/ExampleView.php`
+ - `'data'` - is data array to send to view
+ - `'settings'` - not required, is settings array, that reads `'header'`, `'footer'` and `'language'` keys and redeclare config defaults if set.
 
 ### Request
-By default, MVCA has disabled `$_GET`, `$_POST`, `$_SERVER`, `$_COOKIES`. Instead of them you need to use this singleton:
+By default, MVCA has disabled `$_GET`, `$_POST`, `$_SERVER`, `$_COOKIE`. Instead of them you need to use this singleton:
 Before use add this singleton init line: `$request = Request::init();` Then you can use:
 
 ```
@@ -235,16 +235,16 @@ string 'case'
 )
 ```
 
-`'key'` - is your query key
-`'filter'` - not requered, is one of this filters: `'int'`, `'dec'`, `'hex'`, `'email'`, `'latin'`, `'varchar'`, `'html'`. Default is `'varchar'`
-`'case'` - not requered, is a case switcher, can be: `'low'`, `'up'`
+ - `'key'` - is your query key
+ - `'filter'` - not required, is one of this filters: `'int'`, `'dec'`, `'hex'`, `'email'`, `'latin'`, `'varchar'`, `'html'`. Default is `'varchar'`
+ - `'case'` - not required, is a case switcher, can be: `'low'`, `'up'`
 
-Same logic is used for: `$request->POST`, `$request->SERVER`, `$request->JSON`, `$request->COOKIES`
+Same logic is used for: `$request->POST`, `$request->SERVER`, `$request->JSON`, `$request->COOKIE`
 
 `$request->JSON` is used to catch JSON POST data
 
 ### Cookies
-MVCA has simple cookies service that can set, get and delete some client's cookies. To wire cookies use container (add to __construct: `Cookies $cookies`)
+MVCA has simple cookies service that can set, get and delete some client's cookies. cookies use container (add to __construct: `Cookies $cookies`)
 
 Set new cookie:
 ```
@@ -269,7 +269,7 @@ string 'key'
 ```
 
 ### Config
-Config class contains all configuration data. To wire config use container (add to __construct: `Config $config`)
+Config class contains all configuration data. config use container (add to __construct: `Config $config`)
 You can add custom config variables by adding it to `app/system/config.php`
 Or you can set it somwhere in `app/system/bootstrap.php`
 
@@ -308,7 +308,7 @@ $this->config->getArray()
 ```
 
 ### Database
-Database class can work with `PDO mysql`, `PDO mariadb` and `PDO postgresql`. To wire database use container (add to __construct: `Database $database`)
+Database class can work with `PDO mysql`, `PDO mariadb` and `PDO postgresql`. database use container (add to __construct: `Database $database`)
 Before use add DSN to: `app/system/config.php`
 Example configs:
  For mariadb and mysql: `'mysql://user:pass@host:3306/database?charset=UTF8'`
@@ -323,9 +323,12 @@ string 'returnType'
 )
 ```
 
-`'sql'` - is your sql query
-`'params'` - not requered, array of params, that you used in sql query. Also it can contain array of arrays, in this case you will have multiple requests for each
-`'returnType'` - not requered, `'array'` - will return array of rows, `'row'` - will return only first row, `'lastInsertId'` - will return last insert id. Default is `'array'`
+ - `'sql'` - is your sql query
+ - `'params'` - not required, array of params, that you used in sql query. Also it can contain array of arrays, in this case you will have multiple requests for each
+ - `'returnType'` - not required,
+   - `'array'` - will return array of rows,
+   - `'row'` - will return only first row,
+   - `'lastInsertId'` - will return last insert id. Default is `'array'`
 
 Get last insert id in another way:
 ```
@@ -344,6 +347,8 @@ string 'source',
 string 'type')
 ```
 
-`'data'` - is any data that you want to push to console
-`'source'` - class name or any name that will group your reports, can be anything but not null
-`'type'` - report type, by default `'Info'`, `'Warning'`, `'Notice'`, `'FatalError'` or `'Unknown'`. But you can write anything you want
+ - `'data'` - is any data that you want to push to console
+ - `'source'` - class name or any name that will group your reports, can be anything but not null
+ - `'type'` - report type, by default `'Info'`, `'Warning'`, `'Notice'`, `'FatalError'` or `'Unknown'`. But you can write anything you want
+
+

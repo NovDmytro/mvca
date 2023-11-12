@@ -6,7 +6,6 @@ use Engine\Config;
 use Engine\Output;
 use Services\Cookies;
 
-
 class CookiesController
 {
     private Config $config;
@@ -16,7 +15,7 @@ class CookiesController
     public function __construct(
         Config   $config,
         Output   $output,
-        Cookies   $cookies,
+        Cookies  $cookies,
     )
     {
         //Services

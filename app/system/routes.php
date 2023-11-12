@@ -13,6 +13,8 @@
 */
 return [
     "" => "Welcome-Welcome-main",
+    "samples" => "Samples-Samples-main",
+    "routing" => "Samples-Routing-sample",
 
     //common routes
     "error404" => "Core-Errors-Error-e404",
