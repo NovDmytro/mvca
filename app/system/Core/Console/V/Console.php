@@ -24,7 +24,7 @@
 
         .mvca-terminal {
             position: fixed;
-            bottom: 0px;
+            bottom: 0;
             display: grid;
             grid-template: 10px fit-content(100%) auto / 100vw;
             width: 100vw;
@@ -38,25 +38,27 @@
             cursor: row-resize;
         }
         .mvca-terminal-navigation {
-            padding-right: 50px;
+			position: relative;
             display: flex;
             justify-content: space-between;
+            align-items: center;
             width: 100%;
+			height: 34px;
         }
         .mvca-terminal-folders {
             padding: 0 25px;
             display: flex;
             gap: 0 10px;
-            width: fit-content;
+			width: 100%;
             list-style-type: none;
+            overflow: hidden;
         }
-
-        .mvca-terminal-folder {
+		.mvca-terminal-folder {
             padding: 5px;
             color: var(--mvca-folder-text-color);
-            cursor: pointer;
             border-bottom: 3px solid var(--mvca-folder-border-bottom);
             user-select: none;
+			cursor: pointer;
         }
         .mvca-terminal-folder:hover {
             --mvca-folder-border-bottom: #ffc66d;
@@ -66,23 +68,66 @@
             --mvca-folder-border-bottom: #cb602d;
             cursor:auto;
         }
+		.mvca-popup-menu {
+            flex-direction: column-reverse;
+			padding: 10px;
+			position: absolute;
+            bottom: 30px;
+            right: 318px;
+			background-color: var(--mvca-terminal-bg-color);
+            list-style-type: none;
+
+        }
+		.mvca-popup-menu-item {
+			padding: 5px 0;
+			color: var(--mvca-folder-text-color);
+			border-bottom: 3px solid var(--mvca-folder-border-bottom);
+			cursor: pointer;
+        }
+		.mvca-popup-menu-item:hover {
+			--mvca-folder-border-bottom: #ffc66d;
+			--mvca-folder-text-color:#ffc66d;
+		}
+		.mvca-popup-menu-item.active {
+			--mvca-folder-border-bottom: #cb602d;
+			cursor:auto;
+		}
 
         .mvca-terminal-navigation-status-bar {
+			position: relative;
+			padding: 0 25px 0 10px;
             display: flex;
+            align-items: center;
             width: fit-content;
             gap: 0 10px;
             margin-bottom: 5px;
         }
-        .mvca-terminal-navigation-status {
+		.mvca-terminal-folder-icon {
+			width: 32px;
+			fill: var(--mvca-terminal-navigation-status-color);
+			cursor: pointer;
+		}
+		.mvca-terminal-folder-icon:hover {
+			--mvca-terminal-navigation-status-color: #CB602DFF;
+        }
+		.mvca-terminal-folder-icon.active {
+			--mvca-terminal-navigation-status-color: #CB602DFF;
+        }
+		.mvca-terminal-navigation-status {
             display: flex;
-            align-items: center;
+            align-items: end;
             gap: 0 3px
         }
         .mvca-terminal-navigation-status span {
             color: var(--mvca-terminal-navigation-status-color);
+			line-height: 1.1;
         }
         .mvca-terminal-navigation-status svg {
             fill: var(--mvca-terminal-navigation-status-color);
+        }
+
+		.mvca-terminal-navigation-buttons-set {
+			display: flex;
         }
         .mvca-terminal-navigation-buttons-set svg{
             width: 24px;
@@ -105,29 +150,52 @@
             color: var(--mvca-terminal-error-text-color);
         }
 
-
+        .no-wrap {
+            text-wrap: nowrap;
+        }
+        .invisible {
+			visibility: hidden;
+        }
+        .hide {
+			display: none;
+        }
+        .flex {
+			display: flex;
+        }
         /* terminal styles END */
 </style>
-
+<h2 style="font-size: 150px">ПУТИН ХУЙЛО! </h2>
 <section class="mvca-terminal">
     <div class="resize-top-side"></div>
-
+   
     <div class="mvca-terminal-navigation">
         <ul class="mvca-terminal-folders">
-            <?php $firstActive = 'active'; ?>
-            <?php foreach ($sources as $source) : ?>
-                <li data-folder="source-<?= $source ?>"
-                    class="mvca-terminal-folder <?= $firstActive ?>"><?= $source ?></li>
-                <?php $firstActive = ''; ?>
-            <?php endforeach ?>
+            <!-- heremust be PHP code -->
+            <li data-folder="q" class="mvca-terminal-folder no-wrap active">Folder 1</li>
+            <li data-folder="qq" class="mvca-terminal-folder no-wrap">Folder 2</li>
+            <li data-folder="qqq" class="mvca-terminal-folder no-wrap ">Folder 3</li>
+            <li data-folder="qqqq" class="mvca-terminal-folder no-wrap">Folder 4</li>
+            <li data-folder="qqqqq" class="mvca-terminal-folder no-wrap">Folder 5</li>
+            <li data-folder="qqqqqq" class="mvca-terminal-folder no-wrap">Folder 6</li>
+            <!-- heremust be PHP code -->
         </ul>
+
         <div class="mvca-terminal-navigation-status-bar">
+            <ul class="mvca-popup-menu hide">
+                <li data-folder="q" class="mvca-popup-menu-item no-wrap">Folder 1</li>
+                <li data-folder="qq" class="mvca-popup-menu-item no-wrap">Folder 2</li>
+                <li data-folder="qqq" class="mvca-popup-menu-item no-wrap">Folder 3</li>
+                <li data-folder="qqqq" class="mvca-popup-menu-item no-wrap">Folder 4</li>
+                <li data-folder="qqqqq" class="mvca-popup-menu-item no-wrap">Folder 5</li>
+                <li data-folder="qqqqqq" class="mvca-popup-menu-item no-wrap">Folder 6</li>
+            </ul>
+            <svg class="mvca-terminal-folder-icon hide" xmlns="http://www.w3.org/2000/svg"  viewBox="0 -960 960 960"><path d="M140-160q-24 0-42-18.5T80-220v-520q0-23 18-41.5t42-18.5h281l60 60h339q23 0 41.5 18.5T880-680v460q0 23-18.5 41.5T820-160H140Zm0-60h680v-460H456l-60-60H140v520Zm0 0v-520 520Z"/></svg>
             <div class="mvca-terminal-navigation-status">
-                <span><?= $memory ?></span>
+                <span class="no-wrap"><?= $memory ?></span>
                 <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M480-120q-151 0-255.5-46.5T120-280v-400q0-66 105.5-113T480-840q149 0 254.5 47T840-680v400q0 67-104.5 113.5T480-120Zm0-479q89 0 179-25.5T760-679q-11-29-100.5-55T480-760q-91 0-178.5 25.5T200-679q14 30 101.5 55T480-599Zm0 199q42 0 81-4t74.5-11.5q35.5-7.5 67-18.5t57.5-25v-120q-26 14-57.5 25t-67 18.5Q600-528 561-524t-81 4q-42 0-82-4t-75.5-11.5Q287-543 256-554t-56-25v120q25 14 56 25t66.5 18.5Q358-408 398-404t82 4Zm0 200q46 0 93.5-7t87.5-18.5q40-11.5 67-26t32-29.5v-98q-26 14-57.5 25t-67 18.5Q600-328 561-324t-81 4q-42 0-82-4t-75.5-11.5Q287-343 256-354t-56-25v99q5 15 31.5 29t66.5 25.5q40 11.5 88 18.5t94 7Z"/></svg>
             </div>
             <div class="mvca-terminal-navigation-status">
-                <span><?= round($executionTime,6) ?> ms</span>
+                <span class="no-wrap"><?= round($executionTime,6) ?> ms</span>
                 <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m612-292 56-56-148-148v-184h-80v216l172 172ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-400Zm0 320q133 0 226.5-93.5T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160Z"/></svg>
             </div>
             <div class="mvca-terminal-navigation-buttons-set">
@@ -138,50 +206,73 @@
         </div>
 
     </div>
-    <?php $firstActive = ''; ?>
-    <?php foreach ($sources as $source) : ?>
-        <div class="mvca-terminal-error-area source-<?= $source ?> <?= $firstActive ?>" style="color:#ffffff">
-            <?php foreach ($reports[$source] as $report) : ?>
-                [<?= number_format($report['time'], 6, '.', '') ?>] <b><?= $report['type'] ?></b> - 
-                <?php if (is_array($report['data'])) : ?>
-                    <?= json_encode($report['data']); ?>
-                <?php else : ?>
-                    <?= $report['data'] ?>
-                <?php endif ?>
-            <br>
-            <?php endforeach ?>
-        </div>
-        <?php $firstActive = 'hide'; ?>
-    <?php endforeach ?>
+    <!-- heremust be PHP code -->
+    <div class="mvca-terminal-error-area q">
+            <pre>
+Folder 1
+            </pre>
+    </div>
+    <div class="mvca-terminal-error-area qq hide">
+            <pre>
+Folder 2
+            </pre>
+    </div>
+
+    <div class="mvca-terminal-error-area qqq hide">
+            <pre>
+Folder 3
+            </pre>
+    </div>
+
+    <div class="mvca-terminal-error-area qqqq hide">
+            <pre>
+Folder 4
+            </pre>
+    </div>
+
+    <div class="mvca-terminal-error-area qqqqq hide">
+            <pre>
+Folder 5
+            </pre>
+    </div>
+
+    <div class="mvca-terminal-error-area qqqqqq hide">
+            <pre>
+Folder 6
+            </pre>
+    </div>
+
+    <!-- heremust be PHP code -->
 </section>
 <script>
-    // terminal scripts 
-    const terminal = document.querySelector('.mvca-terminal');
-    const secondResize = document.querySelector('body');
-    const dragElem = terminal.querySelector('.resize-top-side');
-    const navigation = terminal.querySelector('.mvca-terminal-navigation');
-    const toTopButton = terminal.querySelector('[data-terminal="up"]');
-    const centeringButton = terminal.querySelector('[data-terminal="center"]');
-    const closeButton = terminal.querySelector('[data-terminal="close"]');
+    window.addEventListener('DOMContentLoaded', () => {
+        // terminal scripts
+        const terminal = document.querySelector('.mvca-terminal');
+        const secondResize = document.querySelector('body');
+        const dragElem = terminal.querySelector('.resize-top-side');
+        const navigation = terminal.querySelector('.mvca-terminal-navigation');
+        const toTopButton = terminal.querySelector('[data-terminal="up"]');
+        const centeringButton = terminal.querySelector('[data-terminal="center"]');
+        const closeButton = terminal.querySelector('[data-terminal="close"]');
 
-    const getCookiesObject = () => {
-        const obj = {};
+        function getCookiesObject() {
+            const obj = {};
 
-        document.cookie.split(';').forEach(cookie => {
-            const arrCook = cookie.split('=');
-            obj[arrCook[0].trim()] = arrCook[1];
-        })
+            document.cookie.split(';').forEach(cookie => {
+                const arrCook = cookie.split('=');
+                obj[arrCook[0].trim()] = arrCook[1];
+            })
 
-        return obj;
-    }
-    const cookiesObject = getCookiesObject();
+            return obj;
+        }
+        const cookiesObject = getCookiesObject();
 
-    // position buttons control START
-    let initialY = 0;
-    let curentHeight = cookiesObject.terminalPos !== undefined ? cookiesObject.terminalPos : terminal.getBoundingClientRect().height;
-    let prevHeight;
+        // position buttons control START
+        let initialY = 0;
+        let curentHeight = cookiesObject.terminalPos !== undefined ? cookiesObject.terminalPos : terminal.getBoundingClientRect().height;
+        let prevHeight;
 
-    const terminalMinHeight = parseInt(window.getComputedStyle(dragElem).height) + parseInt(window.getComputedStyle(navigation).height);
+        const terminalMinHeight = parseInt(window.getComputedStyle(dragElem).height) + parseInt(window.getComputedStyle(navigation).height);
 
         // memorize terminal height in COOKIE START
         const terminalPositionMEMO = () => {
@@ -189,124 +280,196 @@
         }
         // memorize terminal height in COOKIE END
 
-    const toTopButtonControl = () => {
-        if (curentHeight === window.innerHeight) {
-            toTopButton.classList.add('revertTo180Deg');
-            return;
-        } 
-        toTopButton.classList.remove('revertTo180Deg');
-    }
+        const toTopButtonControl = () => {
+            if (curentHeight === window.innerHeight) {
+                toTopButton.classList.add('revertTo180Deg');
+                return;
+            }
+            toTopButton.classList.remove('revertTo180Deg');
+        }
 
-    const setterminalHeight = () => {
-        let isButtonHide = false;
-    
-        if (curentHeight <= terminalMinHeight) {
+        const setterminalHeight = () => {
+            let isButtonHide = false;
+
+            if (curentHeight <= terminalMinHeight) {
+                curentHeight = terminalMinHeight;
+                isButtonHide = true;
+            }
+            if (curentHeight >= window.innerHeight) {
+                curentHeight = window.innerHeight;
+            }
+            isButtonHide ? hideCloseButton() : revealCloseButton();
+            terminalPositionMEMO();
+            terminal.style.cssText = `--mvca-terminal-height: ${curentHeight}px`;
+            secondResize.style.cssText = `--body-margin-bottom: ${curentHeight}px`;
+            toTopButtonControl();
+        }
+
+        const hideCloseButton = () => {
+            closeButton.classList.add('invisible');
+        }
+        const revealCloseButton = () => {
+            closeButton.classList.remove('invisible');
+        }
+
+        setterminalHeight();
+
+        const closeterminal = (e) => {
             curentHeight = terminalMinHeight;
-            isButtonHide = true;
-        }
-        if (curentHeight >= window.innerHeight) {
-            curentHeight = window.innerHeight;
-        }
-        isButtonHide ? hideCloseButton() : revealCloseButton();
-        terminalPositionMEMO();
-        terminal.style.cssText = `--mvca-terminal-height: ${curentHeight}px`;
-        secondResize.style.cssText = `--body-margin-bottom: ${curentHeight}px`;
-        toTopButtonControl();
-    }
-
-    const hideCloseButton = () => {
-        closeButton.classList.add('invisible');
-    }
-    const revealCloseButton = () => {
-        closeButton.classList.remove('invisible');
-    }
-
-    setterminalHeight();
-
-    const closeterminal = (e) => {
-        curentHeight = terminalMinHeight;
-        setterminalHeight();
-        hideCloseButton();
-    }
-    closeButton.onclick = closeterminal;
-
-    const centeringterminal = () => {
-        curentHeight = Math.round(window.innerHeight / 2);
-        setterminalHeight();
-    }
-    centeringButton.onclick = centeringterminal;
-
-    const toTopterminal = () => {
-        if (curentHeight === window.innerHeight) {
-            curentHeight = prevHeight;
             setterminalHeight();
-            return;
+            hideCloseButton();
+        }
+        closeButton.onclick = closeterminal;
+
+        const centeringterminal = () => {
+            curentHeight = Math.round(window.innerHeight / 2);
+            setterminalHeight();
+        }
+        centeringButton.onclick = centeringterminal;
+
+        const toTopterminal = () => {
+            if (curentHeight === window.innerHeight) {
+                curentHeight = prevHeight;
+                setterminalHeight();
+                return;
+            }
+
+            prevHeight = curentHeight;
+            curentHeight = window.innerHeight;
+            setterminalHeight();
+        }
+        toTopButton.onclick = toTopterminal;
+
+        window.addEventListener('keydown', (e) => {
+            e.code === 'Escape' ? closeterminal() : null;
+        })
+        // position buttons control END
+
+        // drag functions START
+        let isTouch;
+        const draging = (e) => {
+            // e.preventDefault();
+            isTouch ? null : e.preventDefault();
+            const deference = initialY - (isTouch ? e.touches[0].clientY : e.clientY);
+            curentHeight = +prevHeight + deference;
+
+            setterminalHeight();
+        }
+        const dragInit = (e) => {
+            isTouch = e.type === 'touchstart';
+            initialY = isTouch ? e.touches[0].clientY : e.clientY;
+            prevHeight = curentHeight;
+            window.addEventListener(isTouch ? 'touchmove' : 'mousemove', draging);
+        }
+        dragElem.addEventListener('mousedown', dragInit);
+        dragElem.addEventListener('touchstart', dragInit);
+
+        const removeListeners = () => {
+            window.removeEventListener('mousemove', draging, {passive:true});
+            window.removeEventListener('touchmove', draging, {passive:true} );
+        }
+        window.addEventListener('mouseup', removeListeners);
+        window.addEventListener('touchend', removeListeners);
+        // drag functions END
+
+        // tabs functions START
+        const folders = terminal.querySelector('.mvca-terminal-folders');
+        const popUp = terminal.querySelector('.mvca-popup-menu');
+        const foldersButtons = terminal.querySelectorAll('[data-folder]');
+        const errorAreas = terminal.querySelectorAll('.mvca-terminal-error-area');
+
+        const changeActiveButton = (e) => {
+            const isItFolder = e.target.hasAttribute('data-folder');
+
+            if (e.target.classList.contains('active')) {
+                return;
+            }
+            if (isItFolder) {
+                const errorAreaToReveal = e.target.dataset.folder;
+                closeErrorsAreas();
+                foldersButtons.forEach(folder => {
+                    folder.dataset.folder === e.target.dataset.folder ? folder.classList.add('active') : folder.classList.remove('active');
+                })
+                e.target.classList.add('active');
+                terminal.querySelector(`.${errorAreaToReveal}`).classList.remove('hide');
+            }
         }
 
-        prevHeight = curentHeight;
-        curentHeight = window.innerHeight;
-        setterminalHeight();           
-    }
-    toTopButton.onclick = toTopterminal;
+        const closeErrorsAreas = () => {
+            errorAreas.forEach(area => {
+                area.classList.add('hide');
+            })
+        }
 
-    window.addEventListener('keydown', (e) => {
-        e.code === 'Escape' ? closeterminal() : null;
+        folders.onclick = changeActiveButton;
+        popUp.onclick = changeActiveButton;
+
+
+            // tabs hidden
+            const folderIcon = document.querySelector('.mvca-terminal-folder-icon');
+            const getFolder = document.querySelectorAll('.mvca-terminal-folder');
+            const getPopupFolder = document.querySelectorAll('.mvca-popup-menu-item');
+
+
+                let timer;
+                function hideFolderAtIntersect(entries, observer) {
+                    entries.forEach(entry => {
+                        if (!entry.isIntersecting) {
+                            entry.target.classList.add('invisible');
+
+                        } else {
+                            entry.target.classList.remove('invisible');
+
+                        }
+                    });
+                    clearTimeout(timer);
+                    timer = setTimeout(() => {
+                        getFolder.forEach((fol, i)=> {
+                            if (fol.classList.contains('invisible')) {
+                                folderIcon.classList.remove('hide');
+                                getPopupFolder[i].classList.remove('hide');
+
+                            } else {
+                                folderIcon.classList.add('hide');
+                                getPopupFolder[i].classList.add('hide');
+                                closePopUpMenu();
+                            }
+                        })
+                    }, 200)
+                }
+
+                const options = {
+                    root: terminal,
+                    rootMargin: '0px',
+                    threshold: 0.99,
+                };
+                const observer = new IntersectionObserver(hideFolderAtIntersect, options);
+
+                getFolder.forEach(fol => {
+                    observer.observe(fol);
+                })
+            // tabs hidden
+            const mvcaPopupMenu = document.querySelector('.mvca-popup-menu');
+
+            function closePopUpMenu() {
+                mvcaPopupMenu.classList.add('hide');
+                mvcaPopupMenu.classList.remove('flex');
+            }
+            function togglePopUpMenu() {
+                if (mvcaPopupMenu.classList.contains('hide')) {
+                    mvcaPopupMenu.classList.add('flex')
+                    mvcaPopupMenu.classList.remove('hide')
+                }  else {
+                    mvcaPopupMenu.classList.remove('flex');
+                    mvcaPopupMenu.classList.add('hide');
+                }
+            }
+
+
+            folderIcon.addEventListener("click", togglePopUpMenu);
+
+        // tabs functions END
     })
-    // position buttons control END
 
-    // drag functions START
-    const draging = (e) => {
-        e.preventDefault();
-        const deference = initialY - e.clientY;
-        curentHeight = +prevHeight + deference;
-        
-        setterminalHeight();
-    }
-    const dragInit = (e) => {
-        e.preventDefault();
-        initialY = e.clientY;    
-        prevHeight = curentHeight;
-        window.addEventListener('mousemove', draging);
-    }
-    dragElem.addEventListener('mousedown', dragInit);
 
-    const removeListeners = () => {
-            window.removeEventListener('mousemove', draging);
-    }
-    window.addEventListener('mouseup', removeListeners);   
-    // drag functions END
-
-    // tabs functions START
-    const folders = terminal.querySelector('.mvca-terminal-folders');
-    const foldersButtons = folders.querySelectorAll('.mvca-terminal-folder');
-    const errorAreas = terminal.querySelectorAll('.mvca-terminal-error-area');
-
-    const changeActiveButton = (e) => {
-        const isItFolder = e.target.hasAttribute('data-folder');
-
-        if (e.target.classList.contains('active')) {
-            return;
-        }
-
-        if (isItFolder) {
-            const errorAreaToReveal = e.target.getAttribute('data-folder');
-            removeActiveButtons();
-            closeErrorsAreas();
-            e.target.classList.add('active');
-            terminal.querySelector(`.${errorAreaToReveal}`).classList.remove('hide');
-        }
-    }
-
-    const removeActiveButtons = () => {
-        foldersButtons.forEach(button => {
-            button.classList.remove('active');
-        })
-    }
-    const closeErrorsAreas = () => {
-        errorAreas.forEach(area => {
-            area.classList.add('hide');
-        })
-    }
-
-    folders.onclick = changeActiveButton;
 </script>
