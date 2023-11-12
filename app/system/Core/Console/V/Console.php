@@ -69,19 +69,28 @@
             cursor:auto;
         }
 		.mvca-popup-menu {
+			display: flex;
             flex-direction: column-reverse;
 			padding: 10px;
 			position: absolute;
-            bottom: 30px;
-            right: 318px;
+			right: 318px;
 			background-color: var(--mvca-terminal-bg-color);
             list-style-type: none;
-
         }
+		.mvca-popup-menu.below {
+			bottom: 30px;
+            top: auto;
+        }
+		.mvca-popup-menu.under{
+			bottom: auto;
+			top: 30px;
+		}
+
 		.mvca-popup-menu-item {
 			padding: 5px 0;
 			color: var(--mvca-folder-text-color);
 			border-bottom: 3px solid var(--mvca-folder-border-bottom);
+            width: max-content;
 			cursor: pointer;
         }
 		.mvca-popup-menu-item:hover {
@@ -150,21 +159,36 @@
             color: var(--mvca-terminal-error-text-color);
         }
 
+        @media (max-width: 500px) {
+			.mvca-terminal-folders {
+                padding: 0 calc(0rem + 25 * (100vw - 320px) / ( 500 - 320) * 16 / 16 );
+            }
+            [data-server] {
+				display: none;
+            }
+			.mvca-popup-menu {
+				right: 120px;
+            }
+        }
+
         .no-wrap {
             text-wrap: nowrap;
         }
         .invisible {
 			visibility: hidden;
         }
+		.flex {
+			display: flex;
+		}
         .hide {
 			display: none;
         }
-        .flex {
-			display: flex;
+        .show-inline {
+			display: inline;
         }
+
         /* terminal styles END */
 </style>
-<h2 style="font-size: 150px">ПУТИН ХУЙЛО! </h2>
 <section class="mvca-terminal">
     <div class="resize-top-side"></div>
    
@@ -181,7 +205,7 @@
         </ul>
 
         <div class="mvca-terminal-navigation-status-bar">
-            <ul class="mvca-popup-menu hide">
+            <ul class="mvca-popup-menu below hide">
                 <li data-folder="q" class="mvca-popup-menu-item no-wrap">Folder 1</li>
                 <li data-folder="qq" class="mvca-popup-menu-item no-wrap">Folder 2</li>
                 <li data-folder="qqq" class="mvca-popup-menu-item no-wrap">Folder 3</li>
@@ -191,11 +215,11 @@
             </ul>
             <svg class="mvca-terminal-folder-icon hide" xmlns="http://www.w3.org/2000/svg"  viewBox="0 -960 960 960"><path d="M140-160q-24 0-42-18.5T80-220v-520q0-23 18-41.5t42-18.5h281l60 60h339q23 0 41.5 18.5T880-680v460q0 23-18.5 41.5T820-160H140Zm0-60h680v-460H456l-60-60H140v520Zm0 0v-520 520Z"/></svg>
             <div class="mvca-terminal-navigation-status">
-                <span class="no-wrap"><?= $memory ?></span>
+                <span data-server="volume" class="no-wrap"><?= $memory ?></span>
                 <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M480-120q-151 0-255.5-46.5T120-280v-400q0-66 105.5-113T480-840q149 0 254.5 47T840-680v400q0 67-104.5 113.5T480-120Zm0-479q89 0 179-25.5T760-679q-11-29-100.5-55T480-760q-91 0-178.5 25.5T200-679q14 30 101.5 55T480-599Zm0 199q42 0 81-4t74.5-11.5q35.5-7.5 67-18.5t57.5-25v-120q-26 14-57.5 25t-67 18.5Q600-528 561-524t-81 4q-42 0-82-4t-75.5-11.5Q287-543 256-554t-56-25v120q25 14 56 25t66.5 18.5Q358-408 398-404t82 4Zm0 200q46 0 93.5-7t87.5-18.5q40-11.5 67-26t32-29.5v-98q-26 14-57.5 25t-67 18.5Q600-328 561-324t-81 4q-42 0-82-4t-75.5-11.5Q287-343 256-354t-56-25v99q5 15 31.5 29t66.5 25.5q40 11.5 88 18.5t94 7Z"/></svg>
             </div>
             <div class="mvca-terminal-navigation-status">
-                <span class="no-wrap"><?= round($executionTime,6) ?> ms</span>
+                <span data-server="time" class="no-wrap"><?= round($executionTime,6) ?> ms</span>
                 <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m612-292 56-56-148-148v-184h-80v216l172 172ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-400Zm0 320q133 0 226.5-93.5T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160Z"/></svg>
             </div>
             <div class="mvca-terminal-navigation-buttons-set">
@@ -247,228 +271,186 @@ Folder 6
 <script>
     window.addEventListener('DOMContentLoaded', () => {
         // terminal scripts
+        const body = document.body;
         const terminal = document.querySelector('.mvca-terminal');
-        const secondResize = document.querySelector('body');
         const dragElem = terminal.querySelector('.resize-top-side');
         const navigation = terminal.querySelector('.mvca-terminal-navigation');
         const toTopButton = terminal.querySelector('[data-terminal="up"]');
         const centeringButton = terminal.querySelector('[data-terminal="center"]');
         const closeButton = terminal.querySelector('[data-terminal="close"]');
 
-        function getCookiesObject() {
-            const obj = {};
-
-            document.cookie.split(';').forEach(cookie => {
-                const arrCook = cookie.split('=');
-                obj[arrCook[0].trim()] = arrCook[1];
-            })
-
-            return obj;
-        }
-        const cookiesObject = getCookiesObject();
-
-        // position buttons control START
-        let initialY = 0;
-        let curentHeight = cookiesObject.terminalPos !== undefined ? cookiesObject.terminalPos : terminal.getBoundingClientRect().height;
-        let prevHeight;
-
         const terminalMinHeight = parseInt(window.getComputedStyle(dragElem).height) + parseInt(window.getComputedStyle(navigation).height);
 
-        // memorize terminal height in COOKIE START
-        const terminalPositionMEMO = () => {
-            document.cookie = `terminalPos=${curentHeight}`;
-        }
-        // memorize terminal height in COOKIE END
+        let initialY = 0;
+        let curentHeight = localStorage.getItem('terminalPos') ? localStorage.getItem('terminalPos') : terminal.getBoundingClientRect().height;
 
-        const toTopButtonControl = () => {
-            if (curentHeight === window.innerHeight) {
-                toTopButton.classList.add('revertTo180Deg');
-                return;
-            }
-            toTopButton.classList.remove('revertTo180Deg');
-        }
+        let timer;
+        let isTouch;
+        let prevHeight;
 
-        const setterminalHeight = () => {
-            let isButtonHide = false;
+        setTerminalHeight();
 
-            if (curentHeight <= terminalMinHeight) {
-                curentHeight = terminalMinHeight;
-                isButtonHide = true;
-            }
-            if (curentHeight >= window.innerHeight) {
-                curentHeight = window.innerHeight;
-            }
-            isButtonHide ? hideCloseButton() : revealCloseButton();
-            terminalPositionMEMO();
-            terminal.style.cssText = `--mvca-terminal-height: ${curentHeight}px`;
-            secondResize.style.cssText = `--body-margin-bottom: ${curentHeight}px`;
-            toTopButtonControl();
-        }
-
-        const hideCloseButton = () => {
-            closeButton.classList.add('invisible');
-        }
-        const revealCloseButton = () => {
-            closeButton.classList.remove('invisible');
-        }
-
-        setterminalHeight();
-
-        const closeterminal = (e) => {
-            curentHeight = terminalMinHeight;
-            setterminalHeight();
-            hideCloseButton();
-        }
-        closeButton.onclick = closeterminal;
-
-        const centeringterminal = () => {
-            curentHeight = Math.round(window.innerHeight / 2);
-            setterminalHeight();
-        }
-        centeringButton.onclick = centeringterminal;
-
-        const toTopterminal = () => {
-            if (curentHeight === window.innerHeight) {
-                curentHeight = prevHeight;
-                setterminalHeight();
-                return;
-            }
-
-            prevHeight = curentHeight;
-            curentHeight = window.innerHeight;
-            setterminalHeight();
-        }
-        toTopButton.onclick = toTopterminal;
+        dragElem.addEventListener('mousedown', dragInit);                       // drag event
+        dragElem.addEventListener('touchstart', dragInit, {'passive':true});    // drag event
+        closeButton.onclick = closeterminal;                                    // position buttons control
+        centeringButton.onclick = centeringterminal;                            // position buttons control
+        toTopButton.onclick = toTopterminal;                                    // position buttons control
 
         window.addEventListener('keydown', (e) => {
             e.code === 'Escape' ? closeterminal() : null;
         })
-        // position buttons control END
+        window.addEventListener('mouseup', removeListeners);
+        window.addEventListener('touchend', removeListeners, {'passive':true});
 
-        // drag functions START
-        let isTouch;
-        const draging = (e) => {
+        function debounceHandler(debounceCallback, delay = 1000) {
+            clearTimeout(timer);
+            timer = setTimeout(debounceCallback, delay)
+        }
+
+        function terminalPositionMEMO() {
+            debounceHandler(() => localStorage.setItem('terminalPos', curentHeight));
+        }
+
+        function toTopButtonControl () {
+            toTopButton.classList.toggle('revertTo180Deg', curentHeight === window.innerHeight);
+        }
+
+        function setTerminalHeight() {
+            let isButtonHide = curentHeight <= terminalMinHeight;
+
+            if (isButtonHide) {
+                curentHeight = terminalMinHeight;
+            } else if (curentHeight >= window.innerHeight) {
+                curentHeight = window.innerHeight;
+            }
+            isButtonHide ? hideCloseButton() : revealCloseButton();
+            terminalPositionMEMO();
+            terminal.style.setProperty('--mvca-terminal-height', `${curentHeight}px`);
+            body.style.setProperty('--body-margin-bottom', `${curentHeight}px`);
+            toTopButtonControl();
+
+            debounceHandler(() => {
+                const popUpMenuHeight = mvcaPopupMenu.getBoundingClientRect().height;
+                const isPopUpHeightEnough = window.innerHeight - curentHeight > popUpMenuHeight;
+
+                isPopUpHeightEnough ? mvcaPopupMenu.classList.remove('under') : mvcaPopupMenu.classList.add('under');
+            }, 200)
+        }
+
+        function hideCloseButton() {
+            closeButton.classList.add('invisible');
+        }
+        function revealCloseButton() {
+            closeButton.classList.remove('invisible');
+        }
+
+        function closeterminal (e) {
+            curentHeight = terminalMinHeight;
+            setTerminalHeight();
+            hideCloseButton();
+        }
+        function centeringterminal () {
+            curentHeight = Math.round(window.innerHeight / 2);
+            setTerminalHeight();
+        }
+        function toTopterminal() {
+            if (curentHeight === window.innerHeight) {
+                curentHeight = prevHeight;
+                setTerminalHeight();
+                return;
+            }
+            prevHeight = curentHeight;
+            curentHeight = window.innerHeight;
+            setTerminalHeight();
+        }
+
+        function draging(e)  {
             // e.preventDefault();
-            isTouch ? null : e.preventDefault();
+            if (!isTouch) e.preventDefault();
             const deference = initialY - (isTouch ? e.touches[0].clientY : e.clientY);
             curentHeight = +prevHeight + deference;
 
-            setterminalHeight();
+            setTerminalHeight();
         }
-        const dragInit = (e) => {
+        function dragInit(e) {
             isTouch = e.type === 'touchstart';
             initialY = isTouch ? e.touches[0].clientY : e.clientY;
             prevHeight = curentHeight;
-            window.addEventListener(isTouch ? 'touchmove' : 'mousemove', draging);
+            const eventOptions = isTouch ? {'passive':true} : {'passive':false};
+            window.addEventListener(isTouch ? 'touchmove' : 'mousemove', draging, eventOptions);
         }
-        dragElem.addEventListener('mousedown', dragInit);
-        dragElem.addEventListener('touchstart', dragInit);
 
-        const removeListeners = () => {
-            window.removeEventListener('mousemove', draging, {passive:true});
-            window.removeEventListener('touchmove', draging, {passive:true} );
+        function removeListeners() {
+            window.removeEventListener('mousemove', draging);
+            window.removeEventListener('touchmove', draging, {'passive':true} );
         }
-        window.addEventListener('mouseup', removeListeners);
-        window.addEventListener('touchend', removeListeners);
-        // drag functions END
+
 
         // tabs functions START
         const folders = terminal.querySelector('.mvca-terminal-folders');
-        const popUp = terminal.querySelector('.mvca-popup-menu');
+        const mvcaPopupMenu = terminal.querySelector('.mvca-popup-menu');
         const foldersButtons = terminal.querySelectorAll('[data-folder]');
         const errorAreas = terminal.querySelectorAll('.mvca-terminal-error-area');
-
-        const changeActiveButton = (e) => {
-            const isItFolder = e.target.hasAttribute('data-folder');
-
-            if (e.target.classList.contains('active')) {
-                return;
-            }
-            if (isItFolder) {
-                const errorAreaToReveal = e.target.dataset.folder;
-                closeErrorsAreas();
-                foldersButtons.forEach(folder => {
-                    folder.dataset.folder === e.target.dataset.folder ? folder.classList.add('active') : folder.classList.remove('active');
-                })
-                e.target.classList.add('active');
-                terminal.querySelector(`.${errorAreaToReveal}`).classList.remove('hide');
-            }
-        }
-
-        const closeErrorsAreas = () => {
-            errorAreas.forEach(area => {
-                area.classList.add('hide');
-            })
-        }
+        const folderIcon = terminal.querySelector('.mvca-terminal-folder-icon');
 
         folders.onclick = changeActiveButton;
-        popUp.onclick = changeActiveButton;
-
-
-            // tabs hidden
-            const folderIcon = document.querySelector('.mvca-terminal-folder-icon');
-            const getFolder = document.querySelectorAll('.mvca-terminal-folder');
-            const getPopupFolder = document.querySelectorAll('.mvca-popup-menu-item');
-
-
-                let timer;
-                function hideFolderAtIntersect(entries, observer) {
-                    entries.forEach(entry => {
-                        if (!entry.isIntersecting) {
-                            entry.target.classList.add('invisible');
-
-                        } else {
-                            entry.target.classList.remove('invisible');
-
-                        }
-                    });
-                    clearTimeout(timer);
-                    timer = setTimeout(() => {
-                        getFolder.forEach((fol, i)=> {
-                            if (fol.classList.contains('invisible')) {
-                                folderIcon.classList.remove('hide');
-                                getPopupFolder[i].classList.remove('hide');
-
-                            } else {
-                                folderIcon.classList.add('hide');
-                                getPopupFolder[i].classList.add('hide');
-                                closePopUpMenu();
-                            }
-                        })
-                    }, 200)
-                }
-
-                const options = {
-                    root: terminal,
-                    rootMargin: '0px',
-                    threshold: 0.99,
-                };
-                const observer = new IntersectionObserver(hideFolderAtIntersect, options);
-
-                getFolder.forEach(fol => {
-                    observer.observe(fol);
-                })
-            // tabs hidden
-            const mvcaPopupMenu = document.querySelector('.mvca-popup-menu');
-
-            function closePopUpMenu() {
+        mvcaPopupMenu.onclick = changeActiveButton;
+        folderIcon.onclick = () =>  mvcaPopupMenu.classList.toggle('hide');
+        body.onclick = (e) => {
+            if (!e.target.classList.contains('data-folder') && e.target !== folderIcon) {
                 mvcaPopupMenu.classList.add('hide');
-                mvcaPopupMenu.classList.remove('flex');
             }
-            function togglePopUpMenu() {
-                if (mvcaPopupMenu.classList.contains('hide')) {
-                    mvcaPopupMenu.classList.add('flex')
-                    mvcaPopupMenu.classList.remove('hide')
-                }  else {
-                    mvcaPopupMenu.classList.remove('flex');
-                    mvcaPopupMenu.classList.add('hide');
-                }
+        }
+
+        function changeActiveButton(e) {
+            if (!e.target.classList.contains('active') && e.target.dataset.folder) {
+                foldersButtons.forEach((folder, i)=> {
+                    folder.dataset.folder === e.target.dataset.folder ? folder.classList.add('active') : folder.classList.remove('active');
+                    if (errorAreas[i]) errorAreas[i].classList.add('hide');
+                })
+                terminal.querySelector(`.${e.target.dataset.folder}`).classList.remove('hide');
             }
+        }
 
+       // tabs hiddimg
+        const getFolder = terminal.querySelectorAll('.mvca-terminal-folder');
+        const getPopupFolder = terminal.querySelectorAll('.mvca-popup-menu-item');
+        const observer = new IntersectionObserver(hideFolderAtIntersect, {root: terminal, rootMargin: '0px', threshold: 0.99,});
 
-            folderIcon.addEventListener("click", togglePopUpMenu);
+        getFolder.forEach(fol =>  observer.observe(fol));
 
-        // tabs functions END
+        function hideFolderAtIntersect(entries, observer) {
+            entries.forEach(entry => {
+                entry.target.classList.toggle('invisible', !entry.isIntersecting);
+            });
+
+            debounceHandler(() => {
+                getFolder.forEach((fol, i)=> {
+                    if (fol.classList.contains('invisible')) {
+                        folderIcon.classList.remove('hide');
+                        getPopupFolder[i].classList.remove('hide');
+
+                    } else {
+                        folderIcon.classList.add('hide');
+                        getPopupFolder[i].classList.add('hide');
+                        mvcaPopupMenu.classList.add('hide');
+                    }
+                })
+            }, 200);
+
+        }
+
+        const serverData = terminal.querySelectorAll('[data-server]');
+        const serverDataButtons = terminal.querySelectorAll('[data-server]+svg');
+        serverDataButtons.forEach((button, i)=> {
+            button.onclick = () => {
+                serverData.forEach(data => {
+                    data.classList.remove('show-inline');
+                })
+                serverData[i].classList.toggle('show-inline');
+
+            }
+        })
     })
 
 

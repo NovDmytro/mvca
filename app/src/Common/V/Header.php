@@ -1,3 +1,11 @@
+<?php
+/**
+ * @var string $title
+ * @var array $config
+ */
+?>
+
+
 <!DOCTYPE html>
 <html lang="<?=$config['language']?>">
 <head>
@@ -29,7 +37,7 @@
                 window.addEventListener('DOMContentLoaded', () => {
                     const burger = document.querySelector('.burger');
                     const navigation = document.querySelector('.navigation'); 
-                    const body = document.querySelector('body'); 
+                    const body = document.body;
 
                     const openNavigation = () => {
                         navigation.classList.add('menu-in');
@@ -45,7 +53,7 @@
                         burgerCondition ? openNavigation() :  cancelNavigation();                                  
                     }; 
 
-                    const cancelEventNavigation =  (e) => {
+                    const cancelEventNavigation = (e) => {
                         if (!navigation.contains(e.target) && !burger.contains(e.target) && navigation.classList.contains('menu-in')){
                             cancelNavigation(); 
                         }
@@ -60,15 +68,15 @@
 
             <nav class="navigation">
                 <ul class="navigation__menu">
-                    <a href="/" class="navigation__link navigation__item">
+                    <li class="navigation__link navigation__item"><a href="/" >
                         Home
-                    </a>
-                    <a href="/Samples-main" class="navigation__item navigation__link">
-                        Samples
-                    </a>
-                    <a href="https://github.com/NovDmytro/mvca" class="navigation__item navigation__link">
-                        Docs
-                    </a>
+                        </a></li>
+                   <li class="navigation__item navigation__link><a href="/Samples-main" ">
+                           Samples
+                       </a></li>
+                    <li class="navigation__item navigation__link"><a href="https://github.com/NovDmytro/mvca" >
+                            Docs
+                        </a></li>
                 </ul>
             </nav>
         </div>
