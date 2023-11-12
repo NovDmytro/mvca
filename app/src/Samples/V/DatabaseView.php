@@ -4,11 +4,6 @@
  */
 ?>
 <h2>Database MVC sample</h2>
-
-// var_dump($modelExample) is:<br>
-<?php var_dump($modelExample) ?>
+<p>// var_dump($modelExample) is: <?php var_dump($modelExample) ?></p>
 <br>
-
-
-
 <a href="/Samples-main">Back to Samples</a>

@@ -8,20 +8,11 @@
  */
 ?>
 <h2>Config sample</h2>
-
-// $ENVIRONMENT is:<br>
-<?= $ENVIRONMENT ?><br>
-
-// $testSetting is:<br>
-<?= $testSetting ?><br>
-
-// $arrTest1 is:<br>
-<?= $arrTest1 ?><br>
-
-// $arrTest2 is:<br>
-<?= $arrTest2 ?><br>
-
-// var_dump($allowedLanguages) is:<br>
-<?php var_dump($allowedLanguages); ?><br>
-
+<br>
+<p>// $ENVIRONMENT is: <?= $ENVIRONMENT ?></p>
+<p>// $testSetting is: <?= $testSetting ?></p>
+<p>// $arrTest1 is: <?= $arrTest1 ?></p>
+<p>// $arrTest2 is: <?= $arrTest2 ?></p>
+<p>// var_dump($allowedLanguages) is: <?php var_dump($allowedLanguages); ?></p>
+<br>
 <a href="/Samples-main">Back to Samples</a>

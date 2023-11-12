@@ -116,7 +116,6 @@
 			padding: 0 25px 0 10px;
             display: flex;
             align-items: center;
-            width: fit-content;
             gap: 0 10px;
             margin-bottom: 5px;
         }
@@ -141,7 +140,12 @@
 			line-height: 1.1;
         }
         .mvca-terminal-navigation-status svg {
+			display: block;
+			width: 24px;
             fill: var(--mvca-terminal-navigation-status-color);
+        }
+		.mvca-terminal-navigation-status svg:hover {
+			--mvca-terminal-navigation-status-color: #cb602d
         }
 
 		.mvca-terminal-navigation-buttons-set {
@@ -160,14 +164,10 @@
             --mvca-terminal-navigation-status-color: #cb602d;
         }
         .mvca-terminal-error-area {
+			font-size: 16px;
             padding: 10px 25px;
             background: var(--mvca-terminal-error-erea-bg-color);
         }
-
-        .mvca-terminal-error-area pre {
-            color: var(--mvca-terminal-error-text-color);
-        }
-
         @media (max-width: 500px) {
 			.mvca-terminal-folders {
                 padding: 0 calc(0rem + 25 * (100vw - 320px) / ( 500 - 320) * 16 / 16 );
@@ -178,10 +178,17 @@
 			.mvca-popup-menu {
 				right: 120px;
             }
+			.mvca-terminal-error-area {
+				padding: 10px;
+				font-size: 14px;
+            }
         }
-
+        .mvca-terminal-error-area {
+            overflow-y: scroll;
+		}
         .no-wrap {
             text-wrap: nowrap;
+			white-space: nowrap;
         }
         .invisible {
 			visibility: hidden;
@@ -195,7 +202,12 @@
         .show-inline {
 			display: inline;
         }
-
+		.show {
+			display: block;
+        }
+		.revertTo180Deg {
+			transform: rotate(180deg);
+		}
         /* terminal styles END */
 </style>
 <section class="mvca-terminal">
@@ -203,10 +215,6 @@
    
     <div class="mvca-terminal-navigation">
         <ul class="mvca-terminal-folders">
-
-
-
-
             <!-- heremust be PHP code -->
             <?php $firstActive = 'active'; ?>
             <?php foreach ($sources as $source) : ?>
@@ -322,13 +330,6 @@
             terminal.style.setProperty('--mvca-terminal-height', `${curentHeight}px`);
             body.style.setProperty('--body-margin-bottom', `${curentHeight}px`);
             toTopButtonControl();
-
-            debounceHandler(() => {
-                const popUpMenuHeight = mvcaPopupMenu.getBoundingClientRect().height;
-                const isPopUpHeightEnough = window.innerHeight - curentHeight > popUpMenuHeight;
-
-                isPopUpHeightEnough ? mvcaPopupMenu.classList.remove('under') : mvcaPopupMenu.classList.add('under');
-            }, 200)
             terminalPositionMEMO();
         }
 
@@ -390,7 +391,15 @@
 
         folders.onclick = changeActiveButton;
         mvcaPopupMenu.onclick = changeActiveButton;
-        folderIcon.onclick = () =>  mvcaPopupMenu.classList.toggle('hide');
+        folderIcon.onclick = () => {
+            mvcaPopupMenu.classList.toggle('hide');
+            const popUpMenuHeight = mvcaPopupMenu.getBoundingClientRect().height;
+            const isPopUpHeightEnough = window.innerHeight - curentHeight > popUpMenuHeight;
+            console.log(popUpMenuHeight)
+            console.log(isPopUpHeightEnough)
+
+            isPopUpHeightEnough ? mvcaPopupMenu.classList.remove('under') : mvcaPopupMenu.classList.add('under');
+        };
         body.onclick = (e) => {
             if (!e.target.classList.contains('data-folder') && e.target !== folderIcon) {
                 mvcaPopupMenu.classList.add('hide');
@@ -441,10 +450,9 @@
             button.onclick = () =>{
                 if (window.innerWidth <= 500) {
                     serverData.forEach(data => {
-                        console.log(window.innerWidth)
-                        data.classList.remove('show-inline');
+                        data.classList.remove('show');
                     })
-                    serverData[i].classList.toggle('show-inline');
+                    serverData[i].classList.toggle('show');
                 }
             }
         })

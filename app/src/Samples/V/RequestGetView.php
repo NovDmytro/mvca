@@ -6,19 +6,18 @@
  */
 ?>
 <h2>GET Request samples</h2>
-//To understand how Request work please click next url:<br>
-Click: <a href="<?= $getDemoURL ?>"><?= $getDemoURL ?></a><br>
-
-//If you clicked previous url now you can see this data:<br>
-$dirs['route']: <?= $dirs['route'] ?><br>
-$dirs['var1']: <?= $dirs['var1'] ?><br>
-$dirs['var2']: <?= $dirs['var2'] ?><br>
-$dirs['var3']: <?= $dirs['var3'] ?><br>
-$dirs['var4']: <?= $dirs['var4'] ?><br>
-$dirs['var5']: <?= $dirs['var5'] ?><br>
-$dirs['var6']: <?= $dirs['var6'] ?><br>
-$query['querySample1']: <?= $query['querySample1'] ?><br>
-$query['querySample2']: <?= $query['querySample2'] ?><br>
-$query['intFilterSample']: <?= $query['intFilterSample'] ?><br>
+<p>//To understand how Request work please click next url:</p>
+<a href="<?= $getDemoURL ?>">Click: <?= $getDemoURL ?></a>
+<p>//If you clicked previous url now you can see this data:</p>
+<p>$dirs['route']: <?= $dirs['route'] ?></p>
+<p>$dirs['var1']: <?= $dirs['var1'] ?></p>
+<p>$dirs['var2']: <?= $dirs['var2'] ?></p>
+<p>$dirs['var3']: <?= $dirs['var3'] ?></p>
+<p>$dirs['var4']: <?= $dirs['var4'] ?></p>
+<p>$dirs['var5']: <?= $dirs['var5'] ?></p>
+<p>$dirs['var6']: <?= $dirs['var6'] ?></p>
+<p>$query['querySample1']: <?= $query['querySample1'] ?></p>
+<p>$query['querySample2']: <?= $query['querySample2'] ?></p>
+<p>$query['intFilterSample']: <?= $query['intFilterSample'] ?></p>
 <br>
 <a href="/Samples-main">Back to Samples</a>
