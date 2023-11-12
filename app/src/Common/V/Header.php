@@ -71,7 +71,7 @@
                     <li class="navigation__link navigation__item"><a href="/" >
                         Home
                         </a></li>
-                   <li class="navigation__item navigation__link><a href="/Samples-main" ">
+                   <li class="navigation__item navigation__link"><a href="/Samples-main">
                            Samples
                        </a></li>
                     <li class="navigation__item navigation__link"><a href="https://github.com/NovDmytro/mvca" >
