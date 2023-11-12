@@ -1,15 +1,12 @@
 <?php
 
 namespace Samples\C;
-use Engine\Debug;
-use Samples\M;
 
 use Engine\Config;
 use Engine\Output;
 use Services\Request; //Singleton malt whiskey
 
-
-class RequestsController
+class RequestController
 {
     private Config $config;
     private Output $output;
@@ -23,7 +20,17 @@ class RequestsController
         $this->config = $config;
         $this->output = $output;
     }
-    public function getSamples(): void
+
+
+    /* In this sample we will work with:
+    $request->GET(),$request->POST(),$request->SERVER(),$request->COOKIES() and $request->JSON()
+
+    'key' - is your query key
+    'filter' - not required, is one of these filters: 'int', 'dec', 'hex', 'email', 'latin', 'varchar', 'html'. Default is 'varchar'
+    'case' - not required, is a case switcher, can be: 'low', 'up'
+    */
+
+    public function requestGet(): void
     {
         $request = Request::init();//!IMPORTANT init Request before use!
 
@@ -41,46 +48,49 @@ class RequestsController
         $view['query']['querySample2']= $request->GET('querySample2');
 
         $view['query']['intFilterSample']= $request->GET('intFilterSample','int');
-
         $view['title'] = '{{Request GET samples}} - MVCA';
         $view['config']['language'] = $this->config->get('defaultLanguage');
         $view['config']['charset'] = $this->config->get('charset');
-        $this->output->load("Samples/GETRequests", $view, ['language'=>$this->config->get('defaultLanguage')]);
+        $this->output->load("Samples/RequestGet", $view, ['language'=>$this->config->get('defaultLanguage')]);
     }
 
-    public function postSamples(): void
+    public function requestPost(): void
     {
-        $request = Request::init();//!IMPORTANT init Request before use!
-
+        $request = Request::init();
         $view['postSample']['upCaseSample']= $request->POST('upCaseSample','varchar','up');
         $view['postSample']['emailSample']= $request->POST('emailSample','email','low');
         $view['postSample']['filteredNumbersSample']= $request->POST('filteredNumbersSample','int','low');
-
         $view['title'] = '{{Request POST samples}} - MVCA';
         $view['config']['language'] = $this->config->get('defaultLanguage');
         $view['config']['charset'] = $this->config->get('charset');
-        $this->output->load("Samples/POSTRequests", $view, ['language'=>$this->config->get('defaultLanguage')]);
+        $this->output->load("Samples/RequestPost", $view, ['language'=>$this->config->get('defaultLanguage')]);
     }
 
-
-    public function jsonSamples(): void
+    //This is request usage sample, better to use Cookies Service
+    public function requestCookie(): void
     {
-        $request = Request::init();//!IMPORTANT init Request before use!
-        if ($request->GET('jsonDemo') == 'yes') {
-            echo json_encode(['id' => $request->JSON('id', 'int'), 'name' => $request->JSON('name', 'varchar')]);
-        } else {
-        $view['title'] = '{{Request JSON samples}} - MVCA';
+        $request = Request::init();
+        $view['cookieSample']= $request->COOKIE('cookieSample','varchar','low');
+        $view['title'] = '{{Request COOKIE samples}} - MVCA';
         $view['config']['language'] = $this->config->get('defaultLanguage');
         $view['config']['charset'] = $this->config->get('charset');
-        $this->output->load("Samples/JSONRequests", $view, ['language' => $this->config->get('defaultLanguage')]);
+        $this->output->load("Samples/RequestCookie", $view, ['language'=>$this->config->get('defaultLanguage')]);
     }
-    }
-
-
-
-    public function serverSamples(): void
+    public function requestCookieSet(): void
     {
-        $request = Request::init();//!IMPORTANT init Request before use!
+        setcookie('cookieSample', '123', time() + 60 * 60 * 24 * 30, '/');
+        header('Location: /Samples-Request-requestCookie/');
+    }
+    public function requestCookieDel(): void
+    {
+        setcookie('cookieSample', '', time() - 3600, '/');
+        header('Location: /Samples-Request-requestCookie/');
+    }
+
+
+    public function requestServer(): void
+    {
+        $request = Request::init();
         $view['server']['REDIRECT_STATUS']=$request->SERVER('REDIRECT_STATUS');
         $view['server']['HTTP_HOST']=$request->SERVER('HTTP_HOST');
         $view['server']['HTTP_CONNECTION']=$request->SERVER('HTTP_CONNECTION');
@@ -125,12 +135,29 @@ class RequestsController
         $view['server']['PHP_SELF']=$request->SERVER('PHP_SELF');
         $view['server']['REQUEST_TIME_FLOAT']=$request->SERVER('REQUEST_TIME_FLOAT');
         $view['server']['REQUEST_TIME']=$request->SERVER('REQUEST_TIME');
+        $view['title'] = '{{Request JSON samples}} - MVCA';
+        $view['config']['language'] = $this->config->get('defaultLanguage');
+        $view['config']['charset'] = $this->config->get('charset');
+        $this->output->load("Samples/RequestServer", $view, ['language' => $this->config->get('defaultLanguage')]);
+    }
 
+    //Json example view
+    public function requestJson(): void
+    {
+        $view['title'] = '{{Request JSON samples}} - MVCA';
+        $view['config']['language'] = $this->config->get('defaultLanguage');
+        $view['config']['charset'] = $this->config->get('charset');
+        $this->output->load("Samples/RequestJson", $view, ['language' => $this->config->get('defaultLanguage')]);
+    }
 
-            $view['title'] = '{{Request JSON samples}} - MVCA';
-            $view['config']['language'] = $this->config->get('defaultLanguage');
-            $view['config']['charset'] = $this->config->get('charset');
-            $this->output->load("Samples/SERVERRequests", $view, ['language' => $this->config->get('defaultLanguage')]);
-        }
+    //Get JSON data and work with it
+    public function requestJsonData(): void
+    {
+        $request = Request::init();
+            echo json_encode([
+                'id' => $request->JSON('id', 'int'),
+                'name' => $request->JSON('name', 'varchar')
+            ]);
+    }
 
 }

@@ -15,11 +15,7 @@ class Router
 
     public function preparePath($route): void
     {
-        $routeLower='';
-        if ($route) {
-            $routeLower = mb_strtolower($route);
-        }
-        $this->path = $this->getPathFromRoutes($routeLower);
+        $this->path = $this->getPathFromRoutes($route);
         if(!$this->path){
             $this->path=$route;
         }
@@ -83,7 +79,11 @@ class Router
 
     private function getPathFromRoutes($route)
     {
+        if ($route) {
+            $route = mb_strtolower($route);
+        }
         $routes = include "system/routes.php";
+        $routes = array_change_key_case($routes, CASE_LOWER);
         if (in_array($route, array_keys($routes))) {
             return $routes[$route];
         }

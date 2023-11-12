@@ -5,10 +5,10 @@ namespace Samples\C; //Samples - is the main folder src/Samples; C - is the cont
 use Samples\M;         //Models namespace
 use Engine\Config;   //Class that contains all configuration data
 use Engine\Output;   //Class that work with view
+use Services\Request;  //Singleton Class that handles $_GET $_POST etc.
 
 /* Unused in this sample, but can be added:
 use Engine\Debug;      //Singleton Class that allows to have additional debug
-use Services\Request;  //Singleton Class that handles $_GET $_POST etc.
 use Services\Cookies;  //Class that handles cookies
 use Services\Util;     //Class with helpers
 use Services\Crypto;   //Class with few crypto methods
@@ -53,9 +53,12 @@ class BasicsController
     */
     public function main(): void
     {
+		/* This is request singleton init
+         */
+		$request = Request::init();
         /* This is model example, please visit src/Samples/M/BasicsModel.php right now
          */
-        $example=$this->basicsModel->getExampleById(1);
+        $example=$this->basicsModel->getExampleById($request->GET('var1', 'int'));
 
         /* This is view example, we can simply echo some data or json from this controller or run view
         To run view we need to use Output class and load method
@@ -77,12 +80,12 @@ class BasicsController
         use double curly braces, for example {{translateMe}}, but dont forget to set translation in system/translations
 
         default settings is stored in config.php
-    "defaultLanguage" => "en",
-    "defaultHeader" => "src/Common/V/Header.php",
-    "defaultFooter" => "src/Common/V/Footer.php",
+            "defaultLanguage" => "en",
+            "defaultHeader" => "src/Common/V/Header.php",
+            "defaultFooter" => "src/Common/V/Footer.php",
          */
-        $view['modelExample']=$example; //will be array, because model returns an array
-        $view['someString']='Some string data'; //will be array, because model returns an array
+        $view['modelExample']=$example; //$example is array, because model returns an array
+        $view['someString']='Some string data'; //Add some data to $someString
 
 
         $view['title'] = '{{Basics sample}} - MVCA'; //This is title because by default we use $title in header
