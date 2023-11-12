@@ -5,15 +5,12 @@
  */
 ?>
 <h2>Output sample</h2>
-
-// Because of extract($view); in Output class your array keys of $view became multiple variables<br>
-// $view['sampleString'] became $sampleString<br>
-// $view['sampleArray'] became $sampleArray<br>
-
-// $sampleString is:<br>
-<?= $sampleString ?><br>
-
-// var_dump($sampleArray) is:<br>
-<?php var_dump($sampleArray) ?><br>
-
+<p>// Because of extract($view); in Output class your array keys of $view became multiple variables</p>
+<p>// $view['sampleString'] became $sampleString</p>
+<p>// $view['sampleArray'] became $sampleArray</p>
+<p>// $sampleString is: <?= $sampleString ?></p>
+<br>
+<p>// var_dump($sampleArray) is:</p>
+<p><?php var_dump($sampleArray) ?></p>
+<br>
 <a href="/Samples-main">Back to Samples</a>

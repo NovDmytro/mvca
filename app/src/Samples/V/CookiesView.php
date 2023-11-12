@@ -4,13 +4,13 @@
  */
 ?>
 <h2>Cookies sample</h2>
-//To set cookie please click next url:<br>
-Click: <a href="/Samples-Cookies-setTest/">/Samples-Cookies-setTest/</a><br>
-
-//To del cookie please click next url:<br>
-Click: <a href="/Samples-Cookies-delTest/">/Samples-Cookies-delTest/</a><br>
-
-//Test cookie is:<br>
-$testCookie: <?= $testCookie ?><br>
+<br>
+<p>//To set cookie please click next url:</p>
+<a href="/Samples-Cookies-setTest/"> Click:  /Samples-Cookies-setTest/</a>
+<br>
+<p>//To del cookie please click next url:</p>
+<a href="/Samples-Cookies-delTest/">Click:  /Samples-Cookies-delTest/</a>
+<p>//Test cookie is:</p>
+<p>$testCookie: <?= $testCookie ?></p>
 <br>
 <a href="/Samples-main">Back to Samples</a>

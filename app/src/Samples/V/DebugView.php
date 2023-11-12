@@ -1,5 +1,6 @@
 <h2>Debug sample</h2>
-// Enable debug in app/system/config.php<br>
-// Demo is in your MVCA console<br>
-// You may also see some PHP header errors in debug<br>
+<p>// Enable debug in app/system/config.php</p>
+<p>// Demo is in your MVCA console</p>
+<p>// You may also see some PHP header errors in debug</p>
+<br>
 <a href="/Samples-main">Back to Samples</a>
