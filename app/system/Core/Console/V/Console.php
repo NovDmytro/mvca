@@ -1,3 +1,12 @@
+<?php
+/**
+ * @var array $sources
+ * @var array $reports
+ * @var string $memory
+ * @var string $executionTime
+ */
+?>
+
 <style>
     
         /* terminal styles START */
@@ -194,24 +203,29 @@
    
     <div class="mvca-terminal-navigation">
         <ul class="mvca-terminal-folders">
+
+
+
+
             <!-- heremust be PHP code -->
-            <li data-folder="q" class="mvca-terminal-folder no-wrap active">Folder 1</li>
-            <li data-folder="qq" class="mvca-terminal-folder no-wrap">Folder 2</li>
-            <li data-folder="qqq" class="mvca-terminal-folder no-wrap ">Folder 3</li>
-            <li data-folder="qqqq" class="mvca-terminal-folder no-wrap">Folder 4</li>
-            <li data-folder="qqqqq" class="mvca-terminal-folder no-wrap">Folder 5</li>
-            <li data-folder="qqqqqq" class="mvca-terminal-folder no-wrap">Folder 6</li>
+            <?php $firstActive = 'active'; ?>
+            <?php foreach ($sources as $source) : ?>
+                <li data-folder="source-<?= $source ?>"
+                    class="mvca-terminal-folder no-wrap <?= $firstActive ?>"><?= $source ?></li>
+                <?php $firstActive = ''; ?>
+            <?php endforeach ?>
+
             <!-- heremust be PHP code -->
         </ul>
 
         <div class="mvca-terminal-navigation-status-bar">
             <ul class="mvca-popup-menu below hide">
-                <li data-folder="q" class="mvca-popup-menu-item no-wrap">Folder 1</li>
-                <li data-folder="qq" class="mvca-popup-menu-item no-wrap">Folder 2</li>
-                <li data-folder="qqq" class="mvca-popup-menu-item no-wrap">Folder 3</li>
-                <li data-folder="qqqq" class="mvca-popup-menu-item no-wrap">Folder 4</li>
-                <li data-folder="qqqqq" class="mvca-popup-menu-item no-wrap">Folder 5</li>
-                <li data-folder="qqqqqq" class="mvca-popup-menu-item no-wrap">Folder 6</li>
+                <?php $firstActive = 'active'; ?>
+                <?php foreach ($sources as $source) : ?>
+                    <li data-folder="source-<?= $source ?>"
+                        class="mvca-terminal-folder no-wrap <?= $firstActive ?>"><?= $source ?></li>
+                    <?php $firstActive = ''; ?>
+                <?php endforeach ?>
             </ul>
             <svg class="mvca-terminal-folder-icon hide" xmlns="http://www.w3.org/2000/svg"  viewBox="0 -960 960 960"><path d="M140-160q-24 0-42-18.5T80-220v-520q0-23 18-41.5t42-18.5h281l60 60h339q23 0 41.5 18.5T880-680v460q0 23-18.5 41.5T820-160H140Zm0-60h680v-460H456l-60-60H140v520Zm0 0v-520 520Z"/></svg>
             <div class="mvca-terminal-navigation-status">
@@ -231,41 +245,21 @@
 
     </div>
     <!-- heremust be PHP code -->
-    <div class="mvca-terminal-error-area q">
-            <pre>
-Folder 1
-            </pre>
-    </div>
-    <div class="mvca-terminal-error-area qq hide">
-            <pre>
-Folder 2
-            </pre>
-    </div>
-
-    <div class="mvca-terminal-error-area qqq hide">
-            <pre>
-Folder 3
-            </pre>
-    </div>
-
-    <div class="mvca-terminal-error-area qqqq hide">
-            <pre>
-Folder 4
-            </pre>
-    </div>
-
-    <div class="mvca-terminal-error-area qqqqq hide">
-            <pre>
-Folder 5
-            </pre>
-    </div>
-
-    <div class="mvca-terminal-error-area qqqqqq hide">
-            <pre>
-Folder 6
-            </pre>
-    </div>
-
+    <?php $firstActive = ''; ?>
+    <?php foreach ($sources as $source) : ?>
+        <div class="mvca-terminal-error-area source-<?= $source ?> <?= $firstActive ?>" style="color:#ffffff">
+            <?php foreach ($reports[$source] as $report) : ?>
+                [<?= number_format($report['time'], 6, '.', '') ?>] <b><?= $report['type'] ?></b> -
+                <?php if (is_array($report['data'])) : ?>
+                    <?= json_encode($report['data']); ?>
+                <?php else : ?>
+                    <?= $report['data'] ?>
+                <?php endif ?>
+                <br>
+            <?php endforeach ?>
+        </div>
+        <?php $firstActive = 'hide'; ?>
+    <?php endforeach ?>
     <!-- heremust be PHP code -->
 </section>
 <script>
@@ -443,12 +437,14 @@ Folder 6
         const serverData = terminal.querySelectorAll('[data-server]');
         const serverDataButtons = terminal.querySelectorAll('[data-server]+svg');
         serverDataButtons.forEach((button, i)=> {
-            button.onclick = () => {
-                serverData.forEach(data => {
-                    data.classList.remove('show-inline');
-                })
-                serverData[i].classList.toggle('show-inline');
-
+            button.onclick = () =>{
+                if (window.innerWidth <= 500) {
+                    serverData.forEach(data => {
+                        console.log(window.innerWidth)
+                        data.classList.remove('show-inline');
+                    })
+                    serverData[i].classList.toggle('show-inline');
+                }
             }
         })
     })
