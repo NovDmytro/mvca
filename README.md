@@ -210,7 +210,7 @@ You can edit `app/system/bootstrap.php` and add some custom functionality, this 
 ## Basic functionality
 
 ### Output
-To send data from controller to view you need to use Output service. To wire cookies use container (add to __construct: `Output $output`)
+To send data from controller to view you need to use Output service. To wire output use container (add to __construct: `Output $output`)
 ```
 $this->output->load(
 string 'route',
@@ -244,7 +244,7 @@ Same logic is used for: `$request->POST`, `$request->SERVER`, `$request->JSON`, 
 `$request->JSON` is used to catch JSON POST data
 
 ### Cookies
-MVCA has simple cookies service that can set, get and delete some client's cookies. To wire cookies use container (add to __construct: `Cookies $cookies`)
+MVCA has simple cookies service that can set, get and delete some client's cookies. cookies use container (add to __construct: `Cookies $cookies`)
 
 Set new cookie:
 ```
@@ -269,7 +269,7 @@ string 'key'
 ```
 
 ### Config
-Config class contains all configuration data. To wire config use container (add to __construct: `Config $config`)
+Config class contains all configuration data. config use container (add to __construct: `Config $config`)
 You can add custom config variables by adding it to `app/system/config.php`
 Or you can set it somwhere in `app/system/bootstrap.php`
 
@@ -308,7 +308,7 @@ $this->config->getArray()
 ```
 
 ### Database
-Database class can work with `PDO mysql`, `PDO mariadb` and `PDO postgresql`. To wire database use container (add to __construct: `Database $database`)
+Database class can work with `PDO mysql`, `PDO mariadb` and `PDO postgresql`. database use container (add to __construct: `Database $database`)
 Before use add DSN to: `app/system/config.php`
 Example configs:
  For mariadb and mysql: `'mysql://user:pass@host:3306/database?charset=UTF8'`
