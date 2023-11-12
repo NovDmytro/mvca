@@ -318,7 +318,7 @@
                 curentHeight = window.innerHeight;
             }
             isButtonHide ? hideCloseButton() : revealCloseButton();
-            terminalPositionMEMO();
+
             terminal.style.setProperty('--mvca-terminal-height', `${curentHeight}px`);
             body.style.setProperty('--body-margin-bottom', `${curentHeight}px`);
             toTopButtonControl();
@@ -329,6 +329,7 @@
 
                 isPopUpHeightEnough ? mvcaPopupMenu.classList.remove('under') : mvcaPopupMenu.classList.add('under');
             }, 200)
+            terminalPositionMEMO();
         }
 
         function hideCloseButton() {
