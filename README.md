@@ -359,4 +359,126 @@ string 'type')
  - `'source'` - class name or any name that will group your reports, can be anything but not null
  - `'type'` - report type, by default `'Info'`, `'Warning'`, `'Notice'`, `'FatalError'` or `'Unknown'`. But you can write anything you want
 
+### WebSocket
+This is simple WebSocket class which can handle almost any task.
 
+```
+$webSocket=new WebSocket(
+string 'listenTime',
+string 'lag'
+)
+```        
+ - `'listenTime'` - is a socket lifetime in seconds, 0 is infinite
+ - `'lag'` - is a pause on each tick in microseconds
+ 
+You can use this callbacks:
+ - `'onConnect'`
+ - `'onMessage'`
+ - `'onTick'`
+ - `'onClose'`
+ - `'onStop'`
+ 
+You can use this methods:
+
+```
+addClient(
+Socket 'socket', 
+string|array 'data', 
+string 'id'
+ ) 
+```
+ - `'socket'` - is a socket resource id
+ - `'data'` - is a custom optional data
+ - `'id'` - is a optional id, function will return actual id after add
+```
+send(
+string 'id',
+string 'data'
+ ) 
+ - `'id'` - client's id, NOT A SOCKET RESOURCE ID
+ - `'data'` - data to send
+
+```
+getSocket(
+string 'id'
+ )
+```
+Will return Socket resource id
+ 
+ 
+```
+getSockets()
+```
+Will return all Socket resource ids array
+ 
+```
+getClient('id')
+```
+Will return client array with 'socket' and 'data'
+ 
+```
+getClients()
+```
+Will return clients array
+
+
+WebSocket mini chat example code:
+
+```
+    public function worker(): void
+    {
+        // WebSocket('listenTime','lag') listenTime in seconds, lag in microseconds
+        $webSocket=new WebSocket('60','100000');
+
+        // Triggers when someone connected
+        // $clientSocket is a socket resource id
+        // $clientData is clients data array with headers,peer and cookies keys
+        $webSocket->onConnect(function ($clientSocket, $clientData) use ($webSocket){
+            //$clientSocket - socket resource id, $clientData - optional data, id is custom id, optional
+            $newId=$webSocket->addClient($clientSocket,$clientData);
+            
+            //Send message to new client
+            $webSocket->send($newId, json_encode(['data' => 'Hello, ' . $clientData['peer'], 'type' => 'HELO']));
+            
+            //Broadcast message to rest clients
+            foreach ($webSocket->getClients() as $id=>$client) {
+                if ($id != $newId) {
+                $webSocket->send($id, json_encode(['data' => 'Client ' . $clientData['peer'] . ' connected', 'type' => 'HELO']));//id data
+            }
+            }
+        });
+
+        // Triggers when someone send message to socket
+        $webSocket->onMessage(function ($clientId, $message) use ($webSocket) {
+            $message = json_decode($message);
+            $webSocket->send($clientId,json_encode(['data' => $message->name . '[OUT]: ' . $message->data, 'type' => 'DATA']));
+            foreach ($webSocket->getClients() as $id=>$client) {
+                if ($id != $clientId) {
+                    $webSocket->send($id,json_encode(['data' => $message->name . '[IN]: ' . $message->data, 'type' => 'DATA']));
+                }
+            }
+        });
+
+        // To avoid flood better to include some action before send (onTick will do something on each tick
+        $webSocket->onTick(function () use ($webSocket) {
+        // Your code
+        });
+
+        // Triggers when someone exit
+        $webSocket->onClose(function ($clientId) use ($webSocket) {
+            foreach ($webSocket->getClients() as $id=>$client) {
+                $webSocket->send($id,json_encode(['data' => 'See you '.$clientId, 'type' => 'EACH']));
+            }
+        });
+
+        // Triggers before stop listening
+        $webSocket->onStop(function () use ($webSocket) {
+            foreach ($webSocket->getClients() as $id=>$client) {
+                $webSocket->send($id,json_encode(['data' => 'Good bye everyone, socket is closing.', 'type' => 'EACH']));
+            }
+        });
+
+        //Start listen loop
+        $webSocket->listen(8080); //port host
+    }
+```

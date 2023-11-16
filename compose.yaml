@@ -5,6 +5,7 @@ services:
       dockerfile: Dockerfile.mvca
     ports:
       - 2121:80
+      - 8080:8080
     volumes:
       - ./app:/var/www/mvca
       
