@@ -390,11 +390,13 @@ string 'id'
  - `'socket'` - is a socket resource id
  - `'data'` - is a custom optional data
  - `'id'` - is a optional id, function will return actual id after add
+
 ```
 send(
 string 'id',
 string 'data'
  ) 
+```
  - `'id'` - client's id, NOT A SOCKET RESOURCE ID
  - `'data'` - data to send
 
