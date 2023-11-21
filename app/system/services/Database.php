@@ -75,7 +75,7 @@ class Database
                 $data = $data[0];
             }
             if ($returnType == 'lastInsertId') {
-                $this->connection->lastInsertId();
+                $data = $this->connection->lastInsertId();
             }
             if (is_array($data) && count($data) === 0) {
                 $data = false;
