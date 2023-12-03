@@ -13,4 +13,4 @@
 <p>// var_dump($sampleArray) is:</p>
 <p><?php var_dump($sampleArray) ?></p>
 <br>
-<a href="/Samples-main">Back to Samples</a>
+<a href="/Samples.main">Back to Samples</a>

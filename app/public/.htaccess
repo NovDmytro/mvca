@@ -17,13 +17,15 @@ RewriteRule ^ %{REQUEST_SCHEME}://%1%{REQUEST_URI} [L,R=301]
 RewriteBase /
 
 # Routing
-RewriteRule ^([a-zA-Z0-9\-\_]+)/?$ ?route=$1 [QSA,NC,L]
-RewriteRule ^([a-zA-Z0-9\-\_]+)/([^/]+)/?$ ?route=$1&var1=$2 [QSA,NC,L]
-RewriteRule ^([a-zA-Z0-9\-\_]+)/([^/]+)/([a-zA-Z0-9\-\_]+)/?$ ?route=$1&var1=$2&var2=$3 [QSA,NC,L]
-RewriteRule ^([a-zA-Z0-9\-\_]+)/([^/]+)/([a-zA-Z0-9\-\_]+)/([a-zA-Z0-9\-\_]+)/?$ ?route=$1&var1=$2&var2=$3&var3=$4 [QSA,NC,L]
-RewriteRule ^([a-zA-Z0-9\-\_]+)/([^/]+)/([a-zA-Z0-9\-\_]+)/([a-zA-Z0-9\-\_]+)/([a-zA-Z0-9\-\_]+)/?$ ?route=$1&var1=$2&var2=$3&var3=$4&var4=$5 [QSA,NC,L]
-RewriteRule ^([a-zA-Z0-9\-\_]+)/([^/]+)/([a-zA-Z0-9\-\_]+)/([a-zA-Z0-9\-\_]+)/([a-zA-Z0-9\-\_]+)/([a-zA-Z0-9\-\_]+)/?$ ?route=$1&var1=$2&var2=$3&var3=$4&var4=$5&var5=$6 [QSA,NC,L]
-RewriteRule ^([a-zA-Z0-9\-\_]+)/([^/]+)/([a-zA-Z0-9\-\_]+)/([a-zA-Z0-9\-\_]+)/([a-zA-Z0-9\-\_]+)/([a-zA-Z0-9\-\_]+)/([a-zA-Z0-9\-\_]+)/?$ ?route=$1&var1=$2&var2=$3&var3=$4&var4=$5&var5=$6&var6=$7 [QSA,NC,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([a-zA-Z0-9\-\_\.]+)/?$ ?route=$1 [QSA,NC,L]
+RewriteRule ^([a-zA-Z0-9\-\_\.]+)/([^/]+)/?$ ?route=$1&var1=$2 [QSA,NC,L]
+RewriteRule ^([a-zA-Z0-9\-\_\.]+)/([^/]+)/([a-zA-Z0-9\-\_\.]+)/?$ ?route=$1&var1=$2&var2=$3 [QSA,NC,L]
+RewriteRule ^([a-zA-Z0-9\-\_\.]+)/([^/]+)/([a-zA-Z0-9\-\_\.]+)/([a-zA-Z0-9\-\_\.]+)/?$ ?route=$1&var1=$2&var2=$3&var3=$4 [QSA,NC,L]
+RewriteRule ^([a-zA-Z0-9\-\_\.]+)/([^/]+)/([a-zA-Z0-9\-\_\.]+)/([a-zA-Z0-9\-\_\.]+)/([a-zA-Z0-9\-\_\.]+)/?$ ?route=$1&var1=$2&var2=$3&var3=$4&var4=$5 [QSA,NC,L]
+RewriteRule ^([a-zA-Z0-9\-\_\.]+)/([^/]+)/([a-zA-Z0-9\-\_\.]+)/([a-zA-Z0-9\-\_\.]+)/([a-zA-Z0-9\-\_\.]+)/([a-zA-Z0-9\-\_\.]+)/?$ ?route=$1&var1=$2&var2=$3&var3=$4&var4=$5&var5=$6 [QSA,NC,L]
+RewriteRule ^([a-zA-Z0-9\-\_\.]+)/([^/]+)/([a-zA-Z0-9\-\_\.]+)/([a-zA-Z0-9\-\_\.]+)/([a-zA-Z0-9\-\_\.]+)/([a-zA-Z0-9\-\_\.]+)/([a-zA-Z0-9\-\_\.]+)/?$ ?route=$1&var1=$2&var2=$3&var3=$4&var4=$5&var5=$6&var6=$7 [QSA,NC,L]
 
 # Gzip
 <IfModule mod_deflate.c>

@@ -58,11 +58,6 @@ class Output
             $content .= $this->loadFile($this->footer, $data);
         }
 
-        $debug=Debug::init();
-        if($debug->enabled()){
-            $console=new Console($this->config);
-            $content .= $this->loadFile('system/Core/Console/V/Console.php', $console->render());
-        }
 
         $content = $this->translateContent($content);
         echo $content;
@@ -77,7 +72,7 @@ class Output
         return ob_get_clean();
     }
 
-    protected function translateContent(string $content): string
+    public function translateContent(string $content): string
     {
         preg_match_all('/\{\{(.+?)\}\}/', $content, $matches);
         $keys = $matches[1];

@@ -70,7 +70,7 @@ class WebSocketController
         // Triggers before stop listening
         $webSocket->onStop(function () use ($webSocket) {
             foreach ($webSocket->getClients() as $id=>$client) {
-                $webSocket->send($id,json_encode(['data' => 'Good bye everyone, socket is closing.', 'type' => 'EACH']));
+                $webSocket->send($id,json_encode(['data' => 'Good bye everyone, socket is closing.', 'type' => 'STOP']));
             }
         });
 

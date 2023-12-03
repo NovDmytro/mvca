@@ -68,7 +68,7 @@
 
             <nav class="navigation">
                 <a class="navigation__item navigation__link" href="/" >Home</a>
-                <a class="navigation__item navigation__link" href="/Samples-main">Samples</a>
+                <a class="navigation__item navigation__link" href="/Samples.main">Samples</a>
                 <a class="navigation__item navigation__link" href="https://github.com/NovDmytro/mvca" >Docs</a>
             </nav>
         </div>

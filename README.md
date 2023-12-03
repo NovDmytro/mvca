@@ -94,7 +94,7 @@ Requirements:
 # Documentation
 
 ## How this MVC works
-This is MVC example with basic functionality, to access this code use URL `http://localhost:2121/Products-Storage-main/1`
+This is MVC example with basic functionality, to access this code use URL `http://localhost:2121/Products.Storage.main/1`
 
 ### Model: `app/src/Products/M/StorageModel.php`
 ```
@@ -173,16 +173,16 @@ class StorageController
 MVCA has `app/public/.htaccess` that converts first 7 folders except exceptions into query params `http://localhost:2121/route/var1/var2/var3/var4/var5/var6/`
 First folder is used by framework, rest is under your control. Also you can add any custom query params in traditional way like this: `http://localhost:2121/route/var1/var2?something=123`
 
-In previous View example we visit code with url `http://localhost:2121/Products-Storage-main/1`
+In previous View example we visit code with url `http://localhost:2121/Products.Storage.main/1`
 To make url looks better open `app/system/routes.php` and add this line in return array:
-`"products" => "Products-Storage-main",`
+`"products" => "Products.Storage.main",`
 Now you can wisit same script form `http://localhost:2121/storage/1`
-Where `'storage'` is alias to `'Products-Storage-main'` and `1` is the variable from `$request->GET('var1', 'int')`
+Where `'storage'` is alias to `'Products.Storage.main'` and `1` is the variable from `$request->GET('var1', 'int')`
 
 To setup index route just leave empty array's key
-`"" => "Folder-Controller-method",`
+`"" => "Folder.Controller.method",`
 
-Products-Storage-main routes dinamicly
+Products.Storage.main routes dinamicly
 Where:
 `'Products'` is a folder `app/src/Products/`
 `'Storage'` is a part of target controller name `app/src/Products/C/StorageController.php`
@@ -190,7 +190,7 @@ Where:
 
 If your conroller's name and folder equal, for example:
 `app/src/Example/C/ExampleController.php`
-You can use full dinamic url `Example-Example-method` and shortened version `Example-method`
+You can use full dinamic url `Example.Example.method` and shortened version `Example.method`
 
 ## Translation
 MVCA has Translator class `app/system/system/services/Translator.php` 
@@ -484,3 +484,15 @@ WebSocket mini chat example code:
         $webSocket->listen(8080); //port host
     }
 ```
+
+
+### Controller
+To include another controller directly from view you can use Services\Controller
+
+Just add
+```
+<?php
+Services\Controller::load('Samples.Nested.main');
+?>
+```
+in any view, where Samples.Nested.main is route to some controller

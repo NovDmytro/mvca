@@ -3,4 +3,4 @@
 <p>// Demo is in your MVCA console</p>
 <p>// You may also see some PHP header errors in debug</p>
 <br>
-<a href="/Samples-main">Back to Samples</a>
+<a href="/Samples.main">Back to Samples</a>

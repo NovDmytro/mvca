@@ -14,7 +14,7 @@
 <p>$request->JSON('id', 'int'): <span data-result="id"></span></p>
 <p>$request->JSON('name', 'varchar'): <span data-result="name"></span></p>
 <br>
-<a href="/Samples-main">Back to Samples</a>
+<a href="/Samples.main">Back to Samples</a>
     <script>
         window.addEventListener('DOMContentLoaded', () => {
             const resultContainers = document.querySelectorAll('[data-result]');
@@ -25,7 +25,7 @@
                     e.preventDefault();
 
                     const inputs = [...form.querySelectorAll('input')];
-                    const url = '/Samples-Request-requestJsonData/';
+                    const url = '/Samples.Request.requestJsonData/';
                     const data = {};
                     
                     inputs.forEach(input => {

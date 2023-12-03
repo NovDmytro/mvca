@@ -1,4 +1,6 @@
 <?php
+
+use Engine\Console;
 use Engine\Container;
 use Engine\Router;
 use Engine\Debug; //Singleton to initialize and reuse type: Debug::init();
@@ -12,6 +14,7 @@ use Services\Crypto;
 use Services\Cookies;
 use Services\Request; //Singleton to initialize and reuse type: Request::init();
 
+use Services\Controller; //Allows to include nested controllers in view
 // Autoloader
 $loader = new AutoLoader();
 $loader->register();
@@ -35,6 +38,7 @@ require('system/config.php');
 $config = new Config($settings[ENVIRONMENT]);
 
 // Debug
+$debug=false;
 if($config->get('debug')){$debug = Debug::init();$debug->setStatus(true);};
 
 // Load MVC namespaces
@@ -78,5 +82,19 @@ $container = new Container([
       Util::class => fn () => new Util(),
     Crypto::class => fn () => new Crypto($config->get('crypto_key')),
 ]);
-$controller = $container->get($pathData['class']);
-$controller->$method();
+
+try {
+    $controller = $container->get($pathData['class']);
+    $controller->$method();
+} catch (\ReflectionException $e) {
+    die($e);
+}
+
+// Debug console
+if($debug->enabled()){
+    $output=new Output($config);
+    $console=new Console($config);
+    $content = $output->loadFile('system/Core/Console/V/Console.php', $console->render());
+    $content = $output->translateContent($content);
+    echo $content;
+}
