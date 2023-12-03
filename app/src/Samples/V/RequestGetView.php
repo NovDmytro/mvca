@@ -20,4 +20,4 @@
 <p>$query['querySample2']: <?= $query['querySample2'] ?></p>
 <p>$query['intFilterSample']: <?= $query['intFilterSample'] ?></p>
 <br>
-<a href="/Samples-main">Back to Samples</a>
+<a href="/Samples.main">Back to Samples</a>

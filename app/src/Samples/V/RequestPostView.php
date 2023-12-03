@@ -16,4 +16,4 @@
 <p>$postSample['emailSample']: <?= $postSample['emailSample'] ?></p>
 <p>$postSample['filteredNumbersSample']: <?= $postSample['filteredNumbersSample'] ?></p>
 <br>
-<a href="/Samples-main">Back to Samples</a>
+<a href="/Samples.main">Back to Samples</a>

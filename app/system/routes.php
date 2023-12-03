@@ -4,18 +4,18 @@
  *  RewriteRule ^(media|robots.txt|favicon.ico)/ - [L]
  *
  * Routes example:
- *     "welcome" => "Welcome-Welcome-main",
- *     "welcome" => "Welcome-main",
+ *     "welcome" => "Welcome.Welcome.main",
+ *     "welcome" => "Welcome.main",
  * If your controllers folder name equals controller name you can skip one name
  * For example:
- * If you have src/Welcome/WelcomeController.php you can use Welcome-main and Welcome-Welcome-main
- * If you have src/Welcome/HelloController.php you must use full name Welcome-Hello-main
+ * If you have src/Welcome/WelcomeController.php you can use Welcome.main and Welcome.Welcome.main
+ * If you have src/Welcome/HelloController.php you must use full name Welcome.Hello.main
 */
 return [
-    "" => "Welcome-Welcome-main",
-    "samples" => "Samples-Samples-main",
-    "routing" => "Samples-Routing-sample",
+    "" => "Welcome.Welcome.main",
+    "samples" => "Samples.Samples.main",
+    "routing" => "Samples.Routing.sample",
 
     //common routes
-    "error404" => "Core-Errors-Error-e404",
+    "error404" => "Core.Errors.Error.e404",
 ];

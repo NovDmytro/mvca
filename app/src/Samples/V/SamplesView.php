@@ -7,7 +7,7 @@
 
 <h2># How this MVC works</h2>
 <p>This is MVC example with basic functionality</p>
-<p><a href="/Samples-Basics-main/1/">Click:  /Samples-Basics-main/1/</a></p>
+<p><a href="/Samples.Basics.main/1/">Click:  /Samples.Basics.main/1/</a></p>
 
 <h3>Source code at:</h3>
 <p>app/src/Samples/C/BasicsController.php</p>
@@ -23,7 +23,7 @@
 <p>First folder is used by framework, rest is under your control. </p>
 <p>Also, you can add any custom query params in traditional way like this: /route/var1/var2?something=123</p>
 <p>This is super simple routing example</p>
-<a href="/Samples-Routing-sample/"> Click: /Samples-Routing-sample/</a>
+<a href="/Samples.Routing.sample/"> Click: /Samples.Routing.sample/</a>
 
 <a href="/routing/">Click:  /routing/</a>
 
@@ -36,9 +36,9 @@
 
 <h2># Translation</h2>
 <p>This is super simple translation example</p>
-<a href="/Samples-Translation-main/?language=en"> Click: /Samples-Translation-main/?language=en</a>
+<a href="/Samples.Translation.main/?language=en"> Click: /Samples.Translation.main/?language=en</a>
 
-<a href="/Samples-Translation-main/?language=uk"> Click: /Samples-Translation-main/?language=uk</a>
+<a href="/Samples.Translation.main/?language=uk"> Click: /Samples.Translation.main/?language=uk</a>
 
 <h3>Source code at:</h3>
 <p>app/src/Samples/C/TranslationController.php</p>
@@ -53,7 +53,7 @@
 
 <h2># Output</h2>
 <p>To send data from controller to view you need to use Output service.</p>
-<a href="/Samples-Output-main/">Click: /Samples-Output-main/</a>
+<a href="/Samples.Output.main/">Click: /Samples.Output.main/</a>
 
 <h3>Source code at:</h3>
 <p>app/src/Samples/C/OutputController.php</p>
@@ -63,15 +63,15 @@
 <p>MVCA has disabled $_GET, $_POST, $_SERVER, $_COOKIES.</p>
 <p>Instead of them you need to use $request->GET,$request->POST,$request->SERVER,$request->COOKIE and $request->JSON</p>
 <p>Before use add this singleton init line: $request = Request::init();</p>
-<a href="/Samples-Request-requestGet/">Click: /Samples-Request-requestGet/</a>
+<a href="/Samples.Request.requestGet/">Click: /Samples.Request.requestGet/</a>
 
-<a href="/Samples-Request-requestPost/"> Click: /Samples-Request-requestPost/</a>
+<a href="/Samples.Request.requestPost/"> Click: /Samples.Request.requestPost/</a>
 
-<a href="/Samples-Request-requestCookie/">Click:  /Samples-Request-requestCookie/</a>
+<a href="/Samples.Request.requestCookie/">Click:  /Samples.Request.requestCookie/</a>
 
-<a href="/Samples-Request-requestServer/">Click:  /Samples-Request-requestServer/</a>
+<a href="/Samples.Request.requestServer/">Click:  /Samples.Request.requestServer/</a>
 
-<a href="/Samples-Request-requestJson/"> Click:  /Samples-Request-requestJson/</a>
+<a href="/Samples.Request.requestJson/"> Click:  /Samples.Request.requestJson/</a>
 
 <h3>Source code at:</h3>
 <p>app/src/Samples/C/RequestController.php</p>
@@ -83,7 +83,7 @@
 
 <h2># Cookies</h2>
 <p>MVCA has simple cookies service that can set, get and delete some client's cookies.</p>
-<a href="/Samples-Cookies-main/">Click:  /Samples-Cookies-main/</a>
+<a href="/Samples.Cookies.main/">Click:  /Samples.Cookies.main/</a>
 
 <h3>Source code at:</h3>
 <p>app/src/Samples/C/CookiesController.php</p>
@@ -91,7 +91,7 @@
 
 <h2># Config</h2>
 <p>Config class contains all configuration data.</p>
-<a href="/Samples-Config-main/">Click:  /Samples-Config-main/</a>
+<a href="/Samples.Config.main/">Click:  /Samples.Config.main/</a>
 
 <h3>Source code at:</h3>
 <p>app/src/Samples/C/ConfigController.php</p>
@@ -99,7 +99,7 @@
 
 <h2># Database</h2>
 <p>Database class can work with PDO mysql, PDO mariadb and PDO postgresql.</p>
-<a href="/Samples-Database-main/">Click: /Samples-Database-main/</a>
+<a href="/Samples.Database.main/">Click: /Samples.Database.main/</a>
 
 <h3>Source code at:</h3>
 <p>app/src/Samples/M/DatabaseModel.php</p>
@@ -107,18 +107,24 @@
 <p>app/src/Samples/V/DatabaseView.php</p>
 
 <h2># Debug</h2>
-<a href="/Samples-Debug-main/"> Click: /Samples-Debug-main/</a>
+<a href="/Samples.Debug.main/"> Click: /Samples.Debug.main/</a>
 
 <h3>Source code at:</h3>
 <p>app/src/Samples/C/DebugController.php</p>
 <p>app/src/Samples/V/DebugView.php</p>
 
-
-
-
 <h2># WebSocket</h2>
-<a href="/Samples-WebSocket-main/"> Click: /Samples-WebSocket-main/</a>
+<a href="/Samples.WebSocket.main/"> Click: /Samples.WebSocket.main/</a>
 
 <h3>Source code at:</h3>
 <p>app/src/Samples/C/WebSocketController.php</p>
 <p>app/src/Samples/V/WebSocketView.php</p>
+
+<h2># Controller</h2>
+<a href="/Samples.Controller.main/"> Click: /Samples.Controller.main/</a>
+
+<h3>Source code at:</h3>
+<p>app/src/Samples/C/ControllerController.php</p>
+<p>app/src/Samples/V/ControllerView.php</p>
+<p>app/src/Samples/C/NestedController.php</p>
+<p>app/src/Samples/V/NestedView.php</p>

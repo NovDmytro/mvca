@@ -5,12 +5,12 @@ namespace Engine;
 class Router
 {
     private mixed $path;
-    private array $errorPages = [];
+    private array $errorCase = [];
 
-    public function __construct($route,$errorPages)
+    public function __construct($route,$errorCase)
     {
         $this->preparePath($route);
-        $this->errorPages = $errorPages;
+        $this->errorCase = $errorCase;
     }
 
     public function preparePath($route): void
@@ -18,6 +18,9 @@ class Router
         $this->path = $this->getPathFromRoutes($route);
         if(!$this->path){
             $this->path=$route;
+            define('DYNAMIC_ROUTE', true);
+        }else{
+            define('STATIC_ROUTE', true);
         }
     }
 
@@ -25,8 +28,8 @@ class Router
     public function parsePath(): array|null
     {
         $parsedPath = $this->routeFromPath($this->path);
-        if (!is_array($parsedPath) || !$this->isValidPath($parsedPath['file'], $parsedPath['class'], $parsedPath['method'])) {
-            $this->preparePath($this->errorPages['404']);
+        if (isset($this->errorCase['404']) && (!is_array($parsedPath) || !$this->isValidPath($parsedPath['file'], $parsedPath['class'], $parsedPath['method']))) {
+            $this->preparePath($this->errorCase['404']);
             $parsedPath = $this->routeFromPath($this->path);
         }
         return $parsedPath;
@@ -36,7 +39,7 @@ class Router
     private function routeFromPath($path): array|null
     {
         $path = preg_replace('%[^A-Za-z0-9._-]%u', '', $path);
-        $pathDirs = explode('-', $this->path);
+        $pathDirs = explode('.', $this->path);
         if (count($pathDirs) === 2) {
             return [
                 "file" => 'src/' . $pathDirs[0] . '/C/' . $pathDirs[0] . 'Controller.php',
