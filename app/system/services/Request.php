@@ -9,6 +9,7 @@ class Request
     private array $POST;
     private array $COOKIE;
     private array $SERVER;
+    private array $FILES;
     private mixed $JSON;
 
     public function __construct()
@@ -28,6 +29,10 @@ class Request
         if ($_SERVER) {
             $this->SERVER = $_SERVER;
             unset($_SERVER);
+        }
+        if ($_FILES) {
+            $this->FILES = $_FILES;
+            unset($_FILES);
         }
         if ($this->SERVER('CONTENT_TYPE') == 'application/json') {
             $this->JSON = json_decode(
@@ -68,6 +73,13 @@ class Request
     {
         if (isset($this->SERVER[$key]) && $this->SERVER[$key] !== null) {
             return $this->filter($this->SERVER[$key], $filter, $case);
+        }
+    }
+
+    public function FILES(string $key)
+    {
+        if (isset($this->FILES[$key]) && $this->FILES[$key] !== null) {
+            return $this->FILES[$key];
         }
     }
 
