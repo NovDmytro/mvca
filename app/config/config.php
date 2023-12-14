@@ -10,6 +10,10 @@ $settings['development'] = [
     'crypto_key' => '$secret%#123456',
     'cookiesExpires' => 60 * 60 * 24 * 30,
     'allowedLanguages' => ['en','uk','ru'],
+    'sourcesPath'=>'src/',
+    'routesPath'=>'config/routes.php',
+    'translationsPath'=>'config/translations/',
+
 
     //Defaults
     'defaultLanguage' => 'uk',

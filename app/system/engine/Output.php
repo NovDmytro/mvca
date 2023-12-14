@@ -42,7 +42,7 @@ class Output
             $this->language = $settings['language'];
         }
         $content = '';
-        $this->translator = new Translator($this->language);
+        $this->translator = new Translator($this->language,$this->config->get('translationsPath'));
         if ($this->header) {
             $content = $this->loadFile($this->header, $data);
         }
@@ -51,7 +51,7 @@ class Output
         if ($this->config->get('routeTarget') == 'core') {
             $content .= $this->loadFile('system/Core/' . $routePaths[0] . '/V/' . $routePaths[1] . 'View.php', $data);
         } else {
-            $content .= $this->loadFile('src/' . $routePaths[0] . '/V/' . $routePaths[1] . 'View.php', $data);
+            $content .= $this->loadFile($this->config->get('sourcesPath') . $routePaths[0] . '/V/' . $routePaths[1] . 'View.php', $data);
         }
 
         if ($this->footer) {

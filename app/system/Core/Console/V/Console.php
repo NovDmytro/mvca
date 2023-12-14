@@ -257,11 +257,11 @@
     <?php foreach ($sources as $source) : ?>
         <div class="mvca-terminal-error-area source-<?= $source ?> <?= $firstActive ?>" style="color:#ffffff">
             <?php foreach ($reports[$source] as $report) : ?>
-                [<?= number_format($report['time'], 6, '.', '') ?>] <b><?= $report['type'] ?></b> -
+                [<?= number_format($report['time'], 6, '.', '') ?>] <b><?= $report['type'] ?></b>
                 <?php if (is_array($report['data'])) : ?>
-                    <?= json_encode($report['data'],JSON_UNESCAPED_UNICODE); ?>
+            <pre><?= json_encode($report['data'],JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT); ?></pre>
                 <?php else : ?>
-                    <?= $report['data'] ?>
+                    - <?= $report['data'] ?>
                 <?php endif ?>
                 <br>
             <?php endforeach ?>

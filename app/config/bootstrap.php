@@ -34,7 +34,7 @@ $request = Request::init();
 
 // Settings
 $settings = [];
-require('system/config.php');
+require('config.php');
 $config = new Config($settings[ENVIRONMENT]);
 
 // Debug
@@ -42,13 +42,14 @@ $debug=false;
 if($config->get('debug')){$debug = Debug::init();$debug->setStatus(true);}
 
 // Load MVC namespaces
-$modules = scandir('src/');
+$modules = scandir($config->get('sourcesPath'));
 $modules = array_filter($modules, function ($folder) {
     return !in_array($folder, ['.', '..']);
 });
 foreach ($modules as $module) {
-    $loader->addNamespace($module.'\\C', 'src/' . $module . '/C');
-    $loader->addNamespace($module.'\\M', 'src/' . $module . '/M');
+    $loader->addNamespace($module.'\\C', $config->get('sourcesPath') . $module . '/C');
+    $loader->addNamespace($module.'\\M', $config->get('sourcesPath') . $module . '/M');
+    $loader->addNamespace($module.'\\A', $config->get('sourcesPath') . $module . '/A');
 }
 
 // Logger
@@ -66,7 +67,13 @@ set_exception_handler(array($logger, 'exceptionHandler'));
 date_default_timezone_set($config->get('defaultTimezone'));
 
 // Import the controller
-$router = new Router($request->GET('route','latin'),$config->get('routerErrorPages'));
+
+$router = new Router(
+    $request->GET('route','latin'),
+    $config->get('routesPath'),
+    $config->get('sourcesPath'),
+    $config->get('routerErrorPages')
+);
 $pathData = $router->parsePath();
 $method = $pathData['method'];
 require_once($pathData['file']);
