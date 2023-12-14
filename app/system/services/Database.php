@@ -48,9 +48,7 @@ class Database
     public function query(string $sql, array $params = array(), string $returnType = 'array')
     {
         $debug = Debug::init();
-        if ($debug->enabled()) {
-            $debug->addReport('SQL: "' . $sql . '" PARAMS: ' . json_encode($params), 'Database', 'Info');
-        }
+        $debug->addReport('SQL: "' . $sql . '" PARAMS: ' . json_encode($params), 'Database', 'Info');
         $statement = $this->connection->prepare($sql);
         $statement->setFetchMode(\PDO::FETCH_ASSOC);
         if ((count($params, COUNT_RECURSIVE) - count($params)) > 0) {
@@ -60,32 +58,26 @@ class Database
         } else {
             $query = $statement->execute($params);
         }
-        if ($debug->enabled()) {
-            if ($statement->errorCode() !== '00000') {
-                $debug->addReport($statement->errorInfo(), 'Database', 'FatalError');
-            }
+        if ($statement->errorCode() !== '00000') {
+            $debug->addReport($statement->errorInfo(), 'Database', 'FatalError');
+            return false;
         }
-        $data = array();
-        if ($query) {
-            while ($row = $statement->fetch()) {
-                $data[] = $row;
-            }
-            $statement = null;
-            if ($data[0] && ($returnType == 'row' || $returnType == 'one')) {
-                $data = $data[0];
-            }
-            if ($returnType == 'lastInsertId') {
-                $data = $this->connection->lastInsertId();
-            }
-            if (is_array($data) && count($data) === 0) {
-                $data = false;
-            }
-            if ($returnType == 'row' || $returnType == 'one') {
-                if (strpos($sql, 'INSERT INTO') !== false ||
-                    strpos($sql, 'INSERT IGNORE INTO') !== false) {
-                    $data = $this->connection->lastInsertId();
-                }
-            }
+        if (empty($query)) {
+            return false;
+        }
+        while ($row = $statement->fetch()) {
+            $data[] = $row;
+        }
+        if (isset($data[0]) && ($returnType == 'row' || $returnType == 'one')) {
+            return $data[0];
+        }
+        if (str_contains($sql, 'INSERT INTO') ||
+            str_contains($sql, 'INSERT IGNORE INTO') ||
+            $returnType == 'lastInsertId') {
+            return $this->connection->lastInsertId();
+        }
+        if (empty($data)) {
+            return true;
         }
         return $data;
     }

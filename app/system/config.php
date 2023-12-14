@@ -1,14 +1,14 @@
 <?php
 $settings['development'] = [
     //General configuration
-    /* DSN Examples
+    /* dsn Examples
      * mariadb    - mysql://mvca:pass@mvca-mariadb:3306/mvcadb?charset=UTF8
      * postgresql - pgsql://mvca:pass@mvca-postgresql:5432/mvcadb?charset=UTF8
      */
-    'DSN' => 'mysql://mvca:pass@mvca-mariadb:3306/mvcadb?charset=UTF8',
+    'dsn' => 'mysql://mvca:pass@mvca-mariadb:3306/mvcadb?charset=UTF8',
     'charset' => 'UTF-8',
     'crypto_key' => '$secret%#123456',
-    'cookiesExpiresTime' => 60 * 60 * 24 * 30,
+    'cookiesExpires' => 60 * 60 * 24 * 30,
     'allowedLanguages' => ['en','uk','ru'],
 
     //Defaults

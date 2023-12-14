@@ -39,7 +39,7 @@ $config = new Config($settings[ENVIRONMENT]);
 
 // Debug
 $debug=false;
-if($config->get('debug')){$debug = Debug::init();$debug->setStatus(true);};
+if($config->get('debug')){$debug = Debug::init();$debug->setStatus(true);}
 
 // Load MVC namespaces
 $modules = scandir('src/');
@@ -76,9 +76,9 @@ $config->set('routeTarget',$pathData['target']);
 // Container
 $container = new Container([
     Config::class => fn () => $config,
-   Cookies::class => fn () => new Cookies($config->get('cookiesExpiresTime')),
+   Cookies::class => fn () => new Cookies($config->get('cookiesExpires')),
     Output::class => fn () => new Output($config),
-  Database::class => fn () => (function ($config) {$database = new Database($config->get('DSN'));$database->init();return $database;})($config),
+  Database::class => fn () => (function ($config) {$database = new Database($config->get('dsn'));$database->init();return $database;})($config),
       Util::class => fn () => new Util(),
     Crypto::class => fn () => new Crypto($config->get('crypto_key')),
 ]);

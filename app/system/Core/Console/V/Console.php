@@ -259,7 +259,7 @@
             <?php foreach ($reports[$source] as $report) : ?>
                 [<?= number_format($report['time'], 6, '.', '') ?>] <b><?= $report['type'] ?></b> -
                 <?php if (is_array($report['data'])) : ?>
-                    <?= json_encode($report['data']); ?>
+                    <?= json_encode($report['data'],JSON_UNESCAPED_UNICODE); ?>
                 <?php else : ?>
                     <?= $report['data'] ?>
                 <?php endif ?>
