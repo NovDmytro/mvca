@@ -45,10 +45,12 @@ class Debug
 
     public function addReport($data, $source, $type): void
     {
-        $report['data'] = $data;
-        $report['type'] = $type;
-        $report['time'] = microtime(true)-$this->initTime;
-        $this->reports[$source][] = $report;
+        if ($this->enabled()) {
+            $report['data'] = $data;
+            $report['type'] = $type;
+            $report['time'] = microtime(true) - $this->initTime;
+            $this->reports[$source][] = $report;
+        }
     }
 
     public function getSources(): array|null
