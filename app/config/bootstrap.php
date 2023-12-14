@@ -1,20 +1,22 @@
 <?php
 
+//Custom dependencies:
+
+//Default dependencies:
 use Engine\Console;
 use Engine\Container;
 use Engine\Router;
-use Engine\Debug; //Singleton to initialize and reuse type: Debug::init();
+use Engine\Debug;
 use Engine\Logger;
 use Engine\Config;
 use Engine\Output;
-
 use Services\Util;
 use Services\Database;
 use Services\Crypto;
 use Services\Cookies;
-use Services\Request; //Singleton to initialize and reuse type: Request::init();
+use Services\Request;
+use Services\Controller;
 
-use Services\Controller; //Allows to include nested controllers in view
 // Autoloader
 $loader = new AutoLoader();
 $loader->register();
@@ -23,13 +25,6 @@ $loader->addNamespace("Services", "system/Services");
 $loader->addNamespace("Core", "system/Core");
 
 // Request
-/*
- * $_GET $_POST $_COOKIE $_SERVER and custom $this->JSON wrapper.
- * To Use requests please type: $request = \Services\Request::init();
- * before using in any function. Then $request->GET('example'); will contain your data
- * also You can add filters (int,dec,hex,email,latin,varchar,html) and case (low,up), examples:
- * $request->GET('example','email','low'); $request->GET('id','int');
- */
 $request = Request::init();
 
 // Settings
@@ -39,7 +34,19 @@ $config = new Config($settings[ENVIRONMENT]);
 
 // Debug
 $debug=false;
-if($config->get('debug')){$debug = Debug::init();$debug->setStatus(true);}
+if($config->get('debug')){
+    $debug = Debug::init();$debug->setStatus(true);
+    function dump($data,$source='Dump',$type='Info'): void
+    {
+        $debug = Debug::init();
+        $debug->addReport($data,$source,$type);
+    }
+    function debug($data,$source='Debug',$type='Info'): void
+    {
+        $debug = Debug::init();
+        $debug->addReport($data,$source,$type);
+    }
+}
 
 // Load MVC namespaces
 $modules = scandir($config->get('sourcesPath'));
@@ -67,7 +74,6 @@ set_exception_handler(array($logger, 'exceptionHandler'));
 date_default_timezone_set($config->get('defaultTimezone'));
 
 // Import the controller
-
 $router = new Router(
     $request->GET('route','latin'),
     $config->get('routesPath'),
@@ -80,16 +86,17 @@ require_once($pathData['file']);
 $config->set('route',$pathData['route']);
 $config->set('routeTarget',$pathData['target']);
 
-// Container
-$container = new Container([
-    Config::class => fn () => $config,
-   Cookies::class => fn () => new Cookies($config->get('cookiesExpires')),
-    Output::class => fn () => new Output($config),
-  Database::class => fn () => (function ($config) {$database = new Database($config->get('dsn'));$database->init();return $database;})($config),
-      Util::class => fn () => new Util(),
-    Crypto::class => fn () => new Crypto($config->get('crypto_key')),
-]);
+// Before start:
+//nothing to do
 
+// Container
+$base[Config::class]=fn () => $config;
+$base[Cookies::class]=fn () => new Cookies($config->get('cookiesExpires'));
+$base[Output::class]=fn () => new Output($config);
+$base[Database::class]=fn () => (function ($config) {$database = new Database($config->get('dsn'));$database->init();return $database;})($config);
+$base[Util::class]=fn () => new Util();
+$base[Crypto::class]=fn () => new Crypto($config->get('crypto_key'));
+$container = new Container($base);
 try {
     $controller = $container->get($pathData['class']);
     $controller->$method();
