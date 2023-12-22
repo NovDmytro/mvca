@@ -13,8 +13,12 @@
     <meta name="viewport" content="Height=device-Height, initial-scale=1.0">
 
     <title><?=$title?></title>
+
     <link rel="icon" href="/media/logo.svg">
+
+    <link rel="stylesheet" href="/media/styles/reset.css">
     <link rel="stylesheet" href="/media/styles/style.css">
+
 </head>
 <body> 
     <header class="header">
