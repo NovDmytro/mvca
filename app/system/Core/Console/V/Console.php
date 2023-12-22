@@ -53,8 +53,7 @@
         /* fonts END */
 
         /* terminal styles START */
-        :root {
-
+        .mvca-terminal {
             --mvca-terminal-bg-color: #2b2b2b;
             --mvca-terminal-height: 0px;
             --mvca-folder-text-color: #a9b7c6;
@@ -62,7 +61,7 @@
             --mvca-terminal-navigation-status-color: #a9b7c6;
             --mvca-terminal-error-erea-bg-color: #000;
             --mvca-terminal-error-text-color: #a9b7c6;
-          
+
             --a: #2b2b2b;
             --b: #a9b7c6;
             --c: #cb602d;
@@ -76,22 +75,16 @@
         }
 
 		.mvca-terminal * {
-			font-family: 'JetBrains', sans-serif;
+			font-family: 'JetBrains', 'Courier New', sans-serif;
 		}
 		.mvca-terminal{
-
             position: fixed;
             bottom: 0;
-            left: 0;
             display: grid;
             grid-template: 10px fit-content(100%) auto / 100vw;
             width: 100vw;
             height: var(--mvca-terminal-height);
             background-color: var(--mvca-terminal-bg-color); 
-        }
-        .mvca-terminal * {
-            font-family: "CourierNew", serif;
-            font-weight: 700;
         }
         .mvca-terminal .resize-top-side {
             width: 100%;
