@@ -6,7 +6,7 @@
 ?>
 <h2>WebSocket MVC sample</h2>
 To run demo worker for 60 seconds click this and back here & refresh page
-<a href="/Samples-WebSocket-worker/" target="_blank"> Run worker: /Samples-WebSocket-worker/</a>
+<a href="/Samples.WebSocket.worker/" target="_blank"> Run worker: /Samples.WebSocket.worker/</a>
 
 <form id="formId">
     <input type="text" id="name" placeholder="name">

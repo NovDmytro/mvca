@@ -1,0 +1,1 @@
+This is nested view, that called from Samples.Nested.main and located at src/Samples/V/NestedView.php

@@ -1,5 +1,5 @@
-  /* fonts START */
-  @font-face {
+/* fonts START */
+ @font-face {
     font-family: "JetBrains";
     src: url("/media/fonts/JetBrainsMono-Thin.woff2");
     font-weight: 100;
@@ -39,26 +39,11 @@
     src: url("/media/fonts/JetBrainsMono-ExtraBold.woff2");
     font-weight: 900;
 }
-@font-face {
-    font-family: "CourierNew";
-    src: url("/media/fonts/Courier New Regular.ttf");
-    font-weight: 500;
-}
-@font-face {
-    font-family: "CourierNew";
-    src: url("/media/fonts/Courier New Bold.ttf");
-    font-weight: 700;
-}
 /* fonts END */
 
 /* basic styles START */
 * {
-    box-sizing: border-box;
     font-family: 'JetBrains', sans-serif;
-    margin: 0;
-    padding: 0;
-    scroll-behavior: smooth;
-    line-height: 1.3;
 }
 :root {
     --header-logo-height: 60px;
@@ -87,11 +72,22 @@
     --text-color: #000000;
     --body-bg-color: #e7e7e7;
     /* theme colors START*/
+
+
+    /*sample styles START*/
+    --header-text-color: #a9b7c6;
+    --positive-text-color: #509B89;
+    --route-text-color: #1fd3e3;
+    --important-text-color: #eb9a00;
+    --warning-text-color: #fd0909;
+    --contast-text-color: #fff;
+    /*sample styles END*/
 }
+
+
 body {
     color: var(--text-color);
     background-color: var(--body-bg-color);
-    margin-bottom: var(--body-margin-bottom);
 }
 a, button {
     display: block;
@@ -151,7 +147,7 @@ pre {
     justify-content: center;
     background-color: var(--body-bg-color);
     box-shadow: 0 0 7px rgba(0, 0, 0, 0.537);
-} 
+}
 @media (max-width: 650px) {
     .header {
         padding:calc(0.375rem + 14 * (100vw - 320px) / ( 650 - 320) * 16 / 16 );
@@ -183,7 +179,7 @@ pre {
     .header__logo {
         margin-right: 10px;
         --header-logo-height: calc(2.5rem + 20 * (100vw - 320px) / ( 650 - 320) * 16 / 16 );
-    } 
+    }
 }
 
 .header__logo-text-container {
@@ -294,7 +290,7 @@ pre {
     padding: 20px;
     display: flex;
     justify-content: center;
-} 
+}
 @media (max-width: 650px) {
     .footer {
         padding: calc(0.375rem + 14 * (100vw - 320px) / ( 650 - 320) * 16 / 16 );
@@ -318,7 +314,7 @@ pre {
 @media (max-width: 650px) {
     .footer__logo {
         --footer-logo-height: calc(2.5rem + 20 * (100vw - 320px) / ( 650 - 320) * 16 / 16 );
-        margin-right: 10px;  
+        margin-right: 10px;
     }
 }
 
@@ -335,7 +331,7 @@ pre {
 @media (max-width: 650px) {
     .footer__logo-text-header {
         --footer-logo-text-size: calc(1.25rem + 10 * (100vw - 320px) / ( 650 - 320) * 16 / 16 );
-    } 
+    }
 }
 
 .footer__logo-text-route {
@@ -382,14 +378,3 @@ pre {
 }
 
 /* Animations END */
-  /*sample styles START*/
-:root {
-    --header-text-color: #a9b7c6;
-    --positive-text-color: #509B89;
-    --route-text-color: #1fd3e3;
-    --important-text-color: #eb9a00;
-    --warning-text-color: #fd0909;
-    --contast-text-color: #fff;
-}
-
-  /*sample styles END*/

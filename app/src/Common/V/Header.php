@@ -13,8 +13,12 @@
     <meta name="viewport" content="Height=device-Height, initial-scale=1.0">
 
     <title><?=$title?></title>
+
     <link rel="icon" href="/media/logo.svg">
+
+    <link rel="stylesheet" href="/media/styles/reset.css">
     <link rel="stylesheet" href="/media/styles/style.css">
+
 </head>
 <body> 
     <header class="header">
@@ -68,7 +72,7 @@
 
             <nav class="navigation">
                 <a class="navigation__item navigation__link" href="/" >Home</a>
-                <a class="navigation__item navigation__link" href="/Samples-main">Samples</a>
+                <a class="navigation__item navigation__link" href="/Samples.main">Samples</a>
                 <a class="navigation__item navigation__link" href="https://github.com/NovDmytro/mvca" >Docs</a>
             </nav>
         </div>

@@ -9,8 +9,52 @@
 
 <template id="terminalTMPL">
 <style>
-/* terminal styles START */        
-        .mvca-terminal {
+        /* fonts START */
+        @font-face {
+            font-family: "JetBrains";
+            src: url("/media/fonts/JetBrainsMono-Thin.woff2");
+            font-weight: 100;
+        }
+        @font-face {
+            font-family: "JetBrains";
+            src: url("/media/fonts/JetBrainsMono-ExtraLight.woff2");
+            font-weight: 200;
+        }
+        @font-face {
+            font-family: "JetBrains";
+            src: url("/media/fonts/JetBrainsMono-Light.woff2");
+            font-weight: 300;
+        }
+        @font-face {
+            font-family: "JetBrains";
+            src: url("/media/fonts/JetBrainsMono-Regular.woff2");
+            font-weight: 400;
+        }
+        @font-face {
+            font-family: "JetBrains";
+            src: url("/media/fonts/JetBrainsMono-Medium.woff2");
+            font-weight: 500;
+        }
+        @font-face {
+            font-family: "JetBrains";
+            src: url("/media/fonts/JetBrainsMono-SemiBold.woff2");
+            font-weight: 700;
+        }
+        @font-face {
+            font-family: "JetBrains";
+            src: url("/media/fonts/JetBrainsMono-Bold.woff2");
+            font-weight: 800;
+        }
+        @font-face {
+            font-family: "JetBrains";
+            src: url("/media/fonts/JetBrainsMono-ExtraBold.woff2");
+            font-weight: 900;
+        }
+        /* fonts END */
+
+        /* terminal styles START */
+        :root {
+
             --mvca-terminal-bg-color: #2b2b2b;
             --mvca-terminal-height: 0px;
             --mvca-folder-text-color: #a9b7c6;
@@ -18,6 +62,23 @@
             --mvca-terminal-navigation-status-color: #a9b7c6;
             --mvca-terminal-error-erea-bg-color: #000;
             --mvca-terminal-error-text-color: #a9b7c6;
+          
+            --a: #2b2b2b;
+            --b: #a9b7c6;
+            --c: #cb602d;
+            --d: #ffc66d;
+
+            --body-margin-bottom: 0px;
+        }
+
+        body {
+            margin-bottom: var(--body-margin-bottom);
+        }
+
+		.mvca-terminal * {
+			font-family: 'JetBrains', sans-serif;
+		}
+		.mvca-terminal{
 
             position: fixed;
             bottom: 0;
@@ -249,11 +310,11 @@
     <?php foreach ($sources as $source) : ?>
         <div class="mvca-terminal-error-area source-<?= $source ?> <?= $firstActive ?>" style="color:#ffffff">
             <?php foreach ($reports[$source] as $report) : ?>
-                [<?= number_format($report['time'], 6, '.', '') ?>] <b><?= $report['type'] ?></b> -
+                [<?= number_format($report['time'], 6, '.', '') ?>] <b><?= $report['type'] ?></b>
                 <?php if (is_array($report['data'])) : ?>
-                    <?= json_encode($report['data']); ?>
+            <pre><?= json_encode($report['data'],JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT); ?></pre>
                 <?php else : ?>
-                    <?= $report['data'] ?>
+                    - <?= $report['data'] ?>
                 <?php endif ?>
                 <br>
             <?php endforeach ?>

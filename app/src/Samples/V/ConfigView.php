@@ -15,4 +15,4 @@
 <p>// $arrTest2 is: <?= $arrTest2 ?></p>
 <p>// var_dump($allowedLanguages) is: <?php var_dump($allowedLanguages); ?></p>
 <br>
-<a href="/Samples-main">Back to Samples</a>
+<a href="/Samples.main">Back to Samples</a>

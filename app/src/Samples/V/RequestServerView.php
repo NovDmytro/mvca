@@ -50,4 +50,4 @@
 <p>$server('REQUEST_TIME_FLOAT'): <?= $server['REQUEST_TIME_FLOAT'] ?></p>
 <p>$server('REQUEST_TIME'): <?= $server['REQUEST_TIME'] ?></p>
 <br>
-<a href="/Samples-main">Back to Samples</a>
+<a href="/Samples.main">Back to Samples</a>

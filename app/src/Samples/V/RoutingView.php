@@ -9,4 +9,9 @@
 <br>
 <p>$route: <?= $route ?></p>
 <br>
-<a href="/Samples-main">Back to Samples</a>
+<?php
+if (defined('DYNAMIC_ROUTE')) {echo "DYNAMIC_ROUTE";}
+if (defined('STATIC_ROUTE')) {echo "STATIC_ROUTE";}
+?>
+<br>
+<a href="/Samples.main">Back to Samples</a>

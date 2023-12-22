@@ -42,7 +42,7 @@ class Output
             $this->language = $settings['language'];
         }
         $content = '';
-        $this->translator = new Translator($this->language);
+        $this->translator = new Translator($this->language,$this->config->get('translationsPath'));
         if ($this->header) {
             $content = $this->loadFile($this->header, $data);
         }
@@ -51,18 +51,13 @@ class Output
         if ($this->config->get('routeTarget') == 'core') {
             $content .= $this->loadFile('system/Core/' . $routePaths[0] . '/V/' . $routePaths[1] . 'View.php', $data);
         } else {
-            $content .= $this->loadFile('src/' . $routePaths[0] . '/V/' . $routePaths[1] . 'View.php', $data);
+            $content .= $this->loadFile($this->config->get('sourcesPath') . $routePaths[0] . '/V/' . $routePaths[1] . 'View.php', $data);
         }
 
         if ($this->footer) {
             $content .= $this->loadFile($this->footer, $data);
         }
 
-        $debug=Debug::init();
-        if($debug->enabled()){
-            $console=new Console($this->config);
-            $content .= $this->loadFile('system/Core/Console/V/Console.php', $console->render());
-        }
 
         $content = $this->translateContent($content);
         echo $content;
@@ -77,7 +72,7 @@ class Output
         return ob_get_clean();
     }
 
-    protected function translateContent(string $content): string
+    public function translateContent(string $content): string
     {
         preg_match_all('/\{\{(.+?)\}\}/', $content, $matches);
         $keys = $matches[1];
