@@ -277,7 +277,7 @@
             <ul class="mvca-popup-menu below hide">
                 <?php $firstActive = 'active'; ?>
                 <?php foreach ($sources as $source) : ?>
-                    <li data-folder="source-<?= $source ?>"
+                    <li data-folder="<?= $source ?>"
                         class="mvca-popup-menu-item no-wrap <?= $firstActive ?>"><?= $source ?></li>
                     <?php $firstActive = ''; ?>
                 <?php endforeach ?>
@@ -467,7 +467,6 @@
                     folder.dataset.folder === e.target.dataset.folder ? folder.classList.add('active') : folder.classList.remove('active');
                     if (errorAreas[i]) errorAreas[i].classList.add('hide');
                 })
-                console.log(terminal.querySelector(`[data-area="${e.target.dataset.folder}"]`))
                 terminal.querySelector(`[data-area="${e.target.dataset.folder}"]`).classList.remove('hide');
             }
         }
