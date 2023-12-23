@@ -88,6 +88,7 @@
 body {
     color: var(--text-color);
     background-color: var(--body-bg-color);
+    margin-bottom: var(--body-margin-bottom);
 }
 a, button {
     display: block;
