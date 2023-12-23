@@ -9,49 +9,6 @@
 
 <template id="terminalTMPL">
 <style>
-        /* fonts START */
-        @font-face {
-            font-family: "JetBrains";
-            src: url("/media/fonts/JetBrainsMono-Thin.woff2");
-            font-weight: 100;
-        }
-        @font-face {
-            font-family: "JetBrains";
-            src: url("/media/fonts/JetBrainsMono-ExtraLight.woff2");
-            font-weight: 200;
-        }
-        @font-face {
-            font-family: "JetBrains";
-            src: url("/media/fonts/JetBrainsMono-Light.woff2");
-            font-weight: 300;
-        }
-        @font-face {
-            font-family: "JetBrains";
-            src: url("/media/fonts/JetBrainsMono-Regular.woff2");
-            font-weight: 400;
-        }
-        @font-face {
-            font-family: "JetBrains";
-            src: url("/media/fonts/JetBrainsMono-Medium.woff2");
-            font-weight: 500;
-        }
-        @font-face {
-            font-family: "JetBrains";
-            src: url("/media/fonts/JetBrainsMono-SemiBold.woff2");
-            font-weight: 700;
-        }
-        @font-face {
-            font-family: "JetBrains";
-            src: url("/media/fonts/JetBrainsMono-Bold.woff2");
-            font-weight: 800;
-        }
-        @font-face {
-            font-family: "JetBrains";
-            src: url("/media/fonts/JetBrainsMono-ExtraBold.woff2");
-            font-weight: 900;
-        }
-        /* fonts END */
-
         /* terminal styles START */
         .mvca-terminal {
             --mvca-terminal-bg-color: #2b2b2b;
@@ -75,7 +32,7 @@
         }
 
 		.mvca-terminal * {
-			font-family: 'JetBrains', 'Courier New', sans-serif;
+			font-family: 'Courier New', Courier, monospace
 		}
 		.mvca-terminal {
             position: fixed;
