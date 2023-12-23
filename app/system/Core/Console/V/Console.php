@@ -7,6 +7,7 @@
  */
 ?>
 
+<template id="terminalTMPL">
 <style>
         /* fonts START */
         @font-face {
@@ -52,7 +53,7 @@
         /* fonts END */
 
         /* terminal styles START */
-        :root {
+        .mvca-terminal {
             --mvca-terminal-bg-color: #2b2b2b;
             --mvca-terminal-height: 0px;
             --mvca-folder-text-color: #a9b7c6;
@@ -74,7 +75,7 @@
         }
 
 		.mvca-terminal * {
-			font-family: 'JetBrains', sans-serif;
+			font-family: 'JetBrains', 'Courier New', sans-serif;
 		}
 		.mvca-terminal{
             position: fixed;
@@ -315,11 +316,14 @@
     <?php endforeach ?>
     <!-- heremust be PHP code -->
 </section>
+      
 <script>
     window.addEventListener('DOMContentLoaded', () => {
         // terminal scripts
+      
         const body = document.body;
-        const terminal = document.querySelector('.mvca-terminal');
+        const shadowRoot = document.querySelector('#terminala').shadowRoot;
+        const terminal = shadowRoot.querySelector('.mvca-terminal');
         const dragElem = terminal.querySelector('.resize-top-side');
         const navigation = terminal.querySelector('.mvca-terminal-navigation');
         const toTopButton = terminal.querySelector('[data-terminal="up"]');
@@ -440,8 +444,6 @@
             mvcaPopupMenu.classList.toggle('hide');
             const popUpMenuHeight = mvcaPopupMenu.getBoundingClientRect().height;
             const isPopUpHeightEnough = window.innerHeight - curentHeight > popUpMenuHeight;
-            console.log(popUpMenuHeight)
-            console.log(isPopUpHeightEnough)
 
             isPopUpHeightEnough ? mvcaPopupMenu.classList.remove('under') : mvcaPopupMenu.classList.add('under');
         };
@@ -502,6 +504,12 @@
             }
         })
     })
-
-
 </script>
+</template>
+
+
+<div id='terminala'></div>
+<script>
+   terminala.attachShadow({mode: 'open'});
+   terminala.shadowRoot.append(terminalTMPL.content.cloneNode(true));
+</script> 
