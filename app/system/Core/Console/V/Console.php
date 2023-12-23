@@ -350,7 +350,19 @@
         toTopButton.onclick = toTopterminal;                                    // position buttons control
 
         window.addEventListener('keydown', (e) => {
-            e.code === 'Escape' ? closeterminal() : null;
+            const keyMap = {
+                'Escape': closeterminal,
+                'Backquote': function() {
+                    if (shadowRootContainer.style.display === 'none') {
+                        shadowRootContainer.style.display = 'block';
+                        return;
+                    }
+                    closeterminal();
+                    mvcaPopupMenu.classList.add('hide');
+                    shadowRootContainer.style.display = 'none';
+                }
+            }
+            keyMap[`${e.code}`]?.();
         })
         window.addEventListener('mouseup', removeListeners);
         window.addEventListener('touchend', removeListeners, {'passive':true});
