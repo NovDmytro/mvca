@@ -7,7 +7,7 @@ $settings['development'] = [
      */
     'dsn' => 'mysql://mvca:pass@mvca-mariadb:3306/mvcadb?charset=UTF8',
     'charset' => 'UTF-8',
-    'crypto_key' => '$secret%#123456',
+    'cryptoKey' => '$secret%#123456',
     'cookiesExpires' => 60 * 60 * 24 * 30,
     'allowedLanguages' => ['en','uk','ru'],
     'sourcesPath'=>'src/',
