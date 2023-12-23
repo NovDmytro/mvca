@@ -95,7 +95,7 @@ $base[Cookies::class]=fn () => new Cookies($config->get('cookiesExpires'));
 $base[Output::class]=fn () => new Output($config);
 $base[Database::class]=fn () => (function ($config) {$database = new Database($config->get('dsn'));$database->init();return $database;})($config);
 $base[Util::class]=fn () => new Util();
-$base[Crypto::class]=fn () => new Crypto($config->get('crypto_key'));
+$base[Crypto::class]=fn () => new Crypto($config->get('cryptoKey'));
 $container = new Container($base);
 try {
     $controller = $container->get($pathData['class']);
