@@ -38,7 +38,7 @@ class Output
         if (isset($settings['footer'])) {
             $this->footer = $settings['footer'];
         }
-        if (isset($settings['language']) && in_array($settings['language'], $this->config->get('allowedLanguages'))) {
+        if (isset($settings['language']) && in_array($settings['language'], $this->config->get('supportedLanguages'))) {
             $this->language = $settings['language'];
         }
         $content = '';
