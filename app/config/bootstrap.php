@@ -33,20 +33,19 @@ require('config.php');
 $config = new Config($settings[ENVIRONMENT]);
 
 // Debug
-$debug=false;
-if($config->get('debug')){
-    $debug = Debug::init();$debug->setStatus(true);
-    function dump($data,$source='Dump',$type='Info'): void
+    $debug = Debug::init();
+    $debug->setStatus($config->get('debug'));
+    function dump($data, $source = 'Dump', $type = 'Info'): void
     {
         $debug = Debug::init();
-        $debug->addReport($data,$source,$type);
+        $debug->addReport($data, $source, $type);
     }
-    function debug($data,$source='Debug',$type='Info'): void
+
+    function debug($data, $source = 'Debug', $type = 'Info'): void
     {
         $debug = Debug::init();
-        $debug->addReport($data,$source,$type);
+        $debug->addReport($data, $source, $type);
     }
-}
 
 // Load MVC namespaces
 $modules = scandir($config->get('sourcesPath'));
@@ -90,25 +89,38 @@ $config->set('routeTarget',$pathData['target']);
 //nothing to do
 
 // Container
-$base[Config::class]=fn () => $config;
-$base[Cookies::class]=fn () => new Cookies($config->get('cookiesExpires'));
-$base[Output::class]=fn () => new Output($config);
-$base[Database::class]=fn () => (function ($config) {$database = new Database($config->get('dsn'));$database->init();return $database;})($config);
-$base[Util::class]=fn () => new Util();
-$base[Crypto::class]=fn () => new Crypto($config->get('cryptoKey'));
+$base[Config::class] = fn() => $config;
+$base[Cookies::class] = function() use ($config) {
+    static $cookies;
+    if(!$cookies) {
+        $cookies = new Cookies($config->get('cookiesExpires'));
+    }
+    return $cookies;
+};
+$base[Output::class] = fn() => new Output($config);
+$base[Database::class] = function() use ($servers) {
+    static $database;
+    if(!$database) {
+        $database = new Database($servers->get('dsn'));
+        $database->init();
+    }
+    return $database;
+};
+$base[Util::class] = fn() => new Util();
+$base[Crypto::class] = fn() => new Crypto($config->get('cryptoKey'));
 $container = new Container($base);
 try {
     $controller = $container->get($pathData['class']);
     $controller->$method();
-} catch (\ReflectionException $e) {
+} catch(\ReflectionException $e) {
     die($e);
 }
+
 
 // Debug console
 if($debug->enabled()){
     $output=new Output($config);
     $console=new Console($config);
     $content = $output->loadFile('system/Core/Console/V/Console.php', $console->render());
-    $content = $output->translateContent($content);
     echo $content;
 }

@@ -94,7 +94,8 @@ class Database
                     ';dbname=' . $this->database .
                     ';charset=' . $this->charset,
                     $this->user,
-                    $this->pass
+                    $this->pass,
+                    [\PDO::ATTR_EMULATE_PREPARES => false]
                 );
                 $this->connection = $connection;
 
@@ -109,7 +110,8 @@ class Database
                     $this->database .
                     ";options='--client_encoding=" . $this->charset . "'",
                     $this->user,
-                    $this->pass
+                    $this->pass,
+                    [\PDO::ATTR_EMULATE_PREPARES => false]
                 );
                 $this->connection = $connection;
             }

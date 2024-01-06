@@ -25,7 +25,7 @@ class ConfigController
         $view['arrTest1']=$this->config->get('arrTest1');
         $view['arrTest2']=$this->config->get('arrTest2');
         $view['testSetting']=$this->config->get('testSetting');
-        $view['allowedLanguages']=$this->config->get('allowedLanguages');
+        $view['supportedLanguages']=$this->config->get('supportedLanguages');
         $this->output->load("Samples/Config", $view);
     }
 }
