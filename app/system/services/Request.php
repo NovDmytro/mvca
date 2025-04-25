@@ -83,14 +83,46 @@ class Request
         }
     }
 
-    public function JSON(string $key, $filter = 'varchar', $case = '')
+    public function JSON(string $key, $filter = 'varchar', $case = ''): mixed
     {
-        if (isset($this->JSON[$key]) && $this->JSON[$key] !== null) {
-            return $this->filter($this->JSON[$key], $filter, $case);
+        $data = $this->JSON[$key];
+        /*mod*/
+        if (isset($data)) {
+            if (is_array($data)) {
+                return $this->arrayFilter($data, $filter, $case);
+            } elseif (is_bool($data) && $filter == 'bool') {
+                return $data;
+            } elseif (is_int($data) && $filter == 'int') {
+                return $data;
+            } elseif (is_float($data) && $filter == 'dec' ) {
+                return $data;
+            }  else {
+                return $this->filter($data, $filter, $case);
+            }
+        } else {
+            return null;
         }
+        /*mod*/
     }
 
-    private function filter($out, $filter, $case): string
+    /*mod*/
+    private function arrayFilter ($out, $filter, $case): array|bool {
+        foreach ($out as &$data) {
+            if (is_array($data) && count($data) > 0) {
+                foreach($data as $subdata) {
+                    $this->arrayFilter($subdata, $filter, $case);
+                }
+            } else {
+                if (is_string($data) ) {
+                    $data = $this->filter($data, $filter, $case);
+                }
+            }
+        }
+        return $out;
+    }
+    /*mod*/
+
+    private function filter($out, $filter, $case): array|string
     {
         $out = $this->sanitize($out);
         if ($filter == 'int') {

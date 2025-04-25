@@ -23,7 +23,7 @@ class Cookies
 
     public function set(string $name, string $value): void
     {
-        setcookie($name, $value, time() + $this->expiresTime, '/');
+        setcookie($name, $value, time() + $this->expiresTime, '/','',false,true);
         $this->cookies[$name] = $value;
     }
 

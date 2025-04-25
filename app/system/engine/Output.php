@@ -16,12 +16,28 @@ class Output
     public function __construct(
         Config   $config,
     ){
+        global $globalView;
+        if(!isset($globalView)){$globalView=[];}
         $this->config = $config;
         $this->header = $this->config->get('defaultHeader');
         $this->footer = $this->config->get('defaultFooter');
         $this->language = $this->config->get('defaultLanguage');
     }
 
+    public function addGlobal($data){
+        global $globalView;
+        $globalView = array_merge($globalView, $data);
+    }
+
+    public function setGlobal($data){
+        global $globalView;
+        $globalView = $data;
+    }
+
+    public function deleteGlobal($data){
+        global $globalView;
+        $globalView = [];
+    }
 
     /**
      * @param string $route
@@ -58,7 +74,6 @@ class Output
             $content .= $this->loadFile($this->footer, $data);
         }
 
-
         $content = $this->translateContent($content);
         echo $content;
     }
@@ -66,6 +81,8 @@ class Output
 
     public function loadFile(string $loadRoute, array $view): string
     {
+        global $globalView;
+        extract($globalView);
         extract($view);
         ob_start();
         include $loadRoute;

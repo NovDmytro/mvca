@@ -18,7 +18,7 @@ To run demo worker for 60 seconds click this and back here & refresh page
 	</pre>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        var websocket = new WebSocket('ws://127.0.0.1:8080/Samples-WebSocket-worker');
+        var websocket = new WebSocket('ws://127.0.0.1:8081/Samples-WebSocket-worker');
 
         websocket.onopen = function (event) {
             showMessage("CONN 220 Connection is established!\n");
