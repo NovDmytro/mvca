@@ -7,6 +7,7 @@ class Debug
     private static $instance;
     private string $initTime;
     private bool $status;
+    private bool $jsonView;
     private array $reports = [];
 
     public static function init(): Debug
@@ -36,6 +37,16 @@ class Debug
     public function setStatus($status = false): void
     {
         $this->status = $status;
+    }
+
+    public function setJsonView($jsonView = false): void
+    {
+        $this->jsonView = $jsonView;
+    }
+
+    public function jsonView(): bool
+    {
+        return $this->jsonView;
     }
 
     public function enabled(): bool

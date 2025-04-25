@@ -3,19 +3,18 @@
 //Custom dependencies:
 
 //Default dependencies:
+use Engine\Config;
 use Engine\Console;
 use Engine\Container;
-use Engine\Router;
 use Engine\Debug;
 use Engine\Logger;
-use Engine\Config;
 use Engine\Output;
-use Services\Util;
-use Services\Database;
-use Services\Crypto;
+use Engine\Router;
 use Services\Cookies;
+use Services\Crypto;
+use Services\Database;
 use Services\Request;
-use Services\Controller;
+use Services\Util;
 
 // Autoloader
 $loader = new AutoLoader();
@@ -33,29 +32,29 @@ require('config.php');
 $config = new Config($settings[ENVIRONMENT]);
 
 // Debug
+$debug = Debug::init();
+$debug = Debug::init();$debug->setStatus(true);$debug->setJsonView(false);
+function dump($data, $source = 'Dump', $type = 'Info'): void
+{
     $debug = Debug::init();
-    $debug->setStatus($config->get('debug'));
-    function dump($data, $source = 'Dump', $type = 'Info'): void
-    {
-        $debug = Debug::init();
-        $debug->addReport($data, $source, $type);
-    }
+    $debug->addReport($data, $source, $type);
+}
 
-    function debug($data, $source = 'Debug', $type = 'Info'): void
-    {
-        $debug = Debug::init();
-        $debug->addReport($data, $source, $type);
-    }
+function debug($data, $source = 'Debug', $type = 'Info'): void
+{
+    $debug = Debug::init();
+    $debug->addReport($data, $source, $type);
+}
 
 // Load MVC namespaces
 $modules = scandir($config->get('sourcesPath'));
-$modules = array_filter($modules, function ($folder) {
+$modules = array_filter($modules, function($folder) {
     return !in_array($folder, ['.', '..']);
 });
-foreach ($modules as $module) {
-    $loader->addNamespace($module.'\\C', $config->get('sourcesPath') . $module . '/C');
-    $loader->addNamespace($module.'\\M', $config->get('sourcesPath') . $module . '/M');
-    $loader->addNamespace($module.'\\A', $config->get('sourcesPath') . $module . '/A');
+foreach($modules as $module) {
+    $loader->addNamespace($module . '\\C', $config->get('sourcesPath') . $module . '/C');
+    $loader->addNamespace($module . '\\M', $config->get('sourcesPath') . $module . '/M');
+    $loader->addNamespace($module . '\\A', $config->get('sourcesPath') . $module . '/A');
 }
 
 // Logger
@@ -65,16 +64,16 @@ $logger = new Logger(
     $config->get('logPathWarning'),
     $config->get('logPathUnknownError')
 );
-set_error_handler(array($logger, 'errorHandler'), E_ALL);
+set_error_handler([$logger, 'errorHandler'], E_ALL);
 error_reporting(E_ALL);
-set_exception_handler(array($logger, 'exceptionHandler'));
+set_exception_handler([$logger, 'exceptionHandler']);
 
 // Timezone
 date_default_timezone_set($config->get('defaultTimezone'));
 
 // Import the controller
 $router = new Router(
-    $request->GET('route','latin'),
+    $request->GET('route', 'latin'),
     $config->get('routesPath'),
     $config->get('sourcesPath'),
     $config->get('routerErrorPages')
@@ -82,8 +81,8 @@ $router = new Router(
 $pathData = $router->parsePath();
 $method = $pathData['method'];
 require_once($pathData['file']);
-$config->set('route',$pathData['route']);
-$config->set('routeTarget',$pathData['target']);
+$config->set('route', $pathData['route']);
+$config->set('routeTarget', $pathData['target']);
 
 // Before start:
 //nothing to do
@@ -98,10 +97,10 @@ $base[Cookies::class] = function() use ($config) {
     return $cookies;
 };
 $base[Output::class] = fn() => new Output($config);
-$base[Database::class] = function() use ($servers) {
+$base[Database::class] = function() use ($config) {
     static $database;
     if(!$database) {
-        $database = new Database($servers->get('dsn'));
+        $database = new Database($config->get('dsn'));
         $database->init();
     }
     return $database;
@@ -118,9 +117,13 @@ try {
 
 
 // Debug console
-if($debug->enabled()){
-    $output=new Output($config);
-    $console=new Console($config);
-    $content = $output->loadFile('system/Core/Console/V/Console.php', $console->render());
-    echo $content;
+if($debug->enabled()) {
+    $console = new Console($config);
+    if($debug->jsonView()) {
+        echo json_encode($console->render(),JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    } else {
+        $output = new Output($config);
+        $content = $output->loadFile('system/Core/Console/V/Console.php', $console->render());
+        echo $content;
+    }
 }

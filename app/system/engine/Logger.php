@@ -115,13 +115,20 @@ class Logger
 
     public function exceptionHandler($exception): void
     {
-        $exceptionMessage = $exception->getMessage();
+        $exceptionMessage = $exception->getMessage().' in '.$exception->getFile().' on line '.$exception->getLine();
+
+        //NEED REFACTORING
+        echo $exceptionMessage;
+        echo '<br><br>';
+        var_dump($exception->getTrace());
+
+
         $debug=Debug::init();
         if($debug->enabled()){
             $debug->addReport($exceptionMessage,'PHP','Exception');
         }
         $this->checkLogFile($this->logPathFatalError);
         error_log($exceptionMessage . "\n", 3, $this->logPathFatalError);
-        die($exceptionMessage);
+        die();
     }
 }

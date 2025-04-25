@@ -1,7 +1,10 @@
 <?php
 namespace Services;
 
+use Engine\Config;
 use Engine\Debug;
+use Engine\Console;
+use Engine\Output;
 
 class Database
 {
@@ -45,10 +48,13 @@ class Database
      * @param string $returnType
      *   row, array or lastInsertId (default - array)
      */
-    public function query(string $sql, array $params = array(), string $returnType = 'array')
+    public function query(string $sql, array $params = array(), string $returnType = 'array'):mixed
     {
         $debug = Debug::init();
         $debug->addReport('SQL: "' . $sql . '" PARAMS: ' . json_encode($params), 'Database', 'Info');
+        $data=[];
+        global $container;
+        try {
         $statement = $this->connection->prepare($sql);
         $statement->setFetchMode(\PDO::FETCH_ASSOC);
         if ((count($params, COUNT_RECURSIVE) - count($params)) > 0) {
@@ -58,28 +64,49 @@ class Database
         } else {
             $query = $statement->execute($params);
         }
-        if ($statement->errorCode() !== '00000') {
-            $debug->addReport($statement->errorInfo(), 'Database', 'FatalError');
-            return false;
-        }
-        if (empty($query)) {
-            return false;
+        if ($statement->errorCode() !== '00000' || empty($query)) {
+            $debug->addReport($statement->errorInfo(), 'Database', 'Error');
+            if($debug->enabled()) {
+
+                $config = $container->get(Config::class);
+                $output = new Output($config);
+                $console = new Console($config);
+                $content = $output->loadFile('system/Core/Console/V/Console.php', $console->render());
+                echo $content;
+            }
+            die();
         }
         while ($row = $statement->fetch()) {
             $data[] = $row;
         }
-        if (isset($data[0]) && ($returnType == 'row' || $returnType == 'one')) {
-            return $data[0];
-        }
         if (str_contains($sql, 'INSERT INTO') ||
             str_contains($sql, 'INSERT IGNORE INTO') ||
-            $returnType == 'lastInsertId') {
+            $returnType == 'lastInsertId' || $returnType == 'id') {
             return $this->connection->lastInsertId();
         }
-        if (empty($data)) {
-            return true;
+        if (isset($data[0]) && ($returnType == 'row' || $returnType == 'one' || $returnType == 'string')) {
+            return $data[0];
         }
-        return $data;
+        if ($returnType == 'array') {
+            return $data;
+        }
+		return true;
+        } catch (\PDOException $e) {
+            $debug->addReport($e->getMessage().' in '.$e->getFile().' on line '.$e->getLine(), 'Database', 'Error');
+            $debug->addReport($e->getTrace(), 'Database', 'Trace');
+            if($debug->enabled()) {
+                $config = $container->get(Config::class);
+                $console = new Console($config);
+                if($debug->jsonView()) {
+                    echo json_encode($console->render(),JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+                } else {
+                    $output = new Output($config);
+                    $content = $output->loadFile('system/Core/Console/V/Console.php', $console->render());
+                    echo $content;
+                }
+            }
+            die();
+        }
     }
 
     public function init(): void
