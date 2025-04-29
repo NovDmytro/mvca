@@ -33,7 +33,7 @@ $config = new Config($settings[ENVIRONMENT]);
 
 // Debug
 $debug = Debug::init();
-$debug = Debug::init();$debug->setStatus(true);$debug->setJsonView(false);
+$debug = Debug::init();$debug->setStatus($config->get('debug'));$debug->setJsonView(false);
 function dump($data, $source = 'Dump', $type = 'Info'): void
 {
     $debug = Debug::init();
