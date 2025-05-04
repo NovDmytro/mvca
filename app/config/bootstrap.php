@@ -34,6 +34,11 @@ $config = new Config($settings[ENVIRONMENT]);
 // Debug
 $debug = Debug::init();
 $debug = Debug::init();$debug->setStatus($config->get('debug'));$debug->setJsonView(false);
+if(!$config->get('debug')){
+    ini_set('display_errors', '0');        // Отключает вывод ошибок
+    ini_set('display_startup_errors', '0');
+    error_reporting(0);
+}
 function dump($data, $source = 'Dump', $type = 'Info'): void
 {
     $debug = Debug::init();
@@ -45,7 +50,6 @@ function debug($data, $source = 'Debug', $type = 'Info'): void
     $debug = Debug::init();
     $debug->addReport($data, $source, $type);
 }
-
 // Load MVC namespaces
 $modules = scandir($config->get('sourcesPath'));
 $modules = array_filter($modules, function($folder) {

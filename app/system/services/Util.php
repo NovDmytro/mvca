@@ -24,26 +24,36 @@ class Util
                 $timeout,
                 STREAM_CLIENT_CONNECT,
                 $context);
-            stream_socket_enable_crypto($socket, true,
+            if (!$socket) {
+                return false;
+            }
+            $cryptoEnabled = stream_socket_enable_crypto($socket, true,
                 STREAM_CRYPTO_METHOD_SSLv2_CLIENT |
                 STREAM_CRYPTO_METHOD_SSLv3_CLIENT |
                 STREAM_CRYPTO_METHOD_TLSv1_0_CLIENT |
                 STREAM_CRYPTO_METHOD_TLSv1_1_CLIENT |
                 STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT);
+            if ($cryptoEnabled !== true) {
+                fclose($socket);
+                return false;
+            }
         } else {
             $socket = stream_socket_client(
                 'tcp://' . $domain . ':' . $port,
                 $errNo,
                 $errStr,
                 $timeout);
+            if (!$socket) {
+                return false;
+            }
         }
+
         if ($settings['async']) {
             if ($socket) {
                 fwrite($socket, $request);
                 fclose($socket);
                 return true;
             } else {
-                fclose($socket);
                 return false;
             }
         } else {
@@ -57,7 +67,6 @@ class Util
                 list(, $body) = explode("\r\n\r\n", $response, 2);
                 return $body;
             } else {
-                fclose($socket);
                 return false;
             }
         }
