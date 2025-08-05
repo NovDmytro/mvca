@@ -1,0 +1,8 @@
+FROM mariadb:latest
+
+COPY mariadb_mvca_example.sql /docker-entrypoint-initdb.d
+
+ENV MARIADB_USER=mvca 
+ENV MARIADB_PASSWORD=pass
+ENV MARIADB_DATABASE=mvcadb
+ENV MARIADB_ROOT_PASSWORD=pass

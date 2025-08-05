@@ -1,0 +1,8 @@
+FROM postgres:latest
+
+COPY postgresql_mvca_example.sql /docker-entrypoint-initdb.d
+
+ENV PGDATA=/var/lib/postgresql/data/pgdata
+ENV POSTGRES_USER=mvca 
+ENV POSTGRES_PASSWORD=pass
+ENV POSTGRES_DB=mvcadb

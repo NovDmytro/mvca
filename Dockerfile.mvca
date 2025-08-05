@@ -1,0 +1,16 @@
+FROM php:8.1-rc-apache-bookworm
+
+RUN docker-php-ext-install sockets
+
+RUN apt-get update && \
+    apt-get install -y libpq-dev && \
+    docker-php-ext-install pdo mysqli pgsql pdo_mysql pdo_pgsql
+
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug
+
+COPY docker.mvca /
+RUN chown www-data:www-data -R /var/www; \
+	chmod 1777 /var/www 
+RUN rm -rf /var/www/html
+RUN a2enmod rewrite

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="http://172.30.48.1/" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="http://172.30.48.1/">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$/public" web="/" />
+            <mapping local="" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>
