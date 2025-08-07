@@ -54,6 +54,16 @@ Notably, the framework ensures that all user input undergoes thorough filtering 
     - Email: [fonatig@gmail.com](mailto:fonatig@gmail.com)
     - LinkedIn: [Alex Gorbachenko](https://www.linkedin.com/in/alex-gorbachenko-13a73b2b/)
 
+- **Voronenko Evhen**
+  - Frontend Development
+  - Backend Development
+  - Software Testing
+  - Documentation
+  - Collaborative Project Contribution
+    - Contacts:
+    - Email: [voronenkotg@gmail.com](mailto:voronenkotg@gmail.com)
+    - LinkedIn: [Voronenko Evhen](https://www.linkedin.com/in/evhen-voronenko-52a099121/)
+
 # About Us
 
 Thank you for exploring our pilot project! We are passionate individuals dedicated to creating innovative solutions in the realm of web development. Currently seeking exciting job opportunities or potential business collaborations to apply and expand our skills.
