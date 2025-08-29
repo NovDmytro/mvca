@@ -34,5 +34,12 @@ $settings['development'] = [
     'logPathWarning' => 'logs/warnings.log',
     'logPathFatalError' => 'logs/fatalErrors.log',
     'logPathNotice' => 'logs/notices.log',
-    'logPathUnknownError' => 'logs/unknownErrors.log'
+    'logPathUnknownError' => 'logs/unknownErrors.log',
+
+
+
+    //OpenAi
+    'openAIKey'=>'',
+    'openAIModel'=>'gpt-4.1-mini',
+    'openAIEndPoint'=>'https://api.openai.com/v1/responses',
 ];
